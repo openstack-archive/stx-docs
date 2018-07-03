@@ -1,0 +1,7 @@
+---
+- project:
+    check:
+      jobs:
+        - openstack-tox-linters:
+            voting: false
+
