@@ -1,0 +1,2 @@
+openstack-doc-tools>=1.6.0
+sphinx>=1.6.2
