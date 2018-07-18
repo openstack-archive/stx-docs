@@ -1,6 +1,0 @@
-bashate >= 0.2
-PyYAML >= 3.1.0
-yamllint >= 0.5.2
-openstack-doc-tools>=1.6.0
-sphinx>=1.6.2
-openstackdocstheme>=1.18.1
