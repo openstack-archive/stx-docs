@@ -1,0 +1,8 @@
+Code-Review+2: Dean Troyer <dtroyer@gmail.com>
+Workflow+1: Dean Troyer <dtroyer@gmail.com>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Mon, 23 Jul 2018 17:41:59 +0000
+Reviewed-on: https://review.openstack.org/580002
+Project: openstack/stx-docs
+Branch: refs/heads/master
