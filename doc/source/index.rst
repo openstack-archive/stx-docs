@@ -15,7 +15,7 @@ Contents
    :caption: Contents:
 
    getting_started.rst
-   contributing.rst
+   contributor/index
 
 Indices and tables
 ==================

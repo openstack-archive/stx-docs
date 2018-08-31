@@ -1,5 +1,0 @@
-============
-Contributing
-============
-
-The contributing page.

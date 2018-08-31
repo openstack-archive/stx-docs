@@ -2,6 +2,7 @@
 - project:
     check:
       jobs:
+        - build-openstack-sphinx-docs
         - openstack-tox-linters
     gate:
       jobs:
