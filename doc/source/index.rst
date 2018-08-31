@@ -15,7 +15,23 @@ Contents
    :caption: Contents:
 
    getting_started.rst
-   contributing.rst
+   contributor/index
+
+Release Notes
+-------------
+
+.. toctree::
+   :maxdepth: 1
+
+   Release Notes <http://docs.starlingx.io/releasenotes>
+
+Specs
+-----
+
+.. toctree::
+   :maxdepth: 1
+
+   Release Notes <http://docs.starlingx.io/specs>
 
 Indices and tables
 ==================
