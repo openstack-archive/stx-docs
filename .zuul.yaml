@@ -1,10 +1,12 @@
 ---
 - project:
     templates:
-      - build-openstack-sphinx-docs-python3
+      - build-openstack-docs-pti
     check:
       jobs:
+        - build-openstack-api-ref
         - openstack-tox-linters
     gate:
       jobs:
+        - build-openstack-api-ref
         - openstack-tox-linters
