@@ -10,3 +10,6 @@
       jobs:
         - build-openstack-api-ref
         - openstack-tox-linters
+    post:
+      jobs:
+        - publish-stx-docs

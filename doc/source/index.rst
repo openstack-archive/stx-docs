@@ -33,6 +33,14 @@ Specs
 
    Release Notes <http://docs.starlingx.io/specs>
 
+Contributing
+============
+
+StarlingX utilized tooling and CI/CD environments from the OpenStack Foundation.
+The source is hosted on `OpenStack's Gerrit server`_.
+
+.. _`OpenStack's Gerrit server`: https://git.starlingx.io
+
 Indices and tables
 ==================
 
