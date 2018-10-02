@@ -6,6 +6,8 @@
 # full list see the documentation:
 # http://www.sphinx-doc.org/en/master/config
 
+import pbr.version
+
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -28,6 +30,17 @@ version = ''
 # The full version, including alpha/beta/rc tags
 release = ''
 
+# The version info for the project you're documenting, acts as replacement for
+# |version| and |release|, also used in various other places throughout the
+# built documents.
+#
+version_info = pbr.version.VersionInfo('python-openstackclient')
+#
+# The short X.Y version.
+version = version_info.version_string()
+# The full version, including alpha/beta/rc tags.
+release = version_info.release_string()
+
 
 # -- General configuration ---------------------------------------------------
 
@@ -39,6 +52,7 @@ release = ''
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'openstackdocstheme',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
