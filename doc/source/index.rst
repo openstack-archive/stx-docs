@@ -23,7 +23,7 @@ Release Notes
 .. toctree::
    :maxdepth: 1
 
-   Release Notes <http://docs.starlingx.io/releasenotes>
+   Release Notes <https://docs.starlingx.io/releasenotes>
 
 Specs
 -----
@@ -31,7 +31,7 @@ Specs
 .. toctree::
    :maxdepth: 1
 
-   Release Notes <http://docs.starlingx.io/specs>
+   Specs <https://docs.starlingx.io/specs>
 
 Contributing
 ============
