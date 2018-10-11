@@ -33,6 +33,14 @@ Specs
 
    Specs <https://docs.starlingx.io/specs>
 
+API Reference
+-------------
+
+.. toctree::
+   :maxdepth: 1
+
+   API Reference <https://docs.starlingx.io/api-ref/stx-docs>
+
 Contributing
 ============
 

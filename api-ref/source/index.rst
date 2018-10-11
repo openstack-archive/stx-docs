@@ -12,3 +12,4 @@ StarlingX Documentation
    api-ref-image-v2-cgcs-ext
    api-ref-networking-v2-cgcs-ext
 
+:ref:`search`
