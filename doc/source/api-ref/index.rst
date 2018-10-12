@@ -14,12 +14,9 @@ StarlingX Project API References:
 
 StarlingX also has API References for the modified OpenStack APIs:
 
-.. toctree::
-   :maxdepth: 1
-
-   api-ref-blockstorage-v2-cgcs-ext
-   api-ref-compute-v2-cgcs-ext
-   api-ref-image-v2-cgcs-ext
-   api-ref-networking-v2-cgcs-ext
+* `Block Storage v2 <stx-docs/api-ref-blockstorage-v2-cgcs-ext.html>`__
+* `Compute v2 <stx-docs/api-ref-compute-v2-cgcs-ext.html>`__
+* `Image v2 <api-ref/api-ref-image-v2-cgcs-ext.html>`__
+* `Network v2 <api-ref/api-ref-networking-v2-cgcs-ext.html>`__
 
 :ref:`search`
