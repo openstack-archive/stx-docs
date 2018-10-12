@@ -2,19 +2,38 @@
 StarlingX Documentation
 =======================
 
+Abstract
+========
 
-Welcome to the StarlingX project documentation for [version].
+This is the general documentation for the StarlingX project.
 
-View the VERSION Release Notes <https://docs.starlingx.io/releasenotes>
-for release specific details.
+Projects
+========
 
-The following versions of the documentation are available:
+StarlingX contains a number of sub-projects that include additional
+Edge Cloud support services and clients.
 
-StarlingX v1 | StarlingX v2 | StarlingX v3
+* `Bare Metal <stx-metal/index.html>`__
+* `Clients <stx-clients/index.html>`__
+* `Config <stx-config/index.html>`__
+* `Distributed Cloud <stx-distcloud/index.html>`__
+* `Distributed Cloud Client <stx-distcloud-client/index.html>`__
+* `Fault Management <stx-fault/index.html>`__
+* `High Availability <stx-ha/index.html>`__
+* `Horizon Plugin (GUI) <stx-gui/index.html>`__
+* `Integration <stx-integ/index.html>`__
+* `NFV <stx-nfv/index.html>`__
+* `Software Updates <stx-update/index.html>`__
+* `Upstream <stx-upstream/index.html>`__
 
-StarlingX is provided under ... ToDo.
+There are also a number of supporting projects and repositories:
 
-Source code is maintained at the StarlingX GitHub repo.
+* `Tools <stx-tools/index.html>`__
+
+Specs
+=====
+
+   `Specs <specs/index.html>`__
 
 Contents
 --------
@@ -25,10 +44,10 @@ Contents
 
    installation_guide/index
    developer_guide/index
-   API Reference <https://docs.starlingx.io/api-ref/stx-docs>
-   Release Notes <https://docs.starlingx.io/releasenotes>
+   `API Reference <api-ref/index.html>`__
+   releasenotes/index
    contributor/index
-   Project Specifications <https://docs.starlingx.io/specs>
+   `Project Specifications <specs/index.html>`__
 
 
 Contributing
