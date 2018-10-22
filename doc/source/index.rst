@@ -44,6 +44,7 @@ Contents
 
    installation_guide/index
    developer_guide/index
+   Project Specifications <https://docs.starlingx.io/specs/>
    api-ref/index
    releasenotes/index
    contributor/index
