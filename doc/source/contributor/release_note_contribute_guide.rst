@@ -2,8 +2,6 @@
 Release Notes Contributor Guide
 ===============================
 
-**[DRAFT]**
-
 Release notes for StarlingX projects are managed using Reno allowing release
 notes go through the same review process used for managing code changes.
 Release documentation information comes from YAML source files stored in the

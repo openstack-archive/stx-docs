@@ -1,6 +1,6 @@
-======================
+=======================
 stx-docs API Reference
-======================
+=======================
 
 StarlingX Project API References:
 

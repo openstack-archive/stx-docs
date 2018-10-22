@@ -66,6 +66,28 @@ Building xmls for definition of virtual servers:
    $ bash setup_allinone.sh -i <starlingx iso image>
 
 
+The xml server definitions that are created by the previous script are:
+
+- controller-0
+- controller-1
+
+Only controller-0 will be provisioned.
+
+Powering Up a Virtual Server
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To power up a virtual server, run the following command:
+
+::
+
+    $ sudo virsh start <server-xml-name>
+
+e.g.
+
+::
+
+    $ sudo virsh start controller-0
+
 Accessing Virtual Server Consoles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -201,8 +223,7 @@ Select [y] for System Date and Time:
    Is the current date and time correct?  [y/N]: y
 
 
-Accept all the default values immediately after ‘system date and time’,
-for System mode choose "simplex":
+For System mode choose "simplex":
 
 ::
 
@@ -212,7 +233,12 @@ for System mode choose "simplex":
    2) duplex - two node redundant configuration
    3) simplex - single node non-redundant configuration
    System mode [duplex-direct]: 3
-   ...
+
+
+After System Date / Time and System mode:
+
+::
+
    Applying configuration (this will take several minutes):
 
    01/08: Creating bootstrap configuration ... DONE
