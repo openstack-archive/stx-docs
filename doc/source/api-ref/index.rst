@@ -16,7 +16,7 @@ StarlingX also has API References for the modified OpenStack APIs:
 
 * `Block Storage v2 <stx-docs/api-ref-blockstorage-v2-cgcs-ext.html>`__
 * `Compute v2 <stx-docs/api-ref-compute-v2-cgcs-ext.html>`__
-* `Image v2 <api-ref/api-ref-image-v2-cgcs-ext.html>`__
-* `Network v2 <api-ref/api-ref-networking-v2-cgcs-ext.html>`__
+* `Image v2 <stx-docs/api-ref-image-v2-cgcs-ext.html>`__
+* `Network v2 <stx-docs/api-ref-networking-v2-cgcs-ext.html>`__
 
 :ref:`search`
