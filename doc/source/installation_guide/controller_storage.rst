@@ -70,7 +70,31 @@ Building xmls for definition of virtual servers:
 
 ::
 
-   $ bash setup_standard_controller.sh -i <starlingx iso image>
+   $ bash setup_controller_storage.sh -i <starlingx iso image>
+
+
+The xml server definitions that are created by the previous script are:
+
+- controller-0
+- controller-1
+- compute-0
+- compute-1
+
+Powering Up a Virtual Server
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To power up a virtual server, run the following command:
+
+::
+
+    $ sudo virsh start <server-xml-name>
+
+
+e.g.
+
+::
+
+    $ sudo virsh start controller-0
 
 
 Accessing Virtual Server Consoles
@@ -568,20 +592,11 @@ been discovered:
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-port-list controller-1
 
 
-Provision the oam interface for Controller-1.
-
-**Temporal** changes to host-if-modify command: check help 'system help
-host-if-modify'. If the help text lists '-c ' option then execute the
-following command; otherwise use the form with '-nt' listed below:
+Provision the oam interface for Controller-1:
 
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-if-modify -n <oam interface> -c platform --networks oam controller-1 <oam interface>
-
-
-::
-
-   [wrsroot@controller-0 ~(keystone_admin)]$ system host-if-modify -n <oam interface> -nt oam controller-1 <oam interface>
 
 
 Provisioning Storage on Controller-1
@@ -757,19 +772,11 @@ pci-addresses that have been discovered:
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-port-list compute-0
 
 
-Provision the data interface for Compute. **Temporal** changes to
-host-if-modify command: check help 'system help host-if-modify'. If the
-help text lists '-c ' option then execute the following command;
-otherwise use the form with '-nt' listed below:
+Provision the data interface for Compute:
 
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-if-modify -p providernet-a -c data compute-0 eth1000
-
-
-::
-
-   [wrsroot@controller-0 ~(keystone_admin)]$ system host-if-modify -p providernet-a -nt data compute-0 eth1000
 
 
 VSwitch Virtual Environment
