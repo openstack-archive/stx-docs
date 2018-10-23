@@ -80,12 +80,12 @@ Building xmls for definition of virtual servers:
 
 The xml server definitions that are created by the previous script are:
 
-- controller-0
-- controller-1
-- compute-0
-- compute-1
-- storage-0
-- storage-1
+- dedicatedstorage-controller-0
+- dedicatedstorage-controller-1
+- dedicatedstorage-compute-0
+- dedicatedstorage-compute-1
+- dedicatedstorage-storage-0
+- dedicatedstorage-storage-1
 
 Powering Up a Virtual Server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -101,7 +101,7 @@ e.g.
 
 ::
 
-    $ sudo virsh start controller-0
+    $ sudo virsh start dedicatedstorage-controller-0
 
 
 Accessing Virtual Server Consoles
@@ -506,11 +506,11 @@ Controller-0 list the hosts:
    | id | hostname     | personality | administrative | operational | availability |
    +----+--------------+-------------+----------------+-------------+--------------+
    | 1  | controller-0 | controller  | unlocked       | enabled     | available    |
-   | 3  | controller-1 | controller  | locked         | disabled    | online      |
-   | 4  | compute-0    | compute     | locked         | disabled    | online      |
-   | 5  | storage-0    | storage     | locked         | disabled    | online      |
-   | 6  | storage-1    | storage     | locked         | disabled    | online      |
-   | 7  | storage-2    | storage     | locked         | disabled    | online      |
+   | 3  | controller-1 | controller  | locked         | disabled    | online       |
+   | 4  | compute-0    | compute     | locked         | disabled    | online       |
+   | 5  | compute-1    | compute     | locked         | disabled    | online       |
+   | 6  | storage-0    | storage     | locked         | disabled    | online       |
+   | 7  | storage-1    | storage     | locked         | disabled    | online       |
    +----+--------------+-------------+----------------+-------------+--------------+
 
 
@@ -801,7 +801,6 @@ physical disk:
    | updated_at               | None                                       |
    +--------------------------+--------------------------------------------+
 
-
 Remote RAW Ceph storage backed will be used to back nova local ephemeral
 volumes:
 
@@ -844,12 +843,10 @@ Unlocked, Enabled, and Available:
    | 1  | controller-0 | controller  | unlocked       | enabled     | available    |
    | 3  | controller-1 | controller  | unlocked       | enabled     | available    |
    | 4  | compute-0    | compute     | unlocked       | enabled     | available    |
-   | 5  | storage-0    | storage     | unlocked       | enabled     | available    |
-   | 6  | storage-1    | storage     | unlocked       | enabled     | available    |
-   | 7  | storage-2    | storage     | unlocked       | enabled     | available    |
+   | 5  | compute-1    | compute     | unlocked       | enabled     | available    |
+   | 6  | storage-0    | storage     | unlocked       | enabled     | available    |
+   | 7  | storage-1    | storage     | unlocked       | enabled     | available    |
    +----+--------------+-------------+----------------+-------------+--------------+
-   [wrsroot@controller-0 ~(keystone_admin)]$
-
 
 Checking StarlingX CEPH Health
 ******************************
@@ -866,7 +863,6 @@ Checking StarlingX CEPH Health
          pgmap v168: 1600 pgs, 5 pools, 0 bytes data, 0 objects
                87444 kB used, 197 GB / 197 GB avail
                    1600 active+clean
-   controller-0:~$
 
 
 System Alarm List
