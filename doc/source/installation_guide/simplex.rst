@@ -63,13 +63,12 @@ Building xmls for definition of virtual servers:
 
 ::
 
-   $ bash setup_allinone.sh -i <starlingx iso image>
+   $ bash setup_simplex.sh -i <starlingx iso image>
 
 
 The xml server definitions that are created by the previous script are:
 
-- controller-0
-- controller-1
+- simplex-controller-0
 
 Only controller-0 will be provisioned.
 
@@ -86,7 +85,7 @@ e.g.
 
 ::
 
-    $ sudo virsh start controller-0
+    $ sudo virsh start simplex-controller-0
 
 Accessing Virtual Server Consoles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -612,7 +611,6 @@ Add the partition to the volume group
    | created_at               | 2018-08-28T14:06:05.705546+00:00                 |
    | updated_at               | None                                             |
    +--------------------------+--------------------------------------------------+
-   [wrsroot@controller-0 ~(keystone_admin)]$
 
 
 Unlocking Controller-0
