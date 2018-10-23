@@ -64,13 +64,13 @@ Building xmls for definition of virtual servers:
 
 ::
 
-   $ bash setup_allinone.sh -i <starlingx iso image>
+   $ bash setup_duplex.sh -i <starlingx iso image>
 
 
 The xml server definitions that are created by the previous script are:
 
-- controller-0
-- controller-1
+- duplex-controller-0
+- duplex-controller-1
 
 Powering Up a Virtual Server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -86,7 +86,7 @@ e.g.
 
 ::
 
-    $ sudo virsh start controller-0
+    $ sudo virsh start duplex-controller-0
 
 
 Accessing Virtual Server Consoles
@@ -612,7 +612,6 @@ Add the partition to the volume group
    | created_at               | 2018-08-28T14:06:05.705546+00:00                 |
    | updated_at               | None                                             |
    +--------------------------+--------------------------------------------------+
-   [wrsroot@controller-0 ~(keystone_admin)]$
 
 
 Unlocking Controller-0
@@ -1108,8 +1107,6 @@ Wait for the new partition to be created (i.e. status=Ready)
    | 7a41aab0-6695-4d16-9003-73238adda75b |...| /dev/sdb1   |...| None      | 16237    | Creating (on unlock) |
    | f7bc6095-9375-49fe-83c7-12601c202376 |...| /dev/sdc1   |...| None      | 16237    | Creating (on unlock) |
    +--------------------------------------+...+-------------+...+-----------+----------+----------------------+
-   [wrsroot@controller-0 ~(keystone_admin)]$
-
 
 
 Add the partition to the volume group
