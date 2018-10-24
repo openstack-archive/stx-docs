@@ -143,7 +143,7 @@ user’s home directory.
 ::
 
    $ cd $HOME
-   $ git clone git://git.openstack.org/openstack/stx-tools
+   $ git clone https://git.starlingx.io/stx-tools
 
 
 Installing Requirements and Dependencies
