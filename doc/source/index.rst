@@ -23,7 +23,6 @@ Edge Cloud support services and clients.
 * `Horizon Plugin (GUI) <stx-gui/index.html>`__
 * `Integration <stx-integ/index.html>`__
 * `NFV <stx-nfv/index.html>`__
-* `Software Updates <stx-update/index.html>`__
 * `Upstream <stx-upstream/index.html>`__
 
 There are also a number of supporting projects and repositories:
