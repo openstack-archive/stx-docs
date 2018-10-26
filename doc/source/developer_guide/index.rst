@@ -4,8 +4,8 @@
 Developer Guide
 ===============
 
-This section contains the steps for building a StarlingX ISO from Master
-branch.
+This section contains the steps for building a StarlingX ISO from
+the "r/2018.10" branch.
 
 ------------
 Requirements
@@ -46,7 +46,7 @@ Development Environment Setup
 -----------------------------
 
 This section describes how to set up a StarlingX development system on a
-workstation computer. After completing these steps, you will be able to
+workstation computer. After completing these steps, you can
 build a StarlingX ISO image on the following Linux distribution:
 
 -  Ubuntu 16.04 LTS 64-bit
@@ -55,8 +55,8 @@ build a StarlingX ISO image on the following Linux distribution:
 Update Your Operating System
 ****************************
 
-Before proceeding with the build, ensure your OS is up to date. You’ll
-first need to update the local database list of available packages:
+Before proceeding with the build, ensure your Ubuntu distribution is up to date.
+You first need to update the local database list of available packages:
 
 .. code:: sh
 
@@ -70,13 +70,14 @@ Installation Requirements and Dependencies
 Git
 ^^^
 
-1. Install the required packages in an Ubuntu host system with:
+1. Install the required packages on the Ubuntu host system:
 
    .. code:: sh
 
       $ sudo apt-get install make git curl
 
-2. Make sure to setup your identity
+2. Make sure to setup your identity with the following two commands.
+   Be sure to provide your actual name and email address:
 
    .. code:: sh
 
@@ -87,7 +88,7 @@ Git
 Docker CE
 ^^^^^^^^^
 
-3. Install the required Docker CE packages in an Ubuntu host system. See
+3. Install the required Docker CE packages in the Ubuntu host system. See
    `Get Docker CE for
    Ubuntu <https://docs.docker.com/install/linux/docker-ce/ubuntu/#os-requirements>`__
    for more information.
@@ -96,18 +97,18 @@ Docker CE
 Android Repo Tool
 ^^^^^^^^^^^^^^^^^
 
-4. Install the required Android Repo Tool in an Ubuntu host system. Follow
-   the 2 steps in "Installing Repo" section from `Installing
+4. Install the required Android Repo Tool in the Ubuntu host system. Follow
+   the steps in the `Installing
    Repo <https://source.android.com/setup/build/downloading#installing-repo>`__
-   to have Andriod Repo Tool installed.
+   section.
 
 **********************
 Install Public SSH Key
 **********************
 
 #. Follow these instructions on GitHub to `Generate a Public SSH
-   Key <https://help.github.com/articles/connecting-to-github-with-ssh>`__
-   and then upload your public key to your GitHub and Gerrit account
+   Key <https://help.github.com/articles/connecting-to-github-with-ssh>`__.
+   Then upload your public key to your GitHub and Gerrit account
    profiles:
 
    -  `Upload to
@@ -119,20 +120,21 @@ Install Public SSH Key
 Install stx-tools Project
 *************************
 
-#. Under your $HOME directory, clone the <stx-tools> project
+#. While in your $HOME directory, create a local copy of the stx-tools project
+   based on the "r/2018.10" branch:
 
    .. code:: sh
 
       $ cd $HOME
-      $ git clone https://git.starlingx.io/stx-tools
+      $ git clone -b r/2018.10 https://git.starlingx.io/stx-tools
 
 ****************************
 Create a Workspace Directory
 ****************************
 
-#. Create a *starlingx* workspace directory on your workstation
-   computer. Usually, you’ll want to create it somewhere under your
-   user’s home directory.
+#. Create a *starlingx* workspace directory on your system.
+   Best practices dictate creating the workspace directory
+   in your $HOME directory:
 
    .. code:: sh
 
@@ -148,16 +150,16 @@ This section describes how to build the CentOS Mirror Repository.
 Setup Repository Docker Container
 *********************************
 
-Run the following commands under a terminal identified as "One".
+| Run the following commands under a terminal identified as "**One**".
 
-#. Navigate to the *<$HOME/stx-tools>/centos-mirror-tool* project
+#. Navigate to the *$HOME/stx-tools/centos-mirror-tool* project
    directory:
 
    .. code:: sh
 
       $ cd $HOME/stx-tools/centos-mirror-tools/
 
-#. If necessary you might have to set http/https proxy in your
+#. If necessary, set the http/https proxy in your
    Dockerfile before building the docker image.
 
    .. code:: sh
@@ -167,34 +169,35 @@ Run the following commands under a terminal identified as "One".
       ENV ftp_proxy " http://your.actual_ftp_proxy.com:your_port "
       RUN echo " proxy=http://your-proxy.com:port " >> /etc/yum.conf
 
-#. Build your *<user>:<tag>* base container image with **e.g.**
-   *user:centos-mirror-repository*
+#. Build your *<user>:<tag>* base container image. For example, use
+   *user:centos-mirror-repository*:
 
    .. code:: sh
 
       $ docker build --tag $USER:centos-mirror-repository --file Dockerfile .
 
-#. Launch a *<user>* docker container using previously created Docker
-   base container image *<user>:<tag>* **e.g.**
-   *-centos-mirror-repository*. As /localdisk is defined as the workdir
+#. Launch a *<user>* docker container using the previously created Docker
+   base container image *<user>:<tag>* (e.g.
+   *-centos-mirror-repository*). As /localdisk is defined as the workdir
    of the container, the same folder name should be used to define the
-   volume. The container will start to run and populate a logs and
-   output folders in this directory. The container shall be run from the
-   same directory where the other scripts are stored.
+   volume. The container will start to run and populate the output folders
+   *logs* and *output* in this directory. The container is run from the
+   same directory where the other scripts are stored:
 
    .. code:: sh
 
       $ docker run -itd --name $USER-centos-mirror-repository --volume $(pwd):/localdisk $USER:centos-mirror-repository
 
-   **Note**: the above command will create the container in background,
-   this mean that you need to attach it manually. The advantage of this
-   is that you can enter/exit from the container many times as you want.
+   **NOTE**: The above command creates the container in the background.
+   With the container running in the background, you must attach to it
+   manually. An advantage of attaching to the container manually is that
+   you can enter and exit from the container as many times as you want.
 
 *****************
 Download Packages
 *****************
 
-#. Attach to the docker repository previously created
+#. Attach to the docker repository previously created:
 
    ::
 
@@ -208,8 +211,8 @@ Download Packages
 
       # bash download_mirror.sh
 
-#. Monitor the download of packages until it is complete. When download
-   is complete, the following message is displayed:
+#. Monitor the download of packages until it is complete. When the download
+   is complete, the following message appears:
 
    ::
 
@@ -225,24 +228,25 @@ Download Packages
 Verify Packages
 ***************
 
-#. Verify there are no missing or failed packages:
+#. Verify no missing or failed packages exist:
 
    ::
 
       # cat logs/*_missing_*.log
       # cat logs/*_failmove_*.log
 
-#. In case there are missing or failed ones due to network instability
-   (or timeout), you should download them manually, to assure you get
-   all RPMs listed in
-   **rpms_3rdparties.lst**/**rpms_centos.lst**/**rpms_centos3rdparties.lst**.
+#. In case missing or failed packages do exist, which is usually caused by
+   network instability (or timeout), you need to download the packages
+   manually.
+   Doing so assures you get all RPMs listed in
+   *rpms_3rdparties.lst*/*rpms_centos.lst*/*rpms_centos3rdparties.lst*.
 
 ******************
 Packages Structure
 ******************
 
-The following is a general overview of the packages structure that you
-will have after having downloaded the packages
+The following is a general overview of the packages structure resulting
+from downloading the packages:
 
 ::
 
@@ -278,7 +282,7 @@ as "**Two**", run the following commands:
 
 #. Copy the built CentOS Mirror Repository built under
    *$HOME/stx-tools/centos-mirror-tool* to the *$HOME/starlingx/mirror/*
-   workspace directory.
+   workspace directory:
 
    .. code:: sh
 
@@ -293,25 +297,25 @@ Create StarlingX Packages
 Setup Building Docker Container
 *******************************
 
-#. From terminal identified as "**Two**", create the workspace folder
+#. From the terminal identified as "**Two**", create the workspace folder:
 
    .. code:: sh
 
       $ mkdir -p $HOME/starlingx/workspace
 
-#. Navigate to the '' $HOME/stx-tools'' project directory:
+#. Navigate to the *$HOME/stx-tools* project directory:
 
    .. code:: sh
 
       $ cd $HOME/stx-tools
 
-#. Copy your git options to "toCopy" folder
+#. Copy your Git options to *toCopy* folder:
 
    .. code:: sh
 
       $ cp ~/.gitconfig toCOPY
 
-#. Create a *<localrc>* file
+#. Create a *localrc* file:
 
    .. code:: sh
 
@@ -323,8 +327,8 @@ Setup Building Docker Container
       HOST_MIRROR_DIR=$HOME/starlingx/mirror
       EOF
 
-#. If necessary you might have to set http/https proxy in your
-   Dockerfile.centos73 before building the docker image.
+#. If necessary, you might have to set the http/https proxy in your
+   *Dockerfile.centos73* file before building the docker image:
 
    .. code:: sh
 
@@ -335,9 +339,16 @@ Setup Building Docker Container
       echo -e "export http_proxy=$http_proxy\nexport https_proxy=$https_proxy\n\
       export ftp_proxy=$ftp_proxy" >> /root/.bashrc
 
-#. Base container setup If you are running in fedora system, you will
-   see " .makeenv:88: \**\* missing separator. Stop. " error, to
-   continue :
+#. Set up the base container:
+
+   If you are using a Fedora distribution, you will
+   see the following error:
+
+   .. code:: sh
+
+     .makeenv:88: \**\* missing separator. Stop.
+
+   To continue, do the following:
 
    -  delete the functions define in the .makeenv ( module () { ... } )
    -  delete the line 19 in the Makefile and ( NULL := $(shell bash -c
@@ -347,19 +358,19 @@ Setup Building Docker Container
 
       $ make base-build
 
-#. Build container setup
+#. Set up the build container:
 
    .. code:: sh
 
       $ make build
 
-#. Verify environment variables
+#. Verify environment variables:
 
    .. code:: sh
 
       $ bash tb.sh env
 
-#. Build container run
+#. Run the build container:
 
    .. code:: sh
 
@@ -375,35 +386,44 @@ Setup Building Docker Container
 Download Source Code Repositories
 *********************************
 
-#. From terminal identified as "Two", now inside the Building Docker
-   container, Internal environment
+#. From the terminal identified as "**Two**", which is now inside the
+   Building Docker container, start the internal environment:
 
    .. code:: sh
 
       $ eval $(ssh-agent)
       $ ssh-add
 
-#. Repo init
+#. Use the repo tool to create a local clone of the stx-manifest
+   Git repository based on the "r/2018.10" branch:
 
    .. code:: sh
 
       $ cd $MY_REPO_ROOT_DIR
+      $ repo init -u https://git.starlingx.io/stx-manifest -m default.xml -b r/2018.10
+
+   **NOTE:** To use the "repo" command to clone the stx-manifest repository and
+   check out the "master" branch, omit the "-b r/2018.10" option.
+   Following is an example:
+
+   .. code:: sh
+
       $ repo init -u https://git.starlingx.io/stx-manifest -m default.xml
 
-#. Repo sync
+#. Synchronize the repository:
 
    .. code:: sh
 
       $ repo sync -j`nproc`
 
-#. Tarballs Repository
+#. Create a tarballs repository:
 
    .. code:: sh
 
       $ ln -s /import/mirrors/CentOS/stx-r1/CentOS/pike/downloads/ $MY_REPO/stx/
 
-   Alternatively you can run the populate_downloads.sh script to copy
-   the tarballs instead of using a symlink.
+   Alternatively, you can run the "populate_downloads.sh" script to copy
+   the tarballs instead of using a symlink:
 
    .. code:: sh
 
@@ -411,7 +431,7 @@ Download Source Code Repositories
 
    Outside the container
 
-#. From another terminal identified as "Three", Mirror Binaries
+#. From another terminal identified as "**Three**", create mirror binaries:
 
    .. code:: sh
 
@@ -424,30 +444,32 @@ Download Source Code Repositories
 Build Packages
 **************
 
-#. Back to the Building Docker container, terminal identified as
-   "**Two**"
-#. **Temporal!** Build-Pkgs Errors Be prepared to have some missing /
+#. Go back to the terminal identified as "**Two**", which is the Building Docker container.
+
+#. **Temporal!** Build-Pkgs Errors. Be prepared to have some missing /
    corrupted rpm and tarball packages generated during
-   `Build the CentOS Mirror Repository`_ which will make the next step
-   to fail, if that happens please download manually those missing /
+   `Build the CentOS Mirror Repository`_, which will cause the next step
+   to fail. If that step does fail, manually download those missing /
    corrupted packages.
-#. **Update the symbolic links**
+
+#. Update the symbolic links:
 
    .. code:: sh
 
       $ generate-cgcs-centos-repo.sh /import/mirrors/CentOS/stx-r1/CentOS/pike/
 
-#. Build-Pkgs
+#. Build the packages:
 
    .. code:: sh
 
       $ build-pkgs
 
-#. **Optional!** Generate-Cgcs-Tis-Repo
-   This step is optional but will improve performance on subsequent
+#. **Optional!** Generate-Cgcs-Tis-Repo:
+
+   While this step is optional, it improves performance on subsequent
    builds. The cgcs-tis-repo has the dependency information that
-   sequences the build order; To generate or update the information the
-   following command needs to be executed after building modified or new
+   sequences the build order. To generate or update the information, you
+   need to execute the following command after building modified or new
    packages.
 
    .. code:: sh
@@ -458,7 +480,7 @@ Build Packages
 Build StarlingX ISO
 -------------------
 
-#. Build-Iso
+#. Build the image:
 
    .. code:: sh
 
@@ -468,26 +490,27 @@ Build StarlingX ISO
 Build Installer
 ---------------
 
-To get your StarlingX ISO ready to use, you will need to create the init
-files that will be used to boot the ISO as well to boot additional
-controllers and compute nodes. Note that this procedure only is needed
-in your first build and every time the kernel is upgraded.
+To get your StarlingX ISO ready to use, you must create the initialization
+files used to boot the ISO, additional controllers, and compute nodes.
 
-Once you had run build-iso, run:
+**NOTE:** You only need this procedure during your first build and
+every time you upgrade the kernel.
+
+After running "build-iso", run:
 
 .. code:: sh
 
    $ build-pkgs --installer
 
-This will build *rpm* and *anaconda* packages. Then run:
+This builds *rpm* and *anaconda* packages. Then run:
 
 .. code:: sh
 
    $ update-pxe-network-installer
 
 The *update-pxe-network-installer* covers the steps detailed in
-*$MY_REPO/stx/stx-metal/installer/initrd/README*. This script will
-create three files on
+*$MY_REPO/stx/stx-metal/installer/initrd/README*. This script
+creates three files on
 */localdisk/loadbuild///pxe-network-installer/output*.
 
 ::
@@ -496,7 +519,7 @@ create three files on
    new-squashfs.img
    new-vmlinuz
 
-Then, rename them to:
+Rename the files as follows:
 
 ::
 
@@ -504,16 +527,15 @@ Then, rename them to:
    squashfs.img-stx-0.2
    vmlinuz-stx-0.2
 
-There are two ways to use these files:
+Two ways exist for using these files:
 
 #. Store the files in the */import/mirror/CentOS/stx-installer/* folder
    for future use.
-#. Store it in an arbitrary location and modify the
+#. Store the files in an arbitrary location and modify the
    *$MY_REPO/stx/stx-metal/installer/pxe-network-installer/centos/build_srpm.data*
    file to point to these files.
 
-Now, the *pxe-network-installer* package needs to be recreated and the
-ISO regenerated.
+Recreate the *pxe-network-installer* package and rebuild the image:
 
 .. code:: sh
 
@@ -521,18 +543,18 @@ ISO regenerated.
    $ build-pkgs pxe-network-installer
    $ build-iso
 
-Now your ISO should be able to boot.
+Your ISO image should be able to boot.
 
 ****************
 Additional Notes
 ****************
 
--  In order to get the first boot working this complete procedure needs
+-  In order to get the first boot working, this complete procedure needs
    to be done. However, once the init files are created, these can be
    stored in a shared location where different developers can make use
    of them. Updating these files is not a frequent task and should be
    done whenever the kernel is upgraded.
--  StarlingX is in active development, so it is possible that in the
+-  StarlingX is in active development.  Consequently, it is possible that in the
    future the **0.2** version will change to a more generic solution.
 
 ---------------
@@ -543,23 +565,25 @@ Build Avoidance
 Purpose
 *******
 
-Greatly reduce build times after a repo sync for designers working
-within a regional office. Starting from a new workspace, build-pkgs
-typically requires 3+ hours. Build avoidance typically reduces this step
-to ~20min
+Greatly reduce build times after using "repo" to syncronized a local
+repository with an upstream source (i.e. "repo sync").
+Build avoidance works well for designers working
+within a regional office. Starting from a new workspace, "build-pkgs"
+typically requires three or more hours to complete. Build avoidance
+reduces this step to approximately 20 minutes.
 
 ***********
 Limitations
 ***********
 
 -  Little or no benefit for designers who refresh a pre-existing
-   workspace at least daily. (download_mirror.sh, repo sync,
-   generate-cgcs-centos-repo.sh, build-pkgs, build-iso). In these cases
-   an incremental build (reuse of same workspace without a 'build-pkgs
-   --clean') is often just as efficient.
+   workspace at least daily (e.g. download_mirror.sh, repo sync,
+   generate-cgcs-centos-repo.sh, build-pkgs, build-iso). In these cases,
+   an incremental build (i.e. reuse of same workspace without a "build-pkgs
+   --clean") is often just as efficient.
 -  Not likely to be useful to solo designers, or teleworkers that wish
-   to compile on there home computers. Build avoidance downloads build
-   artifacts from a reference build, and WAN speeds are generally to
+   to compile on using their home computers. Build avoidance downloads build
+   artifacts from a reference build, and WAN speeds are generally too
    slow.
 
 *****************
@@ -568,26 +592,28 @@ Method (in brief)
 
 #. Reference Builds
 
-   -  A server in the regional office performs a regular (daily?),
-      automated builds using existing methods. Call these the reference
-      builds.
-   -  The builds are timestamped, and preserved for some time. (a few
-      weeks)
-   -  A build CONTEXT is captured. This is a file produced by build-pkgs
-      at location '$MY_WORKSPACE/CONTEXT'. It is a bash script that can
-      cd to each and every git and checkout the SHA that contributed to
+   -  A server in the regional office performs regular (e.g. daily)
+      automated builds using existing methods. These builds are called
+      "reference builds".
+   -  The builds are timestamped and preserved for some time (i.e. a
+      number of weeks).
+   -  A build CONTEXT, which is a file produced by "build-pkgs"
+      at location *$MY_WORKSPACE/CONTEXT*, is captured. It is a bash script that can
+      cd to each and every Git and checkout the SHA that contributed to
       the build.
-   -  For each package built, a file shall capture he md5sums of all the
-      source code inputs to the build of that package. These files are
-      also produced by build-pkgs at location
-      '$MY_WORKSPACE//rpmbuild/SOURCES//srpm_reference.md5'.
+   -  For each package built, a file captures the md5sums of all the
+      source code inputs required to build that package. These files are
+      also produced by "build-pkgs" at location
+      *$MY_WORKSPACE//rpmbuild/SOURCES//srpm_reference.md5*.
    -  All these build products are accessible locally (e.g. a regional
-      office) via rsync (other protocols can be added later)
+      office) using "rsync".
+
+      **NOTE:** Other protocols can be added later.
 
 #. Designers
 
-   - Request a build avoidance build. Recommended after you have just
-     done a repo sync. e.g.
+   - Request a build avoidance build. Recommended after you have
+     done synchronized the repository (i.e. "repo sync").
 
      ::
 
@@ -596,11 +622,11 @@ Method (in brief)
         populate_downloads.sh
         build-pkgs --build-avoidance
 
-   - Additional arguments, and/or environment variables, and/or a
-     config file unique to the regional office, are used to specify a URL
+   - Use combinations of additional arguments, environment variables, and a
+     configuration file unique to the regional office to specify an URL
      to the reference builds.
 
-      - Using a config file to specify location of your reference build
+      - Using a configuration file to specify the location of your reference build:
 
         ::
 
@@ -621,14 +647,16 @@ Method (in brief)
            BUILD_AVOIDANCE_DIR="/localdisk/loadbuild/jenkins/StarlingX_Reference_Build"
            EOF
 
-      - Using command line args to specify location of your reference
-        build
+      - Using command-line arguments to specify the location of your reference
+        build:
 
         ::
 
            build-pkgs --build-avoidance --build-avoidance-dir /localdisk/loadbuild/jenkins/StarlingX_Reference_Build --build-avoidance-host stx-builder.mycompany.com --build-avoidance-user jenkins
 
-   -  Prior to your build attempt, you need to accept the host key. This will prevent rsync failures on a yes/no prompt. (you should only have to do this once)
+   -  Prior to your build attempt, you need to accept the host key.
+      Doing so prevents "rsync" failures on a "yes/no" prompt.
+      You only have to do this once.
 
       ::
 
@@ -638,23 +666,25 @@ Method (in brief)
          fi
 
 
-   -  build-pkgs will:
+   -  "build-pkgs" does the following:
 
-      -  From newest to oldest, scan the CONTEXTs of the various
-         reference builds. Select the first (most recent) context which
-         satisfies the following requirement. For every git, the SHA
-         specified in the CONTEXT is present.
+      -  From newest to oldest, scans the CONTEXTs of the various
+         reference builds. Selects the first (i.e. most recent) context that
+         satisfies the following requirement: every Git the SHA
+         specifies in the CONTEXT is present.
       -  The selected context might be slightly out of date, but not by
-         more than a day (assuming daily reference builds).
+         more than a day. This assumes daily reference builds are run.
       -  If the context has not been previously downloaded, then
-         download it now. Meaning download select portions of the
+         download it now. This means you need to download select portions of the
          reference build workspace into the designer's workspace. This
-         includes all the SRPMS, RPMS, MD5SUMS, and misc supporting
-         files. (~10 min over office LAN)
-      -  The designer may have additional commits not present in the
-         reference build, or uncommitted changes. Affected packages will
-         identified by the differing md5sum's, and the package is
-         re-built. (5+ min, depending on what packages have changed)
+         includes all the SRPMS, RPMS, MD5SUMS, and miscellaneous supporting
+         files. Downloading these files usually takes about 10 minutes
+         over an office LAN.
+      -  The designer could have additional commits or uncommitted changes
+         not present in the reference builds. Affected packages are
+         identified by the differing md5sum's.  In these cases, the packages
+         are re-built.  Re-builds usually take five or more minutes,
+         depending on the packages that have changed.
 
    -  What if no valid reference build is found? Then build-pkgs will fall
       back to a regular build.
@@ -664,16 +694,16 @@ Reference Builds
 ****************
 
 -  The regional office implements an automated build that pulls the
-   latest StarlingX software and builds it on a regular basis. e.g. a
-   daily. Perhaps implemented by Jenkins, cron, or similar tools.
+   latest StarlingX software and builds it on a regular basis (e.g.
+   daily builds).  Jenkins, cron, or similar tools can trigger these builds.
 -  Each build is saved to a unique directory, and preserved for a time
    that is reflective of how long a designer might be expected to work
-   on a private branch without syncronizing with the master branch. e.g.
-   2 weeks.
+   on a private branch without syncronizing with the master branch.
+   This takes about two weeks.
 
-- The MY_WORKSPACE directory for the build shall have a common root
-  directory, and a leaf directory that is a sortable time stamp. Suggested
-  format YYYYMMDDThhmmss. e.g.
+- The *MY_WORKSPACE* directory for the build shall have a common root
+  directory, and a leaf directory that is a sortable time stamp. The
+  suggested format is *YYYYMMDDThhmmss*.
 
   .. code:: sh
 
@@ -683,24 +713,25 @@ Reference Builds
      MY_WORKSPACE=${BUILD_AVOIDANCE_DIR}/${BUILD_TIMESTAMP}
 
 -  Designers can access all build products over the internal network of
-   the regional office. The current prototype employs rsync. Other
-   protocols that can efficiently share/copy/transfer large directories
+   the regional office. The current prototype employs "rsync". Other
+   protocols that can efficiently share, copy, or transfer large directories
    of content can be added as needed.
 
 ^^^^^^^^^^^^^^
 Advanced Usage
 ^^^^^^^^^^^^^^
 
-Can the reference build itself use build avoidance? Yes
-Can it reference itself? Yes.
-In either case we advise caution. To protect against any possible
-'divergence from reality', you should limit how many steps removed a
-build avoidance build is from a full build.
+Can the reference build itself use build avoidance? Yes it can.
+Can it reference itself? Yes it can.
+In both these cases, caution is advised. To protect against any possible
+'divergence from reality', you should limit how many steps you remove
+a build avoidance build from a full build.
 
-Suppose we want to implement a self referencing daily build, except
-that a full build occurs every Saturday. To protect ourselves from a
-build failure on Saturday we also want a limit of 7 days since last
-full build. You build script might look like this ...
+Suppose we want to implement a self-referencing daily build in an
+environment where a full build already occurs every Saturday.
+To protect ourselves from a
+build failure on Saturday we also want a limit of seven days since
+the last full build. Your build script might look like this ...
 
 ::
 
@@ -779,24 +810,23 @@ full build. You build script might look like this ...
    fi
    ...
 
-One final wrinkle.
+A final note....
 
-We can ask build avoidance to preferentially use the full build day
-rather than the most recent build, as the reference point of the next
-avoidance build via use of '--build-avoidance-day '. e.g. substitute
-this line into the above.
+To use the full build day as your avoidance build reference point,
+modify the "build-pkgs" commands above to use "--build-avoidance-day ",
+as shown in the following two examples:
 
 ::
 
    build-pkgs --build-avoidance --build-avoidance-dir $BUILD_AVOIDANCE_DIR --build-avoidance-host $BUILD_AVOIDANCE_HOST --build-avoidance-user $USER --build-avoidance-day $FULL_BUILD_DAY
 
-   # or perhaps, with a bit more shuffling of the above script.
+   # Here is another example with a bit more shuffling of the above script.
 
    build-pkgs --build-avoidance --build-avoidance-dir $BUILD_AVOIDANCE_DIR --build-avoidance-host $BUILD_AVOIDANCE_HOST --build-avoidance-user $USER --build-avoidance-day $LAST_FULL_BUILD_DAY
 
 The advantage is that our build is never more than one step removed
-from a full build (assuming the full build was successful).
+from a full build. This assumes the full build was successful.
 
-The disadvantage is that by end of week the reference build is getting
-rather old. During active weeks, builds times might be approaching
-that of a full build.
+The disadvantage is that by the end of the week, the reference build is getting
+rather old. During active weeks, build times could approach build times for
+full builds.
