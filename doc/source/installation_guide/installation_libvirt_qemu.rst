@@ -35,12 +35,13 @@ A workstation computer with:
 -   project
 -  StarlingX ISO Image
 
+----------------------------
 Deployment Environment Setup
-****************************
+----------------------------
 
--------------
+*************
 Configuration
--------------
+*************
 
 These scripts are configured using environment variables that all have
 built-in defaults. On shared systems you probably do not want to use the
@@ -72,9 +73,9 @@ This rc file shows the defaults baked into the scripts:
    export EXTERNAL_IP=192.168.204.1/24
 
 
--------------------------
-Install stx-tools project
--------------------------
+*************************
+Install stx-tools Project
+*************************
 
 Clone the stx-tools project into a working directory.
 
@@ -98,9 +99,9 @@ Load the configuration (if you created one) from madcloud.rc:
    source madcloud.rc
 
 
-----------------------------------------
+****************************************
 Installing Requirements and Dependencies
-----------------------------------------
+****************************************
 
 Install the required packages and configure QEMU. This only needs to be
 done once per host. (NOTE: this script only knows about Ubuntu at this
@@ -111,9 +112,9 @@ time):
    $SCRIPTS/install_packages.sh
 
 
-------------------
+******************
 Disabling Firewall
-------------------
+******************
 
 Unload firewall and disable firewall on boot:
 
@@ -123,9 +124,9 @@ Unload firewall and disable firewall on boot:
    sudo ufw status
 
 
-------------------
+******************
 Configure Networks
-------------------
+******************
 
 Configure the network bridges using setup_network.sh before doing
 anything else. It will create 4 bridges named stxbr1, stxbr2, stxbr3 and
@@ -144,9 +145,9 @@ have been destroyed.
 There is also a script cleanup_network.sh that will remove networking
 configuration from libvirt.
 
----------------------
+*********************
 Configure Controllers
----------------------
+*********************
 
 There are two scripts for creating the controllers: setup_allinone.sh
 and setup_standard_controller.sh. They are operated in the same manner
@@ -176,8 +177,9 @@ Continue the usual StarlingX installation from this point forward.
 Tear down the VMs using destroy_allinone.sh and
 destroy_standard_controller.sh.
 
+--------
 Continue
-********
+--------
 
 Pick up the installation in one of the existing guides at the
 'Initializing Controller-0 step.

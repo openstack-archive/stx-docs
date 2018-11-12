@@ -1,8 +1,8 @@
-======================
-stx-docs API Reference
-======================
+==================
+REST API Reference
+==================
 
-StarlingX Project API References:
+StarlingX project REST API references:
 
 * `Bare Metal <stx-metal/index.html>`__
 * `Configuration <stx-config/index.html>`__
@@ -11,7 +11,7 @@ StarlingX Project API References:
 * `High Availability <stx-ha/index.html>`__
 * `NFV <stx-nfv/index.html>`__
 
-StarlingX also has API References for the modified OpenStack APIs:
+StarlingX also has API references for the modified OpenStack APIs:
 
 * `Block Storage v2 <stx-docs/api-ref-blockstorage-v2-cgcs-ext.html>`__
 * `Compute v2 <stx-docs/api-ref-compute-v2-cgcs-ext.html>`__

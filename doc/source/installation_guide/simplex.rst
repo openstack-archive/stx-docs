@@ -8,6 +8,7 @@ StarlingX/Installation Guide Virtual Environment/Simplex
 Preparing Servers
 -----------------
 
+**********
 Bare Metal
 **********
 
@@ -15,6 +16,7 @@ Required Server:
 
 -  Combined Server (Controller + Compute): 1
 
+^^^^^^^^^^^^^^^^^^^^^
 Hardware Requirements
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -48,6 +50,7 @@ StarlingX Simplex will be deployed, include:
    -  Management: 10GE
    -  OAM: 10GE
 
+*******************
 Virtual Environment
 *******************
 
@@ -73,6 +76,7 @@ The xml server definitions that are created by the previous script are:
 
 Only controller-0 will be provisioned.
 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Powering Up a Virtual Server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -88,6 +92,7 @@ e.g.
 
     $ sudo virsh start controller-0
 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Accessing Virtual Server Consoles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -126,6 +131,7 @@ Procedure:
    on a USB in a bootable USB slot.
 #. Configure the controller using the config_controller script.
 
+*************************
 Initializing Controller-0
 *************************
 
@@ -183,6 +189,7 @@ Enter the new password again to confirm it:
 Controller-0 is initialized with StarlingX, and is ready for
 configuration.
 
+************************
 Configuring Controller-0
 ************************
 
@@ -271,6 +278,7 @@ On Controller-0, acquire Keystone administrative privileges:
    controller-0:~$ source /etc/nova/openrc
 
 
+*********************************************
 Configuring Provider Networks at Installation
 *********************************************
 
@@ -282,6 +290,7 @@ Set up one provider network of the vlan type, named providernet-a:
    [wrsroot@controller-0 ~(keystone_admin)]$ neutron providernet-range-create --name providernet-a-range1 --range 100-400 providernet-a
 
 
+*****************************************
 Providing Data Interfaces on Controller-0
 *****************************************
 
@@ -333,6 +342,7 @@ Configure the data interfaces
    +------------------+--------------------------------------+
 
 
+*************************************
 Configuring Cinder on Controller Disk
 *************************************
 
@@ -448,6 +458,7 @@ Add the partition to the volume group
    +--------------------------+--------------------------------------------------+
 
 
+*********************************************
 Adding an LVM Storage Backend at Installation
 *********************************************
 
@@ -497,6 +508,7 @@ state=Configured)
    +--------------------------------------+------------+---------+------------+------+----------+--------------+
 
 
+***********************************************
 Configuring VM Local Storage on Controller Disk
 ***********************************************
 
@@ -615,6 +627,7 @@ Add the partition to the volume group
    [wrsroot@controller-0 ~(keystone_admin)]$
 
 
+**********************
 Unlocking Controller-0
 **********************
 
@@ -630,6 +643,7 @@ The host is rebooted. During the reboot, the command line is
 unavailable, and any ssh connections are dropped. To monitor the
 progress of the reboot, use the controller-0 console.
 
+****************************************
 Verifying the Controller-0 Configuration
 ****************************************
 
@@ -675,6 +689,7 @@ Verify that controller-0 is unlocked, enabled, and available:
    +----+--------------+-------------+----------------+-------------+--------------+
 
 
+*****************
 System Alarm List
 *****************
 

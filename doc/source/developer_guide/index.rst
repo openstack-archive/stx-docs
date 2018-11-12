@@ -13,6 +13,7 @@ Requirements
 
 The recommended minimum requirements include:
 
+*********************
 Hardware Requirements
 *********************
 
@@ -23,6 +24,7 @@ A workstation computer with:
 -  Hard Disk: 500GB HDD
 -  Network: Network adapter with active Internet connection
 
+*********************
 Software Requirements
 *********************
 
@@ -49,6 +51,7 @@ build a StarlingX ISO image on the following Linux distribution:
 
 -  Ubuntu 16.04 LTS 64-bit
 
+****************************
 Update Your Operating System
 ****************************
 
@@ -59,9 +62,11 @@ first need to update the local database list of available packages:
 
    $ sudo apt-get update
 
+******************************************
 Installation Requirements and Dependencies
 ******************************************
 
+^^^
 Git
 ^^^
 
@@ -78,6 +83,7 @@ Git
       $ git config --global user.name "Name LastName"
       $ git config --global user.email "Email Address"
 
+^^^^^^^^^
 Docker CE
 ^^^^^^^^^
 
@@ -86,6 +92,7 @@ Docker CE
    Ubuntu <https://docs.docker.com/install/linux/docker-ce/ubuntu/#os-requirements>`__
    for more information.
 
+^^^^^^^^^^^^^^^^^
 Android Repo Tool
 ^^^^^^^^^^^^^^^^^
 
@@ -94,6 +101,7 @@ Android Repo Tool
    Repo <https://source.android.com/setup/build/downloading#installing-repo>`__
    to have Andriod Repo Tool installed.
 
+**********************
 Install Public SSH Key
 **********************
 
@@ -107,7 +115,8 @@ Install Public SSH Key
    -  `Upload to
       Gerrit <https://review.openstack.org/#/settings/ssh-keys>`__
 
-Install stx-tools project
+*************************
+Install stx-tools Project
 *************************
 
 #. Under your $HOME directory, clone the <stx-tools> project
@@ -117,6 +126,7 @@ Install stx-tools project
       $ cd $HOME
       $ git clone https://git.starlingx.io/stx-tools
 
+****************************
 Create a Workspace Directory
 ****************************
 
@@ -128,17 +138,17 @@ Create a Workspace Directory
 
       $ mkdir -p $HOME/starlingx/
 
-
 ----------------------------------
 Build the CentOS Mirror Repository
 ----------------------------------
 
 This section describes how to build the CentOS Mirror Repository.
 
+*********************************
 Setup Repository Docker Container
 *********************************
 
-| Run the following commands under a terminal identified as "One".
+Run the following commands under a terminal identified as "One".
 
 #. Navigate to the *<$HOME/stx-tools>/centos-mirror-tool* project
    directory:
@@ -180,6 +190,7 @@ Setup Repository Docker Container
    this mean that you need to attach it manually. The advantage of this
    is that you can enter/exit from the container many times as you want.
 
+*****************
 Download Packages
 *****************
 
@@ -210,6 +221,7 @@ Download Packages
           - out/stx-r1/CentOS/pike/Binary/images/pxeboot/initrd.img
           - out/stx-r1/CentOS/pike/Binary/images/pxeboot/vmlinuz
 
+***************
 Verify Packages
 ***************
 
@@ -225,6 +237,7 @@ Verify Packages
    all RPMs listed in
    **rpms_3rdparties.lst**/**rpms_centos.lst**/**rpms_centos3rdparties.lst**.
 
+******************
 Packages Structure
 ******************
 
@@ -249,7 +262,7 @@ will have after having downloaded the packages
                │   └── puppet
                └── Source
 
-
+*******************************
 Create CentOS Mirror Repository
 *******************************
 
@@ -276,6 +289,7 @@ as "**Two**", run the following commands:
 Create StarlingX Packages
 -------------------------
 
+*******************************
 Setup Building Docker Container
 *******************************
 
@@ -357,6 +371,7 @@ Setup Building Docker Container
 
       $ bash tb.sh exec
 
+*********************************
 Download Source Code Repositories
 *********************************
 
@@ -405,6 +420,7 @@ Download Source Code Repositories
       $ cp $HOME/starlingx/mirror/CentOS/stx-r1/CentOS/pike/Binary/images/pxeboot/vmlinuz $HOME/starlingx/mirror/CentOS/tis-installer/vmlinuz-stx-0.2
       $ cp $HOME/starlingx/mirror/CentOS/stx-r1/CentOS/pike/Binary/LiveOS/squashfs.img $HOME/starlingx/mirror/CentOS/tis-installer/squashfs.img-stx-0.2
 
+**************
 Build Packages
 **************
 
@@ -449,7 +465,7 @@ Build StarlingX ISO
       $ build-iso
 
 ---------------
-Build installer
+Build Installer
 ---------------
 
 To get your StarlingX ISO ready to use, you will need to create the init
@@ -507,7 +523,8 @@ ISO regenerated.
 
 Now your ISO should be able to boot.
 
-Additional notes
+****************
+Additional Notes
 ****************
 
 -  In order to get the first boot working this complete procedure needs
@@ -522,6 +539,7 @@ Additional notes
 Build Avoidance
 ---------------
 
+*******
 Purpose
 *******
 
@@ -530,6 +548,7 @@ within a regional office. Starting from a new workspace, build-pkgs
 typically requires 3+ hours. Build avoidance typically reduces this step
 to ~20min
 
+***********
 Limitations
 ***********
 
@@ -543,6 +562,7 @@ Limitations
    artifacts from a reference build, and WAN speeds are generally to
    slow.
 
+*****************
 Method (in brief)
 *****************
 
@@ -639,7 +659,8 @@ Method (in brief)
    -  What if no valid reference build is found? Then build-pkgs will fall
       back to a regular build.
 
-Reference builds
+****************
+Reference Builds
 ****************
 
 -  The regional office implements an automated build that pulls the
@@ -666,7 +687,8 @@ Reference builds
    protocols that can efficiently share/copy/transfer large directories
    of content can be added as needed.
 
-Advanced usage
+^^^^^^^^^^^^^^
+Advanced Usage
 ^^^^^^^^^^^^^^
 
 Can the reference build itself use build avoidance? Yes
