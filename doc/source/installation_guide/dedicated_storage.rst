@@ -8,6 +8,7 @@ StarlingX/Installation Guide Virtual Environment/Dedicated Storage
 Preparing Servers
 -----------------
 
+**********
 Bare Metal
 **********
 
@@ -21,6 +22,7 @@ Required Servers:
 
 -  Computes: 2 - 100
 
+^^^^^^^^^^^^^^^^^^^^^
 Hardware Requirements
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -60,6 +62,7 @@ StarlingX Dedicated Storage will be deployed, include:
    -  OAM: 10GE Controller
    -  Data: n x 10GE Compute
 
+*******************
 Virtual Environment
 *******************
 
@@ -87,6 +90,7 @@ The xml server definitions that are created by the previous script are:
 - storage-0
 - storage-1
 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Powering Up a Virtual Server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -104,6 +108,7 @@ e.g.
     $ sudo virsh start controller-0
 
 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Accessing Virtual Server Consoles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -142,6 +147,7 @@ Procedure:
    on a USB in a bootable USB slot.
 #. Configure the controller using the config_controller script.
 
+*************************
 Initializing Controller-0
 *************************
 
@@ -200,6 +206,7 @@ Enter the new password again to confirm it:
 Controller-0 is initialized with StarlingX, and is ready for
 configuration.
 
+************************
 Configuring Controller-0
 ************************
 
@@ -266,6 +273,7 @@ On Controller-0, acquire Keystone administrative privileges:
    controller-0:~$ source /etc/nova/openrc
 
 
+*********************************************
 Configuring Provider Networks at Installation
 *********************************************
 
@@ -280,6 +288,7 @@ Set up one provider network of the vlan type, named providernet-a:
    [wrsroot@controller-0 ~(keystone_admin)]$ neutron providernet-range-create --name providernet-a-range1 --range 100-400 providernet-a
 
 
+*********************************************
 Adding a Ceph Storage Backend at Installation
 *********************************************
 
@@ -332,6 +341,7 @@ Confirm CEPH storage is configured
    +--------------------------------------+------------+---------+------------+-------------------+-----------+...
 
 
+**********************
 Unlocking Controller-0
 **********************
 
@@ -347,6 +357,8 @@ The host is rebooted. During the reboot, the command line is
 unavailable, and any ssh connections are dropped. To monitor the
 progress of the reboot, use the controller-0 console.
 
+
+****************************************
 Verifying the Controller-0 Configuration
 ****************************************
 
@@ -384,6 +396,7 @@ Verify that controller-0 is unlocked, enabled, and available:
    +----+--------------+-------------+----------------+-------------+--------------+
 
 
+*******************************
 Provisioning Filesystem Storage
 *******************************
 
@@ -422,6 +435,7 @@ After initializing and configuring an active controller, you can add and
 configure a backup controller and additional compute or storage hosts.
 For each host do the following:
 
+*****************
 Initializing Host
 *****************
 
@@ -435,6 +449,7 @@ Power on Host. In host console you will see:
    controller node in order to proceed.
 
 
+**********************************
 Updating Host Name and Personality
 **********************************
 
@@ -474,6 +489,7 @@ Check the **NIC** MAC Address from "Virtual Manager GUI" under *"Show
 virtual hardware details -*\ **i**\ *" Main Banner --> NIC: --> specific
 "Bridge name:" under MAC Address text field.*
 
+***************
 Monitoring Host
 ***************
 
@@ -493,6 +509,7 @@ Wait while the host is configured and rebooted. Up to 20 minutes may be
 required for a reboot, depending on hardware. When the reboot is
 complete, the host is reported as Locked, Disabled, and Online.
 
+*************
 Listing Hosts
 *************
 
@@ -532,6 +549,7 @@ On Controller-0, list hosts
    +----+--------------+-------------+----------------+-------------+--------------+
 
 
+***********************************************
 Provisioning Network Interfaces on Controller-1
 ***********************************************
 
@@ -550,6 +568,7 @@ Provision the oam interface for Controller-1:
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-if-modify -n <oam interface> -c platform --networks oam controller-1 <oam interface>
 
 
+**********************
 Unlocking Controller-1
 **********************
 
@@ -586,6 +605,7 @@ confirm status.
 Storage Host Provisioning
 -------------------------
 
+**************************************
 Provisioning Storage on a Storage Host
 **************************************
 
@@ -685,6 +705,7 @@ On Controller-0, acquire Keystone administrative privileges:
    controller-0:~$ source /etc/nova/openrc
 
 
+*************************************************
 Provisioning Network Interfaces on a Compute Host
 *************************************************
 
@@ -708,6 +729,7 @@ Provision the data interface for Compute:
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-if-modify -p providernet-a -c data compute-0 eth1000
 
 
+***************************
 VSwitch Virtual Environment
 ***************************
 
@@ -731,6 +753,7 @@ vswitch cores to 1:
    +--------------------------------------+-------+-----------+-------+--------+...
 
 
+**************************************
 Provisioning Storage on a Compute Host
 **************************************
 
@@ -810,6 +833,7 @@ volumes:
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-lvg-modify -b remote compute-0 nova-local
 
 
+************************
 Unlocking a Compute Host
 ************************
 
@@ -829,6 +853,7 @@ Availability State is reported as In-Test, followed by unlocked/enabled.
 System Health Check
 -------------------
 
+***********************
 Listing StarlingX Nodes
 ***********************
 
@@ -851,6 +876,7 @@ Unlocked, Enabled, and Available:
    [wrsroot@controller-0 ~(keystone_admin)]$
 
 
+******************************
 Checking StarlingX CEPH Health
 ******************************
 
@@ -869,6 +895,7 @@ Checking StarlingX CEPH Health
    controller-0:~$
 
 
+*****************
 System Alarm List
 *****************
 

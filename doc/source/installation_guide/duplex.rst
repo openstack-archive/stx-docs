@@ -8,6 +8,7 @@ StarlingX/Installation Guide Virtual Environment/Duplex
 Preparing Servers
 -----------------
 
+**********
 Bare Metal
 **********
 
@@ -15,6 +16,7 @@ Required Servers:
 
 -  Combined Servers (Controller + Compute): 2
 
+^^^^^^^^^^^^^^^^^^^^^
 Hardware Requirements
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -49,6 +51,7 @@ StarlingX Duplex will be deployed, include:
    -  OAM: 10GE
    -  Data: n x 10GE
 
+*******************
 Virtual Environment
 *******************
 
@@ -72,6 +75,7 @@ The xml server definitions that are created by the previous script are:
 - controller-0
 - controller-1
 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Powering Up a Virtual Server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -89,6 +93,7 @@ e.g.
     $ sudo virsh start controller-0
 
 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Accessing Virtual Server Consoles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -127,6 +132,7 @@ Procedure:
    on a USB in a bootable USB slot.
 #. Configure the controller using the config_controller script.
 
+*************************
 Initializing Controller-0
 *************************
 
@@ -184,6 +190,7 @@ Enter the new password again to confirm it:
 Controller-0 is initialized with StarlingX, and is ready for
 configuration.
 
+************************
 Configuring Controller-0
 ************************
 
@@ -271,6 +278,7 @@ On Controller-0, acquire Keystone administrative privileges:
    controller-0:~$ source /etc/nova/openrc
 
 
+*********************************************
 Configuring Provider Networks at Installation
 *********************************************
 
@@ -282,6 +290,7 @@ Set up one provider network of the vlan type, named providernet-a:
    [wrsroot@controller-0 ~(keystone_admin)]$ neutron providernet-range-create --name providernet-a-range1 --range 100-400 providernet-a
 
 
+*****************************************
 Providing Data Interfaces on Controller-0
 *****************************************
 
@@ -333,6 +342,7 @@ Configure the data interfaces
    +------------------+--------------------------------------+
 
 
+*************************************
 Configuring Cinder on Controller Disk
 *************************************
 
@@ -448,6 +458,7 @@ Add the partition to the volume group
    +--------------------------+--------------------------------------------------+
 
 
+*********************************************
 Adding an LVM Storage Backend at Installation
 *********************************************
 
@@ -497,6 +508,8 @@ state=Configured)
    +--------------------------------------+------------+---------+------------+------+----------+--------------+
 
 
+
+***********************************************
 Configuring VM Local Storage on Controller Disk
 ***********************************************
 
@@ -615,6 +628,7 @@ Add the partition to the volume group
    [wrsroot@controller-0 ~(keystone_admin)]$
 
 
+**********************
 Unlocking Controller-0
 **********************
 
@@ -630,6 +644,7 @@ The host is rebooted. During the reboot, the command line is
 unavailable, and any ssh connections are dropped. To monitor the
 progress of the reboot, use the controller-0 console.
 
+****************************************
 Verifying the Controller-0 Configuration
 ****************************************
 
@@ -682,6 +697,7 @@ Controller-1 Host Installation
 After initializing and configuring controller-0, you can add and
 configure a backup controller controller-1.
 
+******************************
 Initializing Controller-1 Host
 ******************************
 
@@ -695,6 +711,7 @@ Power on Controller-1. In Controller-1 console you will see:
    controller node in order to proceed.
 
 
+****************************************************
 Updating Controller-1 Host Host Name and Personality
 ****************************************************
 
@@ -769,6 +786,7 @@ attribute:
    +---------------------+--------------------------------------+
 
 
+****************************
 Monitoring Controller-1 Host
 ****************************
 
@@ -788,6 +806,7 @@ Wait while the Controller-1 is configured and rebooted. Up to 20 minutes
 may be required for a reboot, depending on hardware. When the reboot is
 complete, the Controller-1 is reported as Locked, Disabled, and Online.
 
+*************************
 Listing Controller-1 Host
 *************************
 
@@ -822,6 +841,7 @@ On Controller-0, list hosts
    +----+--------------+-------------+----------------+-------------+--------------+
 
 
+***********************************************
 Provisioning Network Interfaces on Controller-1
 ***********************************************
 
@@ -865,6 +885,7 @@ Provision the Controller-1 oam interface
    +------------------+--------------------------------------+
 
 
+*****************************************
 Providing Data Interfaces on Controller-1
 *****************************************
 
@@ -917,6 +938,7 @@ Configure the data interfaces
    +------------------+--------------------------------------+
 
 
+************************************
 Provisioning Storage on Controller-1
 ************************************
 
@@ -1027,6 +1049,7 @@ Add the partition to the volume group
 
 .. _configuring-vm-local-storage-on-controller-disk-1:
 
+***********************************************
 Configuring VM Local Storage on Controller Disk
 ***********************************************
 
@@ -1138,6 +1161,7 @@ Add the partition to the volume group
    +--------------------------+--------------------------------------------------+
 
 
+**********************
 Unlocking Controller-1
 **********************
 
@@ -1169,6 +1193,7 @@ excessive data-sync time). Use 'fm alarm-list' to confirm status.
    +----+--------------+-------------+----------------+-------------+--------------+
 
 
+*****************
 System Alarm List
 *****************
 

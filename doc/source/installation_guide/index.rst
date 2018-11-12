@@ -25,6 +25,7 @@ Requirements
 
 Different use cases require different configurations.
 
+**********
 Bare Metal
 **********
 
@@ -85,12 +86,14 @@ be deployed, include:
 The recommended minimum requirements for the physical servers are
 described later in each StarlingX Deployment Options guide.
 
+*******************
 Virtual Environment
 *******************
 
 The recommended minimum requirements for the workstation, hosting the
 Virtual Machine(s) where StarlingX will be deployed, include:
 
+^^^^^^^^^^^^^^^^^^^^^
 Hardware Requirements
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -103,6 +106,7 @@ A workstation computer with:
 -  Hard Disk: 500GB HDD
 -  Network: Two network adapters with active Internet connection
 
+^^^^^^^^^^^^^^^^^^^^^
 Software Requirements
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -117,12 +121,14 @@ A workstation computer with:
 -   project
 -  StarlingX ISO Image
 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Deployment Environment Setup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This section describes how to set up the workstation computer which will
 host the Virtual Machine(s) where StarlingX will be deployed.
 
+''''''''''''''''''''''''''''''
 Updating Your Operating System
 ''''''''''''''''''''''''''''''
 
@@ -133,7 +139,7 @@ first need to update the local database list of available packages:
 
    $ sudo apt-get update
 
-
+'''''''''''''''''''''''''
 Install stx-tools project
 '''''''''''''''''''''''''
 
@@ -146,6 +152,7 @@ user’s home directory.
    $ git clone https://git.starlingx.io/stx-tools
 
 
+''''''''''''''''''''''''''''''''''''''''
 Installing Requirements and Dependencies
 ''''''''''''''''''''''''''''''''''''''''
 
@@ -163,6 +170,7 @@ Install the required packages:
    $ bash install_packages.sh
 
 
+''''''''''''''''''
 Disabling Firewall
 ''''''''''''''''''
 
@@ -184,14 +192,14 @@ Follow the instructions from the :ref:`developer-guide` to build a
 StarlingX ISO image.
 
 
-
+**********
 Bare Metal
 **********
 
 A bootable USB flash drive containing StarlingX ISO image.
 
 
-
+*******************
 Virtual Environment
 *******************
 
