@@ -188,9 +188,9 @@ Unload firewall and disable firewall on boot:
 Getting the StarlingX ISO Image
 -------------------------------
 
-Follow the instructions from the :ref:`developer-guide` to build a
-StarlingX ISO image.
-
+StarlingX ISO image can be downloaded from
+`CENGN StarlingX mirror <http://mirror.starlingx.cengn.ca/mirror/starlingx/>`_
+or built by following the instructions from the :ref:`developer-guide`.
 
 **********
 Bare Metal
