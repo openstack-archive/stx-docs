@@ -32,7 +32,7 @@ A workstation computer with:
 -  KVM/VirtManager
 -  Libvirt Library
 -  QEMU Full System Emulation Binaries
--   project
+-  stx-tools project
 -  StarlingX ISO Image
 
 ----------------------------
