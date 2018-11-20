@@ -305,12 +305,6 @@ Setup Building Docker Container
 
       $ cd $HOME/stx-tools
 
-#. Copy your git options to "toCopy" folder
-
-   .. code:: sh
-
-      $ cp ~/.gitconfig toCOPY
-
 #. Create a *<localrc>* file
 
    .. code:: sh
@@ -335,7 +329,7 @@ Setup Building Docker Container
       echo -e "export http_proxy=$http_proxy\nexport https_proxy=$https_proxy\n\
       export ftp_proxy=$ftp_proxy" >> /root/.bashrc
 
-#. Base container setup If you are running in fedora system, you will
+#. Base container build. If you are running in fedora system, you will
    see " .makeenv:88: \**\* missing separator. Stop. " error, to
    continue :
 
@@ -345,13 +339,7 @@ Setup Building Docker Container
 
    .. code:: sh
 
-      $ make base-build
-
-#. Build container setup
-
-   .. code:: sh
-
-      $ make build
+      $ make
 
 #. Verify environment variables
 
