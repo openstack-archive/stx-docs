@@ -66,21 +66,18 @@ Building xmls for definition of virtual servers:
 
 ::
 
-   $ bash setup_allinone.sh -i <starlingx iso image>
+   $ bash setup_configuration.sh -c simplex -i <starlingx iso image>
 
 
-The xml server definitions that are created by the previous script are:
+The default xml server definition created by the previous script is:
 
-- controller-0
-- controller-1
-
-Only controller-0 will be provisioned.
+- simplex-controller-0
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Powering Up a Virtual Server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To power up a virtual server, run the following command:
+To power up the virtual server, run the following command:
 
 ::
 
@@ -90,7 +87,7 @@ e.g.
 
 ::
 
-    $ sudo virsh start controller-0
+    $ sudo virsh start simplex-controller-0
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Accessing Virtual Server Consoles
@@ -624,7 +621,6 @@ Add the partition to the volume group
    | created_at               | 2018-08-28T14:06:05.705546+00:00                 |
    | updated_at               | None                                             |
    +--------------------------+--------------------------------------------------+
-   [wrsroot@controller-0 ~(keystone_admin)]$
 
 
 **********************
