@@ -66,17 +66,35 @@ You first need to update the local database list of available packages:
 Installation Requirements and Dependencies
 ******************************************
 
+^^^^
+User
+^^^^
+
+1. "Make sure you build StarlingX ISO as a non-root user with sudo enabled, use
+   your existing user, or create a separate *<user>*:"
+
+   .. code:: sh
+
+      $ sudo useradd -m -d /home/<user> <user>
+
+2. Your *<user>* should have sudo privileges:
+
+   .. code:: sh
+
+      $ sudo sh -c "echo '<user> ALL=(ALL:ALL) ALL' >> /etc/sudoers"
+      $ sudo su -c <user>
+
 ^^^
 Git
 ^^^
 
-1. Install the required packages on the Ubuntu host system:
+3. Install the required packages on the Ubuntu host system:
 
    .. code:: sh
 
       $ sudo apt-get install make git curl
 
-2. Make sure to setup your identity with the following two commands.
+4. Make sure to set up your identity with the following two commands.
    Be sure to provide your actual name and email address:
 
    .. code:: sh
@@ -88,16 +106,22 @@ Git
 Docker CE
 ^^^^^^^^^
 
-3. Install the required Docker CE packages in the Ubuntu host system. See
+5. Install the required Docker CE packages in the Ubuntu host system. See
    `Get Docker CE for
    Ubuntu <https://docs.docker.com/install/linux/docker-ce/ubuntu/#os-requirements>`__
    for more information.
+
+6. Log out and log back in to add your *<user>* to the Docker group:
+
+    .. code:: sh
+
+       $ sudo usermod -aG docker <user>
 
 ^^^^^^^^^^^^^^^^^
 Android Repo Tool
 ^^^^^^^^^^^^^^^^^
 
-4. Install the required Android Repo Tool in the Ubuntu host system. Follow
+7. Install the required Android Repo Tool in the Ubuntu host system. Follow
    the steps in the `Installing
    Repo <https://source.android.com/setup/build/downloading#installing-repo>`__
    section.
