@@ -140,17 +140,6 @@ Install Public SSH Key
    -  `Upload to
       Gerrit <https://review.openstack.org/#/settings/ssh-keys>`__
 
-*************************
-Install stx-tools Project
-*************************
-
-#. Under your $HOME directory, clone the <stx-tools> project
-
-   .. code:: sh
-
-      $ cd $HOME
-      $ git clone https://git.starlingx.io/stx-tools
-
 ****************************
 Create a Workspace Directory
 ****************************
@@ -163,15 +152,93 @@ Create a Workspace Directory
 
       $ mkdir -p $HOME/starlingx/
 
+*************************
+Install stx-tools Project
+*************************
+
+#. Under your $HOME directory, clone the <stx-tools> project
+
+   .. code:: sh
+
+      $ cd $HOME
+      $ git clone https://git.starlingx.io/stx-tools
+
+#. Navigate to the *<$HOME/stx-tools>* project
+   directory:
+
+   .. code:: sh
+
+      $ cd $HOME/stx-tools/
+
+-----------------------------
+Prepare the Base Docker Image
+-----------------------------
+
+StarlingX base docker image handles all steps related to StarlingX ISO
+creation. This section describes how to customize the base Docker image
+building process.
+
+********************
+Configuration Values
+********************
+
+You can customize values for the StarlingX base Docker image using a
+text-based configuration file named ``localrc``:
+
+- ``HOST_PREFIX`` points to the directory that hosts the 'designer'
+  subdirectory for source code, and the 'loadbuild' subdirectory for
+  the build environment, generated RPMs, and ISO image.
+- ``HOST_MIRROR_DIR`` points to the directory that hosts the CentOS mirror
+  repository.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+localrc Configuration File
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Create your ``localrc`` configuration file. For example:
+
+    .. code:: sh
+
+       # tbuilder localrc
+       MYUNAME=$USER
+       PROJECT=starlingx
+       HOST_PREFIX=$HOME/starlingx/workspace
+       HOST_MIRROR_DIR=$HOME/starlingx/mirror
+
+***************************
+Build the Base Docker Image
+***************************
+
+Once the ``localrc`` configuration file has been customized, it is time
+to build the base Docker image.
+
+#. If necessary you might have to set http/https proxy in your
+   Dockerfile before building the docker image:
+
+   .. code:: sh
+
+      ENV http_proxy " http://your.actual_http_proxy.com:your_port "
+      ENV https_proxy " https://your.actual_https_proxy.com:your_port "
+      ENV ftp_proxy " http://your.actual_ftp_proxy.com:your_port "
+      RUN echo " proxy=http://your-proxy.com:port " >> /etc/yum.conf
+
+#. The build of the Base Docker image is automated by the Makefile:
+
+.. code-block:: bash
+
+    make
+
 ----------------------------------
 Build the CentOS Mirror Repository
 ----------------------------------
 
-This section describes how to build the CentOS Mirror Repository.
+The creation of the StarlingX ISO relies on a repository of RPM Binaries,
+RPM Sources, and Tar Compressed files. This section describes how to build
+this CentOS mirror repository.
 
-*********************************
-Setup Repository Docker Container
-*********************************
+*******************************
+Run Repository Docker Container
+*******************************
 
 Run the following commands under a terminal identified as "One".
 
@@ -182,56 +249,27 @@ Run the following commands under a terminal identified as "One".
 
       $ cd $HOME/stx-tools/centos-mirror-tools/
 
-#. If necessary you might have to set http/https proxy in your
-   Dockerfile before building the docker image.
+#. Launch the Docker container using previously created base Docker image
+   *<repository>:<tag>*. As /localdisk is defined as the workdir of the
+   container, the same folder name should be used to define the volume.
+   The container will start to run and populate a logs and output folders
+   in this directory. The container shall be run from the same directory
+   where the other scripts are stored:
 
    .. code:: sh
 
-      ENV http_proxy " http://your.actual_http_proxy.com:your_port "
-      ENV https_proxy " https://your.actual_https_proxy.com:your_port "
-      ENV ftp_proxy " http://your.actual_ftp_proxy.com:your_port "
-      RUN echo " proxy=http://your-proxy.com:port " >> /etc/yum.conf
-
-#. Build your *<user>:<tag>* base container image with **e.g.**
-   *user:centos-mirror-repository*
-
-   .. code:: sh
-
-      $ docker build --tag $USER:centos-mirror-repository --file Dockerfile .
-
-#. Launch a *<user>* docker container using previously created Docker
-   base container image *<user>:<tag>* **e.g.**
-   *-centos-mirror-repository*. As /localdisk is defined as the workdir
-   of the container, the same folder name should be used to define the
-   volume. The container will start to run and populate a logs and
-   output folders in this directory. The container shall be run from the
-   same directory where the other scripts are stored.
-
-   .. code:: sh
-
-      $ docker run -itd --name $USER-centos-mirror-repository --volume $(pwd):/localdisk $USER:centos-mirror-repository
-
-   **Note**: the above command will create the container in background,
-   this mean that you need to attach it manually. The advantage of this
-   is that you can enter/exit from the container many times as you want.
+      $ docker run -it --volume $(pwd):/localdisk local/$USER-stx-builder:7.4 bash
 
 *****************
 Download Packages
 *****************
 
-#. Attach to the docker repository previously created
+#. Inside the Docker container, enter the following commands to download
+   the required packages to populate the CentOS mirror repository:
 
    ::
 
-      $ docker exec -it <CONTAINER ID> /bin/bash
-
-#. Inside Repository Docker container, enter the following command to
-   download the required packages to populate the CentOS Mirror
-   Repository:
-
-   ::
-
-      # bash download_mirror.sh
+      # cd localdisk && bash download_mirror.sh
 
 #. Monitor the download of packages until it is complete. When download
    is complete, the following message is displayed:
@@ -314,11 +352,11 @@ as "**Two**", run the following commands:
 Create StarlingX Packages
 -------------------------
 
-*******************************
-Setup Building Docker Container
-*******************************
+*****************************
+Run Building Docker Container
+*****************************
 
-#. From terminal identified as "**Two**", create the workspace folder
+#. From terminal identified as "**Two**", create the workspace folder:
 
    .. code:: sh
 
@@ -330,67 +368,19 @@ Setup Building Docker Container
 
       $ cd $HOME/stx-tools
 
-#. Copy your git options to "toCopy" folder
-
-   .. code:: sh
-
-      $ cp ~/.gitconfig toCOPY
-
-#. Create a *<localrc>* file
-
-   .. code:: sh
-
-      $ cat <<- EOF > localrc
-      # tbuilder localrc
-      MYUNAME=$USER
-      PROJECT=starlingx
-      HOST_PREFIX=$HOME/starlingx/workspace
-      HOST_MIRROR_DIR=$HOME/starlingx/mirror
-      EOF
-
-#. If necessary you might have to set http/https proxy in your
-   Dockerfile.centos73 before building the docker image.
-
-   .. code:: sh
-
-      ENV http_proxy  "http://your.actual_http_proxy.com:your_port"
-      ENV https_proxy "https://your.actual_https_proxy.com:your_port"
-      ENV ftp_proxy "http://your.actual_ftp_proxy.com:your_port"
-      RUN echo "proxy=$http_proxy" >> /etc/yum.conf && \
-      echo -e "export http_proxy=$http_proxy\nexport https_proxy=$https_proxy\n\
-      export ftp_proxy=$ftp_proxy" >> /root/.bashrc
-
-#. Base container setup If you are running in fedora system, you will
-   see " .makeenv:88: \**\* missing separator. Stop. " error, to
-   continue :
-
-   -  delete the functions define in the .makeenv ( module () { ... } )
-   -  delete the line 19 in the Makefile and ( NULL := $(shell bash -c
-      "source buildrc ... ).
-
-   .. code:: sh
-
-      $ make base-build
-
-#. Build container setup
-
-   .. code:: sh
-
-      $ make build
-
-#. Verify environment variables
+#. Verify environment variables:
 
    .. code:: sh
 
       $ bash tb.sh env
 
-#. Build container run
+#. Run the building Docker container:
 
    .. code:: sh
 
       $ bash tb.sh run
 
-#. Execute the built container:
+#. Execute the building Docker container:
 
    .. code:: sh
 
