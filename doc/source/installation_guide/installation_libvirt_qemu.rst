@@ -53,6 +53,7 @@ an example called madcloud.rc:
 
    export CONTROLLER=madcloud
    export COMPUTE=madnode
+   export STORAGE=madstorage
    export BRIDGE_INTERFACE=madbr
    export INTERNAL_NETWORK=172.30.20.0/24
    export INTERNAL_IP=172.30.20.1/24
@@ -66,6 +67,7 @@ This rc file shows the defaults baked into the scripts:
 
    export CONTROLLER=controller
    export COMPUTE=compute
+   export STORAGE=storage
    export BRIDGE_INTERFACE=stxbr
    export INTERNAL_NETWORK=10.10.10.0/24
    export INTERNAL_IP=10.10.10.1/24
@@ -149,16 +151,22 @@ configuration from libvirt.
 Configure Controllers
 *********************
 
-There are two scripts for creating the controllers: setup_allinone.sh
-and setup_standard_controller.sh. They are operated in the same manner
-but build different StarlingX cloud configurations. Choose wisely.
+There is one scripts for building different StarlingX cloud
+configurations: setup_configuration.sh.
 
-You need an ISO file for the installation, these scripts take a name
+The scripts takes the cloud configuration with the -c option:
+
+- simplex
+- duplex
+- controllerstorage
+- dedicatedstorage
+
+You need an ISO file for the installation, the script takes a file name
 with the -i option:
 
 ::
 
-   $SCRIPTS/setup_allinone.sh -i stx-2018-08-28-93.iso
+   $SCRIPTS/setup_configuration.sh -c <cloud configuration> -i <starlingx iso image>
 
 
 And the setup will begin. The scripts create one or more VMs and start
@@ -169,13 +177,17 @@ Then connect to the serial console:
 
 ::
 
-   virsh console madcloud-0
+   virsh console simplex-madcloud-0
 
 
 Continue the usual StarlingX installation from this point forward.
 
-Tear down the VMs using destroy_allinone.sh and
-destroy_standard_controller.sh.
+Tear down the VMs using destroy_configuration.sh.
+
+::
+
+   $SCRIPTS/destroy_configuration.sh -c <cloud configuration>
+
 
 --------
 Continue
