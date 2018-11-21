@@ -163,6 +163,52 @@ Create a Workspace Directory
 
       $ mkdir -p $HOME/starlingx/
 
+-----------------------------
+Prepare the Base Docker Image
+-----------------------------
+
+StarlingX base docker image handles all steps related to StarlingX ISO
+creation, this section describes how to customize the docker image
+building process.
+
+********************
+Configuration Values
+********************
+
+You can customize values for the StarlingX base docker image via a
+text based configuration file named ``localrc``:
+
+- ``HOST_PREFIX`` points to the directory to host the 'designer' subdirectory
+  for sourcecode and the 'loadbuild' subdirectory for the build environment
+  and the generated rpms and ISO image.
+- ``HOST_MIRROR_DIR`` points to the directory to host the CentOS mirror
+  repository.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+localrc Configuration File
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This is a sample of the configuration file ``localrc`` file:
+
+    .. code:: sh
+
+       # tbuilder localrc
+       MYUNAME=$USER
+       PROJECT=starlingx
+       HOST_PREFIX=$HOME/starlingx/workspace
+       HOST_MIRROR_DIR=$HOME/starlingx/mirror
+
+***************************
+Build the Base Docker Image
+***************************
+
+Once the ``localrc`` configuration file has been customized, it is time
+to build the base docker image. This process is automated by the Makefile.
+
+.. code-block:: bash
+
+    make
+
 ----------------------------------
 Build the CentOS Mirror Repository
 ----------------------------------
