@@ -69,19 +69,20 @@ Management networks:
    $ bash setup_network.sh
 
 
-Building xmls for definition of virtual servers:
+Building XML for definition of virtual servers:
 
 ::
 
-   $ bash setup_controller_storage.sh -i <starlingx iso image>
+   $ bash setup_configuration.sh -c controllerstorage -i <starlingx iso image>
 
 
-The xml server definitions that are created by the previous script are:
+The default XML server definitions that are created by the previous script
+are:
 
-- controller-0
-- controller-1
-- compute-0
-- compute-1
+- controllerstorage-controller-0
+- controllerstorage-controller-1
+- controllerstorage-compute-0
+- controllerstorage-compute-1
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Powering Up a Virtual Server
@@ -98,14 +99,14 @@ e.g.
 
 ::
 
-    $ sudo virsh start controller-0
+    $ sudo virsh start controllerstorage-controller-0
 
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Accessing Virtual Server Consoles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The xml for virtual servers in stx-tools repo, deployment/libvirt,
+The XML for virtual servers in stx-tools repo, deployment/libvirt,
 provides both graphical and text consoles.
 
 Access the graphical console in virt-manager by right-click on the
