@@ -225,7 +225,7 @@ Download Packages
 
    ::
 
-      $ docker exec -it <CONTAINER ID> /bin/bash
+      $ docker exec -it $USER-centos-mirror-repository /bin/bash
 
 #. Inside Repository Docker container, enter the following command to
    download the required packages to populate the CentOS Mirror
