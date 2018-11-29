@@ -25,7 +25,12 @@ StarlingX Simplex will be deployed, include:
 
 -  ‘Minimum’ Processor:
 
-   -  Dual-CPU Intel® Xeon® E5 26xx Family (SandyBridge) 8 cores/socket
+   -  Typical Hardware Form Factor:
+
+      - Dual-CPU Intel® Xeon® E5 26xx Family (SandyBridge) 8 cores/socket
+   -  Low Cost / Low Power Hardware Form Factor
+
+      - Single-CPU Intel Xeon D-15xx Family, 8 cores
 
 -  Memory: 64 GB
 -  BIOS:
@@ -43,12 +48,15 @@ StarlingX Simplex will be deployed, include:
 
 -  Additional Disks:
 
-   -  1 or more 500 GB disks (min. 10K RPM)
+   -  0 or more 500 GB disks (min. 10K RPM)
 
 -  Network Ports
 
-   -  Management: 10GE
+   **NOTE:** Simplex configuration requires one or more data ports.
+   This configuration does not require a management port.
+
    -  OAM: 10GE
+   -  Data: n x 10GE
 
 *******************
 Virtual Environment

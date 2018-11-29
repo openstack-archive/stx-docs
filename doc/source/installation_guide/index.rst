@@ -83,6 +83,33 @@ be deployed, include:
       Provider Networks.
    -  PXE boot support.
 
+-  **All-In-One Simplex or Duplex, Controller + Compute Hosts**
+
+   -  Minimum Processor is:
+
+      -  Typical Hardware Form Factor:
+
+         - Dual-CPU Intel® Xeon® E5 26xx Family (SandyBridge) 8 cores/socket
+      -  Low Cost / Low Power Hardware Form Factor
+
+         - Single-CPU Intel Xeon D-15xx Family, 8 cores
+
+   -  Minimum Memory: 64 GB.
+   -  Hard Drives:
+
+      -  Primary Hard Drive, minimum 500 GB SDD or NVMe.
+      -  0 or more 500 GB disks (min. 10K RPM).
+
+   -  Network Ports:
+
+      **NOTE:** Duplex and Simplex configurations require one or more data
+      ports.
+      The Duplex configuration requires a management port.
+
+      - Management: 10GE (Duplex only)
+      - OAM: 10GE
+      - Data: n x 10GE
+
 The recommended minimum requirements for the physical servers are
 described later in each StarlingX Deployment Options guide.
 
