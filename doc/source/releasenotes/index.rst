@@ -9,6 +9,13 @@ These are the release notes for StarlingX release stx.2018.10.
 **Note:** StarlingX uses a "year.month" pattern for release version
 numbers, indicating the year and month of release.
 
+---------
+ISO Image
+---------
+
+You can find a pre-built image at
+`CENGN’s StarlingX mirror <http://mirror.starlingx.cengn.ca/mirror/starlingx/centos/2018.10/20181110/outputs/iso/>`__
+
 ------------
 New Features
 ------------
