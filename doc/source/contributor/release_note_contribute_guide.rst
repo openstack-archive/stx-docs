@@ -118,6 +118,66 @@ The content are gound into logical sections based in the default template used b
 Modify the content in the YAML source file based on
 `reStructuredText <http://www.sphinx-doc.org/en/stable/rest.html>`_ format.
 
+--------------------------
+Closing Out a Bug or Story
+--------------------------
+
+If you are modifying a document as a result of a defect or
+feature that is associated with a StoryBoard Story or Launchpad
+Bug, you must take steps to link your submission (Gerrit Review)
+to the story or bug.
+
+To link a story, use the following lines in your
+commit message.
+Use the actual story ID and task ID with the commit:
+
+* Story: $story_id
+* Task: $task_id
+
+Following is an example that links a Gerrit Review with Story
+2003375 and Task 2444:
+
+::
+
+   Change the tox.ini directory regarding tox.ini dependencies
+
+   Story: 2003375
+   Task: 24444
+
+To link a bug, us the approprite line in your commit message.
+Provide the actual bug number:
+
+* Closes-Bug: $bug_id
+* Partial-Bug: $bug_id
+* Related-Bug: $bug_id
+
+If your fix requires multiple commits, use "Partial-Bug"
+for all the commits except the final one.
+For the final commit, use "Closes_Bug".
+
+Following is an example commit message that closes out bug
+1804024:
+
+::
+
+   AIO Hardware Requirements: Updated AIO HW requirements.
+
+   Added Small HW form factor information simplex/duplex
+   AIO hardware requirements.
+
+   Closes-Bug: #1804024
+
+When you associate a story or bug with a Gerrit review, Gerrit
+automatically updates the status of the story or bug once the
+commit is merged.
+
+You can find more information on the StarlingX code submission
+guidelines on the
+`wiki <https://wiki.openstack.org/wiki/StarlingX/CodeSubmissionGuidelines>`_.
+
+To see the list of defects against StarlingX, see the
+`Launchpad Application <https://bugs.launchpad.net/starlingx>`_.
+
 ------------------
 Developer Workflow
 ------------------
