@@ -254,6 +254,68 @@ The resulting directories and HTML files looks like:
 	    └── _static
 
 
+--------------------------
+Closing Out a Bug or Story
+--------------------------
+
+If you are modifying a document as a result of a defect or
+feature that is associated with a StoryBoard Story or Launchpad
+Bug, you must take steps to link your submission (Gerrit Review)
+to the story or bug.
+
+To link a story, add the following lines in your
+commit message.
+Be sure to use the actual story ID and task ID:
+
+* Story: $story_id
+* Task: $task_id
+
+Following is an example that links a Gerrit Review with Story
+2003375 and Task 2444:
+
+::
+
+   Change the tox.ini directory regarding tox.ini dependencies
+
+   Story: 2003375
+   Task: 24444
+
+**NOTE:** You must provide a blank line before the lines used to identify the story and the task.
+If you do not provide this line, your submission will not link to the Storyboard’s story.
+
+To link a bug, add the approprite lines in your commit message.
+Be sure to provide the actual bug numbers:
+
+* Closes-Bug: $bug_id
+* Partial-Bug: $bug_id
+* Related-Bug: $bug_id
+
+If your fix requires multiple commits, use “Partial-Bug” for all the commits except the final one.
+For the final commit, use “Closes-Bug”.
+
+Following is an example commit message that closes out bug
+1804024:
+
+::
+
+   AIO Hardware Requirements: Updated AIO HW requirements.
+
+   Added Small HW form factor information simplex/duplex
+   AIO hardware requirements.
+
+   Closes-Bug: #1804024
+
+When you associate a story or bug with a Gerrit review, Gerrit
+automatically updates the status of the story or bug once the
+commit is merged.
+
+You can find more information on the StarlingX code submission
+guidelines on the
+`wiki <https://wiki.openstack.org/wiki/StarlingX/CodeSubmissionGuidelines>`_.
+
+To see the list of defects against StarlingX, see the
+`Launchpad Application <https://bugs.launchpad.net/starlingx>`_.
+
 --------------------------------------------
 Viewing the Rendered Reference Documentation
 --------------------------------------------
@@ -263,4 +325,5 @@ the **index.html** file.
 
 **NOTE:** The PDF build uses a different tox environment and is
 currently not supported for StarlingX.
+
 
