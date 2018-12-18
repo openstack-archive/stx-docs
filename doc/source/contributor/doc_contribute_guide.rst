@@ -335,9 +335,9 @@ feature that is associated with a StoryBoard Story or Launchpad
 Bug, you must take steps to link your submission (Gerrit Review)
 to the story or bug.
 
-To link a story, use the following lines in your
+To link a story, add the following lines in your
 commit message.
-Use the actual story ID and task ID with the commit:
+Be sure to use the actual story ID and task ID with the commit:
 
 * Story: $story_id
 * Task: $task_id
@@ -352,8 +352,8 @@ Following is an example that links a Gerrit Review with Story
    Story: 2003375
    Task: 24444
 
-To link a bug, us the approprite line in your commit message.
-Provide the actual bug number:
+To link a bug, add the approprite lines in your commit message.
+Be sure to provide the actual bug numbers:
 
 * Closes-Bug: $bug_id
 * Partial-Bug: $bug_id
@@ -361,7 +361,7 @@ Provide the actual bug number:
 
 If your fix requires multiple commits, use "Partial-Bug"
 for all the commits except the final one.
-For the final commit, use "Closes_Bug".
+For the final commit, use "Closes-Bug".
 
 Following is an example commit message that closes out bug
 1804024:
