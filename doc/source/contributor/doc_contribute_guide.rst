@@ -18,6 +18,14 @@ Locations
 
 StarlingX documentation consists of several types of manuals and is found
 in the **stx-docs** and **stx-specs** projects (i.e. repositories).
+
+You can clone these repoositories by:
+
+::
+
+   $ git clone https://git.starlingx.io/stx-docs
+   $ git clone https://get-starlingx.io/stx-specs
+
 These projects contain hierarchy that organizes the documentation by topic:
 
 -  **Installation Guide**
