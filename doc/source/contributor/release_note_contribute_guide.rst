@@ -5,7 +5,7 @@ Release Notes Contributor Guide
 Release notes for StarlingX projects are managed using Reno allowing release
 notes go through the same review process used for managing code changes.
 Release documentation information comes from YAML source files stored in the
-project repository, that when built in conjuction with RST source files,
+project repository, that when built in conjunction with RST source files,
 generate HTML files. More details about the Reno Release Notes Manager can
 be found at: https://docs.openstack.org/reno
 
@@ -63,9 +63,9 @@ in each StarlingX project are as follows:
    Sphinx extensions and project information
 -  **releasenotes/source/index.rst** source file to create your index RST source
    file
--  **releasenotes/source/unrelased.rst** source file to avoid breaking  the real
+-  **releasenotes/source/unreleased.rst** source file to avoid breaking  the real
    release notes build job on the master branch
--  **doc/requiremets.txt** modifications to add the os-api-ref Sphinx extension
+-  **doc/requirements.txt** modifications to add the os-api-ref Sphinx extension
 -  **tox.ini** modifications to add the configuration to build the API reference
    locally
 
@@ -102,7 +102,7 @@ A YAML source file is created with a unique name under releasenote/notes/ direct
 	├── notes
 	│   ├── hello-my-change-dcef4b934a670160.yaml
 
-The content are gound into logical sections based in the default template used by reno:
+The content is grouped into logical sections based in the default template used by reno:
 
 ::
 
@@ -149,7 +149,7 @@ used to identify the story and the task.
 If you do not provide this line, your submission will not
 link to the Storyboard's story.
 
-To link a bug, add the approprite lines in your commit message.
+To link a bug, add the appropriate lines in your commit message.
 Be sure to provide the actual bug numbers:
 
 * Closes-Bug: $bug_id
