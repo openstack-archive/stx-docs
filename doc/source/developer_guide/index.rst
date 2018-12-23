@@ -415,10 +415,10 @@ Download Source Code Repositories
 
    .. code:: sh
 
-      $ mkdir -p $HOME/starlingx/mirror/CentOS/tis-installer
-      $ cp $HOME/starlingx/mirror/CentOS/stx-r1/CentOS/pike/Binary/images/pxeboot/initrd.img $HOME/starlingx/mirror/CentOS/tis-installer/initrd.img-stx-0.2
-      $ cp $HOME/starlingx/mirror/CentOS/stx-r1/CentOS/pike/Binary/images/pxeboot/vmlinuz $HOME/starlingx/mirror/CentOS/tis-installer/vmlinuz-stx-0.2
-      $ cp $HOME/starlingx/mirror/CentOS/stx-r1/CentOS/pike/Binary/LiveOS/squashfs.img $HOME/starlingx/mirror/CentOS/tis-installer/squashfs.img-stx-0.2
+      $ mkdir -p $HOME/starlingx/mirror/CentOS/stx-installer
+      $ cp $HOME/starlingx/mirror/CentOS/stx-r1/CentOS/pike/Binary/images/pxeboot/initrd.img $HOME/starlingx/mirror/CentOS/stx-installer/initrd.img
+      $ cp $HOME/starlingx/mirror/CentOS/stx-r1/CentOS/pike/Binary/images/pxeboot/vmlinuz $HOME/starlingx/mirror/CentOS/stx-installer/vmlinuz
+      $ cp $HOME/starlingx/mirror/CentOS/stx-r1/CentOS/pike/Binary/LiveOS/squashfs.img $HOME/starlingx/mirror/CentOS/stx-installer/squashfs.img
 
 **************
 Build Packages
@@ -506,7 +506,7 @@ Then, rename them to:
 
 There are two ways to use these files:
 
-#. Store the files in the */import/mirror/CentOS/tis-installer/* folder
+#. Store the files in the */import/mirror/CentOS/stx-installer/* folder
    for future use.
 #. Store it in an arbitrary location and modify the
    *$MY_REPO/stx/stx-metal/installer/pxe-network-installer/centos/build_srpm.data*
