@@ -169,7 +169,7 @@ Then connect to the serial console:
 
 ::
 
-   virsh console madcloud-0
+   virsh console controller-0
 
 
 Continue the usual StarlingX installation from this point forward.
