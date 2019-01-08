@@ -542,7 +542,7 @@ physical disk
    +--------------------------------------+-----------+---------+---------+---------+------------+...
 
 
-Create the 'noval-local' volume group
+Create the 'nova-local' volume group
 
 ::
 
