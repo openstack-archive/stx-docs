@@ -99,7 +99,7 @@ depth restrictions. The **index.rst** file resides in the same folder as
 the RST source file.
 
 Here is an example using the **stx-config** StarlingX System
-Configuration Management: Configurationi API v1:
+Configuration Management: Configuration API v1:
 
 ::
 
