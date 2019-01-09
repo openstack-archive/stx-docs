@@ -64,7 +64,7 @@ service in each StarlingX project are as follows:
    theme, Sphinx extensions and project information
 -  **api-ref/source/index.rst** source file to create your index RST
    source file
--  **doc/requiremets.txt** modifications to add the os-api-ref Sphinx
+-  **doc/requirements.txt** modifications to add the os-api-ref Sphinx
    extension
 -  **tox.ini** modifications to add the configuration to build the API
    reference locally
@@ -99,7 +99,7 @@ depth restrictions. The **index.rst** file resides in the same folder as
 the RST source file.
 
 Here is an example using the **stx-config** StarlingX System
-Configuration Management: Configurationi API v1:
+Configuration Management: Configuration API v1:
 
 ::
 
@@ -167,7 +167,7 @@ Following is the syntax for each REST METHOD in the RST source file
 	.. csv-table::
 	   :header: "Parameter", "Style", "Type", "Description"
 	   :widths: 20, 20, 20, 60
-	   "ihosts (Optional)", "plain", "xsd:list", "Links for retreiving the list of hosts for this system."
+	   "ihosts (Optional)", "plain", "xsd:list", "Links for retrieving the list of hosts for this system."
 	   "name (Optional)", "plain", "xsd:string", "A user-specified name of the cloud system. The default value is the system UUID."
 	   < etc. >
 
@@ -196,7 +196,7 @@ Following is the syntax for each REST METHOD in the RST source file
 	.. csv-table::
 	   :header: "Parameter", "Style", "Type", "Description"
 	   :widths: 20, 20, 20, 60
-	   "ihosts (Optional)", "plain", "xsd:list", "Links for retreiving the list of hosts for this system."
+	   "ihosts (Optional)", "plain", "xsd:list", "Links for retrieving the list of hosts for this system."
 	   "name (Optional)", "plain", "xsd:string", "A user-specified name of the cloud system. The default value is the system UUID."
 	   < etc. >
 
@@ -285,7 +285,7 @@ used to identify the story and the task.
 If you do not provide this line, your submission will not
 link to the Storyboard's story.
 
-To link a bug, add the approprite lines in your commit message.
+To link a bug, add the appropriate lines in your commit message.
 Be sure to provide the actual bug numbers:
 
 * Closes-Bug: $bug_id

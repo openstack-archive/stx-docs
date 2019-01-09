@@ -357,7 +357,7 @@ used to identify the story and the task.
 If you do not provide this line, your submission will not
 link to the Storyboard's story.
 
-To link a bug, add the approprite lines in your commit message.
+To link a bug, add the appropriate lines in your commit message.
 Be sure to provide the actual bug numbers:
 
 * Closes-Bug: $bug_id
