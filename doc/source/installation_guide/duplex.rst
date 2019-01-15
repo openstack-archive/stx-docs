@@ -1200,6 +1200,291 @@ excessive data-sync time). Use 'fm alarm-list' to confirm status.
    | 2  | controller-1 | controller  | unlocked       | enabled     | available    |
    +----+--------------+-------------+----------------+-------------+--------------+
 
+----------------------------------------
+Extending the Capacity: Up to 4 Computes
+----------------------------------------
+
+Up to 4x Compute Nodes can be added to the All-in-One Duplex Deployment.
+
+**************************
+Compute Hosts Installation
+**************************
+
+After initializing and configuring the 2 controllers, you can add up to 4 additional
+compute hosts. For each host do the following:
+
+^^^^^^^^^^^^^^^^^
+Initializing Host
+^^^^^^^^^^^^^^^^^
+
+Power on Host. In host console you will see:
+
+::
+
+   Waiting for this node to be configured.
+
+   Please configure the personality for this node from the
+   controller node in order to proceed.
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Updating Host Host Name and Personality
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+On Controller-0, acquire Keystone administrative privileges:
+
+::
+
+   controller-0:~$ source /etc/nova/openrc
+
+
+Wait for Controller-0 to discover new host, list the host until new
+UNKNOWN host shows up in table:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-list
+   +----+--------------+-------------+----------------+-------------+--------------+
+   | id | hostname     | personality | administrative | operational | availability |
+   +----+--------------+-------------+----------------+-------------+--------------+
+   | 1  | controller-0 | controller  | unlocked       | enabled     | online       |
+   | 2  | controller-1 | controller  | unlocked       | enabled     | online       |
+   | 3  | None         | None        | locked         | disabled    | offline      |
+   +----+--------------+-------------+----------------+-------------+--------------+
+
+Use the system host-update to update host personality attribute:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-update 3 personality=compute hostname=compute-0
+
+See also: 'system help host-update'
+
+Unless it is known that the host's configuration can support the
+installation of more than one node, it is recommended that the
+installation and configuration of each node be serialized. For example,
+if the entire cluster has its virtual disks hosted on the host's root
+disk which happens to be a single rotational type hard disk, then the
+host cannot (reliably) support parallel node installation.
+
+^^^^^^^^^^^^^^^
+Monitoring Host
+^^^^^^^^^^^^^^^
+
+On Controller-0, you can monitor the installation progress by running
+the system host-show command for the host periodically. Progress is
+shown in the install_state field.
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-show <host> | grep install
+   | install_output      | text                                 |
+   | install_state       | booting                              |
+   | install_state_info  | None                                 |
+
+
+Wait while the host is configured and rebooted. Up to 20 minutes may be
+required for a reboot, depending on hardware. When the reboot is
+complete, the host is reported as Locked, Disabled, and Online.
+
+^^^^^^^^^^^^^
+Listing Hosts
+^^^^^^^^^^^^^
+
+Once the node has been installed, configured and rebooted, on
+Controller-0 list the hosts:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-list
+   +----+--------------+-------------+----------------+-------------+--------------+
+   | id | hostname     | personality | administrative | operational | availability |
+   +----+--------------+-------------+----------------+-------------+--------------+
+   | 1  | controller-0 | controller  | unlocked       | enabled     | online       |
+   | 2  | controller-1 | controller  | unlocked       | enabled     | online       |
+   | 3  | compute-0    | compute     | locked         | disabled    | online       |
+   +----+--------------+-------------+----------------+-------------+--------------+
+
+
+**********************
+Compute Host Provision
+**********************
+
+You must configure the network interfaces and the storage disks on a
+host before you can unlock it. For each Compute Host do the following:
+
+On Controller-0, acquire Keystone administrative privileges:
+
+::
+
+   controller-0:~$ source /etc/nova/openrc
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Provisioning Network Interfaces on a Compute Host
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+On Controller-0, in order to list out hardware port names, types,
+pci-addresses that have been discovered:
+
+-  **Only in Virtual Environment**: Ensure that the interface used is
+   one of those attached to host bridge with model type "virtio" (i.e.,
+   eth1000 and eth1001). The model type "e1000" emulated devices will
+   not work for provider networks:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-port-list compute-0
+   +--------------------------------------+---------+----------+--------------+...
+   | uuid                                 | name    | type     | pci address  |...
+   +--------------------------------------+---------+----------+--------------+...
+   | de9ec830-cf33-4a06-8985-cd3262f6ecd3 | enp2s1  | ethernet | 0000:02:01.0 |...
+   | 9def88fb-d871-4542-83e2-d4b6e35169a1 | enp2s2  | ethernet | 0000:02:02.0 |...
+   | b2e38da9-840f-446c-b466-ceb6479266f6 | eth1000 | ethernet | 0000:02:03.0 |...
+   | c1694675-643d-4ba7-b821-cd147450112e | eth1001 | ethernet | 0000:02:04.0 |...
+   +--------------------------------------+---------+----------+--------------+...
+
+
+Provision the data interface for Compute:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-if-modify -p providernet-a -c data compute-0 eth1000
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+VSwitch Virtual Environment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Only in Virtual Environment**. If the compute has more than 4 cpus,
+the system will auto-configure the vswitch to use 2 cores. However some
+virtual environments do not properly support multi-queue required in a
+multi-cpu environment. Therefore run the following command to reduce the
+vswitch cores to 1:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-cpu-modify compute-0 -f vswitch -p0 1
+   +--------------------------------------+-------+-----------+-------+--------+...
+   | uuid                                 | log_c | processor | phy_c | thread |...
+   +--------------------------------------+-------+-----------+-------+--------+...
+   | 9d53c015-8dd5-4cd8-9abb-6f231fa773c2 | 0     | 0         | 0     | 0      |...
+   | 8620eaa7-19af-4ef7-a5aa-690ed57f01c7 | 1     | 0         | 1     | 0      |...
+   | f26598a5-8029-4d20-999e-2ec5d532d62e | 2     | 0         | 2     | 0      |...
+   | f7b3ce4a-10da-485d-873c-4e6988f7e9cf | 3     | 0         | 3     | 0      |...
+   +--------------------------------------+-------+-----------+-------+--------+...
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Provisioning Storage on a Compute Host
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Review the available disk space and capacity and obtain the uuid(s) of
+the physical disk(s) to be used for nova local:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-disk-list compute-0
+   +--------------------------------------+-----------+---------+---------+-------+------------+...
+   | uuid                                 | device_no | device_ | device_ | size_ | available  |...
+   |                                      | de        | num     | type    | gib   | gib        |...
+   +--------------------------------------+-----------+---------+---------+-------+------------+...
+   | 0ae45272-c9f4-4824-8405-f6c8946fda1e | /dev/sda  | 2048    | HDD     | 200.0 | 120.976    |...
+   | d751abfe-de57-4b23-b166-1d3d5b4d5ca6 | /dev/sdb  | 2064    | HDD     | 200.0 | 199.997    |...
+   +--------------------------------------+-----------+---------+---------+-------+------------+...
+
+Create the 'nova-local' local volume group:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-lvg-add compute-0 nova-local
+   +-----------------------+-------------------------------------------------------------------+
+   | Property              | Value                                                             |
+   +-----------------------+-------------------------------------------------------------------+
+   | lvm_vg_name           | nova-local                                                        |
+   | vg_state              | adding                                                            |
+   | uuid                  | 78e84a57-c40e-438c-97a4-49ebec6394d1                              |
+   | ihost_uuid            | 6f2de9b6-c55c-47b0-b40e-aff47f1e1bda                              |
+   | lvm_vg_access         | None                                                              |
+   | lvm_max_lv            | 0                                                                 |
+   | lvm_cur_lv            | 0                                                                 |
+   | lvm_max_pv            | 0                                                                 |
+   | lvm_cur_pv            | 0                                                                 |
+   | lvm_vg_size_gib       | 0.0                                                               |
+   | lvm_vg_avail_size_gib | 0.0                                                               |
+   | lvm_vg_total_pe       | 0                                                                 |
+   | lvm_vg_free_pe        | 0                                                                 |
+   | created_at            | 2019-01-15T12:31:45.796538+00:00                                  |
+   | updated_at            | None                                                              |
+   | parameters            | {u'concurrent_disk_operations': 2, u'instance_backing': u'image'} |
+   +-----------------------+-------------------------------------------------------------------+
+
+
+Create a disk partition to add to the volume group based on uuid of the
+physical disk:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-pv-add compute-0 nova-local d751abfe-de57-4b23-b166-1d3d5b4d5ca6
+   +--------------------------+--------------------------------------------+
+   | Property                 | Value                                      |
+   +--------------------------+--------------------------------------------+
+   | uuid                     | bba20f20-81fc-40a2-bf1e-a2fae849625b       |
+   | pv_state                 | adding                                     |
+   | pv_type                  | disk                                       |
+   | disk_or_part_uuid        | d751abfe-de57-4b23-b166-1d3d5b4d5ca6       |
+   | disk_or_part_device_node | /dev/sdb                                   |
+   | disk_or_part_device_path | /dev/disk/by-path/pci-0000:00:1f.2-ata-2.0 |
+   | lvm_pv_name              | /dev/sdb                                   |
+   | lvm_vg_name              | nova-local                                 |
+   | lvm_pv_uuid              | None                                       |
+   | lvm_pv_size_gib          | 0.0                                        |
+   | lvm_pe_total             | 0                                          |
+   | lvm_pe_alloced           | 0                                          |
+   | ihost_uuid               | 6f2de9b6-c55c-47b0-b40e-aff47f1e1bda       |
+   | created_at               | 2019-01-15T12:32:40.535160+00:00           |
+   | updated_at               | None                                       |
+   +--------------------------+--------------------------------------------+
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^
+Unlocking a Compute Host
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+On Controller-0, use the system host-unlock command to unlock the
+Compute node:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-unlock compute-0
+
+
+Wait while the Compute node is rebooted. Up to 10 minutes may be
+required for a reboot, depending on hardware. The host is rebooted, and
+its Availability State is reported as In-Test, followed by
+unlocked/enabled.
+
+-------------------
+System Health Check
+-------------------
+
+***********************
+Listing StarlingX Nodes
+***********************
+
+On Controller-0, after a few minutes, all nodes shall be reported as
+Unlocked, Enabled, and Available:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-list
+   +----+--------------+-------------+----------------+-------------+--------------+
+   | id | hostname     | personality | administrative | operational | availability |
+   +----+--------------+-------------+----------------+-------------+--------------+
+   | 1  | controller-0 | controller  | unlocked       | enabled     | available    |
+   | 2  | controller-1 | controller  | unlocked       | enabled     | available    |
+   | 3  | compute-0    | compute     | unlocked       | enabled     | available    |
+   +----+--------------+-------------+----------------+-------------+--------------+
+
 
 *****************
 System Alarm List
