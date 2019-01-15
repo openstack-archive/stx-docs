@@ -113,6 +113,29 @@ be deployed, include:
 The recommended minimum requirements for the physical servers are
 described later in each StarlingX Deployment Options guide.
 
+^^^^^^^^^^^^^^^^^^^^^^^^
+NVMe Drive as Boot Drive
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+To use a Non-Volatile Memory Express (NVMe) drive as the boot drive for any of
+your nodes:
+
+- Configure the host to be in UEFI mode.
+- When you are presented the StarlingX ISO booting options and after you have
+  selected the preferred installation option
+  (Standard Controller Configuration / All-in-one Controller Configuration)
+  and the Console, press [Tab] to edit the Kernel boot parameters and modify
+  **boot_device** and **rootfs_device** from the default **sda** to the
+  correct device name for the NVMe drive, e.g. nvme0n1.
+
+  ::
+
+     vmlinuz rootwait console=tty0 inst.text inst.stage2=hd:LABEL=oe_iso_boot
+     inst.ks=hd:LABEL=oe_iso_boot:/smallsystem_ks.cfg boot_device=nvme0n1
+     rootfs_device=nvme0n1 biosdevname=0 usbcore.autosuspend=-1 inst.gpt
+     security_profile=standard user_namespace.enable=1 initrd=initrd.img
+
+
 *******************
 Virtual Environment
 *******************
