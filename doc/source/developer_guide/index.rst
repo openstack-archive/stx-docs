@@ -511,7 +511,7 @@ This builds *rpm* and *anaconda* packages. Then run:
 The *update-pxe-network-installer* covers the steps detailed in
 *$MY_REPO/stx/stx-metal/installer/initrd/README*. This script
 creates three files on
-*/localdisk/loadbuild///pxe-network-installer/output*.
+*/localdisk/loadbuild/pxe-network-installer/output*.
 
 ::
 
@@ -523,9 +523,9 @@ Rename the files as follows:
 
 ::
 
-   initrd.img-stx-0.2
-   squashfs.img-stx-0.2
-   vmlinuz-stx-0.2
+   initrd.img
+   squashfs.img
+   vmlinuz
 
 Two ways exist for using these files:
 
