@@ -47,14 +47,14 @@ These scripts are configured using environment variables that all have
 built-in defaults. On shared systems you probably do not want to use the
 defaults. The simplest way to handle this is to keep an rc file that can
 be sourced into an interactive shell that configures everything. Here's
-an example called madcloud.rc:
+an example called stxcloud.rc:
 
 ::
 
-   export CONTROLLER=madcloud
-   export COMPUTE=madnode
-   export STORAGE=madstorage
-   export BRIDGE_INTERFACE=madbr
+   export CONTROLLER=stxcloud
+   export COMPUTE=stxnode
+   export STORAGE=stxstorage
+   export BRIDGE_INTERFACE=stxbr
    export INTERNAL_NETWORK=172.30.20.0/24
    export INTERNAL_IP=172.30.20.1/24
    export EXTERNAL_NETWORK=192.168.20.0/24
@@ -94,11 +94,11 @@ directory:
    SCRIPTS=$(pwd)/stx-tools/deployment/libvirt
 
 
-Load the configuration (if you created one) from madcloud.rc:
+Load the configuration (if you created one) from stxcloud.rc:
 
 ::
 
-   source madcloud.rc
+   source stxcloud.rc
 
 
 ****************************************
