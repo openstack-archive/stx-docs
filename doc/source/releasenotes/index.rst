@@ -4,7 +4,7 @@
 Release Notes
 =============
 
-These are the release notes for StarlingX release stx.2018.10.
+These are the release notes for StarlingX release 2018.10.rc1.
 
 **Note:** StarlingX uses a "year.month" pattern for release version
 numbers, indicating the year and month of release.

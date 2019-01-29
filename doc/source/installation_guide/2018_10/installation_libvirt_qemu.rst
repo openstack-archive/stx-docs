@@ -1,8 +1,6 @@
-.. _Installation-libvirt-qemu:
-
-=========================
-Installation libvirt qemu
-=========================
+=====================================
+2018.10.rc1 Installation libvirt qemu
+=====================================
 
 Installation for StarlingX using Libvirt/QEMU virtualization.
 
@@ -59,7 +57,6 @@ an example called madcloud.rc:
    export EXTERNAL_NETWORK=192.168.20.0/24
    export EXTERNAL_IP=192.168.20.1/24
 
-
 This rc file shows the defaults baked into the scripts:
 
 ::
@@ -72,7 +69,6 @@ This rc file shows the defaults baked into the scripts:
    export EXTERNAL_NETWORK=192.168.204.0/24
    export EXTERNAL_IP=192.168.204.1/24
 
-
 *************************
 Install stx-tools Project
 *************************
@@ -83,7 +79,6 @@ Clone the stx-tools project into a working directory.
 
    git clone git://git.openstack.org/openstack/stx-tools.git
 
-
 It will be convenient to set up a shortcut to the deployment script
 directory:
 
@@ -91,13 +86,11 @@ directory:
 
    SCRIPTS=$(pwd)/stx-tools/deployment/libvirt
 
-
 Load the configuration (if you created one) from madcloud.rc:
 
 ::
 
    source madcloud.rc
-
 
 ****************************************
 Installing Requirements and Dependencies
@@ -111,7 +104,6 @@ time):
 
    $SCRIPTS/install_packages.sh
 
-
 ******************
 Disabling Firewall
 ******************
@@ -122,7 +114,6 @@ Unload firewall and disable firewall on boot:
 
    sudo ufw disable
    sudo ufw status
-
 
 ******************
 Configure Networks
@@ -136,7 +127,6 @@ change stxbr to something unique.
 ::
 
    $SCRIPTS/setup_network.sh
-
 
 The destroy_network.sh script does the reverse, and should not be used
 lightly. It should also only be used after all of the VMs created below
@@ -160,7 +150,6 @@ with the -i option:
 
    $SCRIPTS/setup_allinone.sh -i stx-2018-08-28-93.iso
 
-
 And the setup will begin. The scripts create one or more VMs and start
 the boot of the first controller, named oddly enough \``controller-0``.
 If you have Xwindows available you will get virt-manager running. If
@@ -170,7 +159,6 @@ Then connect to the serial console:
 ::
 
    virsh console controller-0
-
 
 Continue the usual StarlingX installation from this point forward.
 
@@ -186,10 +174,10 @@ Pick up the installation in one of the existing guides at the
 
 -  Standard Controller
 
-   - :ref:`StarlingX Cloud with Dedicated Storage Virtual Environment <dedicated-storage>`
-   - :ref:`StarlingX Cloud with Controller Storage Virtual Environment <controller-storage>`
+   - :doc:`StarlingX Cloud with Dedicated Storage </installation_guide/2018_10/dedicated_storage>`
+   - :doc:`StarlingX Cloud with Controller Storage </installation_guide/2018_10/controller_storage>`
 
 -  All-in-one
 
-   - :ref:`StarlingX Cloud Duplex Virtual Environment <duplex>`
-   - :ref:`StarlingX Cloud Simplex Virtual Environment <simplex>`
+   - :doc:`StarlingX Cloud Duplex </installation_guide/2018_10/duplex>`
+   - :doc:`StarlingX Cloud Simplex </installation_guide/2018_10/simplex>`

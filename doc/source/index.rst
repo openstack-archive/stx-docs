@@ -3,14 +3,10 @@ StarlingX Documentation
 =======================
 
 Welcome to the StarlingX documentation. This is the documentation
-for release stx.2018.10.
+for release 2018.10.rc1.
 
 Additional information about this release is available in the
 :ref:`release-notes`.
-
-.. Add the additional version info here e.g.
-   The following documentation versions are available:
-   StarlingX stx.2019.09 | StarlingX stx.2019.04
 
 For more information about the project, consult the
 `Project Specifications <specs/index.html>`__.

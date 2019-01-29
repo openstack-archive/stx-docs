@@ -1,263 +1,39 @@
-==================
-Installation Guide
-==================
-
------
-Intro
------
-
-StarlingX may be installed in:
-
--  **Bare Metal**: Real deployments of StarlingX are only supported on
-   physical servers.
--  **Virtual Environment**: It should only be used for evaluation or
-   development purposes.
-
-
-StarlingX installed in virtual environments has two options:
-
-- :ref:`Libvirt/QEMU <Installation-libvirt-qemu>`
-- VirtualBox
-
-------------
-Requirements
-------------
-
-Different use cases require different configurations.
-
-**********
-Bare Metal
-**********
-
-The minimum requirements for the physical servers where StarlingX might
-be deployed, include:
-
--  **Controller Hosts**
-
-   -  Minimum Processor is:
-
-      -  Dual-CPU Intel® Xeon® E5 26xx Family (SandyBridge) 8
-         cores/socket
-
-   -  Minimum Memory: 64 GB
-   -  Hard Drives:
-
-      -  Primary Hard Drive, minimum 500 GB for OS and system databases.
-      -  Secondary Hard Drive, minimum 500 GB for persistent VM storage.
-
-   -  2 physical Ethernet interfaces: OAM and MGMT Network.
-   -  USB boot support.
-   -  PXE boot support.
-
--  **Storage Hosts**
-
-   -  Minimum Processor is:
-
-      -  Dual-CPU Intel® Xeon® E5 26xx Family (SandyBridge) 8
-         cores/socket.
-
-   -  Minimum Memory: 64 GB.
-   -  Hard Drives:
-
-      -  Primary Hard Drive, minimum 500 GB for OS.
-      -  1 or more additional Hard Drives for CEPH OSD storage, and
-      -  Optionally 1 or more SSD or NVMe Drives for CEPH Journals.
-
-   -  1 physical Ethernet interface: MGMT Network
-   -  PXE boot support.
-
--  **Compute Hosts**
-
-   -  Minimum Processor is:
-
-      -  Dual-CPU Intel® Xeon® E5 26xx Family (SandyBridge) 8
-         cores/socket.
-
-   -  Minimum Memory: 32 GB.
-   -  Hard Drives:
-
-      -  Primary Hard Drive, minimum 500 GB for OS.
-      -  1 or more additional Hard Drives for ephemeral VM Storage.
-
-   -  2 or more physical Ethernet interfaces: MGMT Network and 1 or more
-      Provider Networks.
-   -  PXE boot support.
-
--  **All-In-One Simplex or Duplex, Controller + Compute Hosts**
-
-   -  Minimum Processor is:
-
-      -  Typical Hardware Form Factor:
-
-         - Dual-CPU Intel® Xeon® E5 26xx Family (SandyBridge) 8 cores/socket
-      -  Low Cost / Low Power Hardware Form Factor
-
-         - Single-CPU Intel Xeon D-15xx Family, 8 cores
-
-   -  Minimum Memory: 64 GB.
-   -  Hard Drives:
-
-      -  Primary Hard Drive, minimum 500 GB SDD or NVMe.
-      -  0 or more 500 GB disks (min. 10K RPM).
-
-   -  Network Ports:
-
-      **NOTE:** Duplex and Simplex configurations require one or more data
-      ports.
-      The Duplex configuration requires a management port.
-
-      - Management: 10GE (Duplex only)
-      - OAM: 10GE
-      - Data: n x 10GE
-
-The recommended minimum requirements for the physical servers are
-described later in each StarlingX Deployment Options guide.
-
-*******************
-Virtual Environment
-*******************
-
-The recommended minimum requirements for the workstation, hosting the
-Virtual Machine(s) where StarlingX will be deployed, include:
-
-^^^^^^^^^^^^^^^^^^^^^
-Hardware Requirements
-^^^^^^^^^^^^^^^^^^^^^
-
-A workstation computer with:
-
--  Processor: x86_64 only supported architecture with BIOS enabled
-   hardware virtualization extensions
--  Cores: 8 (4 with careful monitoring of cpu load)
--  Memory: At least 32GB RAM
--  Hard Disk: 500GB HDD
--  Network: Two network adapters with active Internet connection
-
-^^^^^^^^^^^^^^^^^^^^^
-Software Requirements
-^^^^^^^^^^^^^^^^^^^^^
-
-A workstation computer with:
-
--  Operating System: Freshly installed Ubuntu 16.04 LTS 64-bit
--  Proxy settings configured (if applies)
--  Git
--  KVM/VirtManager
--  Libvirt Library
--  QEMU Full System Emulation Binaries
--  stx-tools project
--  StarlingX ISO Image
-
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Deployment Environment Setup
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-This section describes how to set up the workstation computer which will
-host the Virtual Machine(s) where StarlingX will be deployed.
-
-''''''''''''''''''''''''''''''
-Updating Your Operating System
-''''''''''''''''''''''''''''''
-
-Before proceeding with the build, ensure your OS is up to date. You’ll
-first need to update the local database list of available packages:
-
-::
-
-   $ sudo apt-get update
-
-'''''''''''''''''''''''''
-Install stx-tools project
-'''''''''''''''''''''''''
-
-Clone the stx-tools project. Usually you’ll want to clone it under your
-user’s home directory.
-
-::
-
-   $ cd $HOME
-   $ git clone https://git.starlingx.io/stx-tools
-
-
-''''''''''''''''''''''''''''''''''''''''
-Installing Requirements and Dependencies
-''''''''''''''''''''''''''''''''''''''''
-
-Navigate to the stx-tools installation libvirt directory:
-
-::
-
-   $ cd $HOME/stx-tools/deployment/libvirt/
-
-
-Install the required packages:
-
-::
-
-   $ bash install_packages.sh
-
-
-''''''''''''''''''
-Disabling Firewall
-''''''''''''''''''
-
-Unload firewall and disable firewall on boot:
-
-::
-
-   $ sudo ufw disable
-   Firewall stopped and disabled on system startup
-   $ sudo ufw status
-   Status: inactive
-
-
--------------------------------
-Getting the StarlingX ISO Image
--------------------------------
-
-Follow the instructions from the :ref:`developer-guide` to build a
-StarlingX ISO image.
-
-
-**********
-Bare Metal
-**********
-
-A bootable USB flash drive containing StarlingX ISO image.
-
-
-*******************
-Virtual Environment
-*******************
-
-Copy the StarlingX ISO Image to the stx-tools deployment libvirt project
-directory:
-
-::
-
-   $ cp <starlingx iso image> $HOME/stx-tools/deployment/libvirt/
-
-
-------------------
-Deployment Options
-------------------
-
--  Standard Controller
-
-   - :ref:`StarlingX Cloud with Dedicated Storage <dedicated-storage>`
-   - :ref:`StarlingX Cloud with Controller Storage <controller-storage>`
-
--  All-in-one
-
-   - :ref:`StarlingX Cloud Duplex <duplex>`
-   - :ref:`StarlingX Cloud Simplex <simplex>`
-
+===================
+Installation Guides
+===================
+
+Installation steps for StarlingX are release specific. To install the
+latest release of StarlingX, use the :doc:`/installation_guide/2018_10/index`.
+
+To install a previous release of StarlingX, use the installation guide
+for your specific release:
 
 .. toctree::
-   :hidden:
+   :maxdepth: 1
 
-   installation_libvirt_qemu
-   controller_storage
-   dedicated_storage
-   duplex
-   simplex
+   /installation_guide/latest/index
+   /installation_guide/2018_10/index
+
+.. Add a new release (installer and developer guides):
+   1. Archive previous release
+         1. Rename old 'latest' folder to the release name e.g. Year_Month
+         2. Update links in old 'latest' to use new path e.g.
+         :doc:`Libvirt/QEMU </installation_guide/latest/installation_libvirt_qemu>`
+         becomes
+         :doc:`Libvirt/QEMU </installation_guide/2018_10/installation_libvirt_qemu>`
+   2. Add new release
+         1. Add a new 'latest' dir and add the new version - likely this will be a copy of the previous version, with updates applied
+         2. Make sure the new files have the correct version in the page title and intro sentence e.g. '2018.10.rc1 Installation Guide'
+         3. Make sure all files in new 'latest' link to the correct versions of supporting docs (do this via doc link, so that it goes to top of page e.g. :doc:`/installation_guide/latest/index`)
+         4. Make sure the new release index is labeled with the correct version name e.g
+         .. _index-2019-05:
+   3. Add the archived version to the toctree on this page
+   4. If adding a new version *before* it is available (e.g. to begin work on new docs),
+      make sure page text still directs user to the *actual* current release, not the
+      future-not-yet-released version.
+   5. When the release is *actually* available, make sure to update these pages: 
+      - index
+      - installation guide
+      - developer guide
+      - release notes
+      - 

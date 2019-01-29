@@ -1,8 +1,6 @@
-.. _simplex:
-
-========================================================
-StarlingX/Installation Guide Virtual Environment/Simplex
-========================================================
+=========================================================
+2019.05.rc1 Installation Guide Virtual Environment/Duplex
+=========================================================
 
 -----------------
 Preparing Servers
@@ -12,16 +10,16 @@ Preparing Servers
 Bare Metal
 **********
 
-Required Server:
+Required Servers:
 
--  Combined Server (Controller + Compute): 1
+-  Combined Servers (Controller + Compute): 2
 
 ^^^^^^^^^^^^^^^^^^^^^
 Hardware Requirements
 ^^^^^^^^^^^^^^^^^^^^^
 
 The recommended minimum requirements for the physical servers where
-StarlingX Simplex will be deployed, include:
+StarlingX Duplex will be deployed, include:
 
 -  ‘Minimum’ Processor:
 
@@ -50,11 +48,11 @@ StarlingX Simplex will be deployed, include:
 
    -  0 or more 500 GB disks (min. 10K RPM)
 
--  Network Ports
+-  Network Ports:
 
-   **NOTE:** Simplex configuration requires one or more data ports.
-   This configuration does not require a management port.
+   **NOTE:** Duplex configuration requires one or more data ports.
 
+   -  Management: 10GE
    -  OAM: 10GE
    -  Data: n x 10GE
 
@@ -69,20 +67,16 @@ Management networks:
 
    $ bash setup_network.sh
 
-
 Building xmls for definition of virtual servers:
 
 ::
 
    $ bash setup_allinone.sh -i <starlingx iso image>
 
-
 The xml server definitions that are created by the previous script are:
 
 - controller-0
 - controller-1
-
-Only controller-0 will be provisioned.
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Powering Up a Virtual Server
@@ -179,20 +173,17 @@ password. Enter the current password (wrsroot):
    Changing password for wrsroot.
    (current) UNIX Password:
 
-
 Enter a new password for the wrsroot account:
 
 ::
 
    New password:
 
-
 Enter the new password again to confirm it:
 
 ::
 
    Retype new password:
-
 
 Controller-0 is initialized with StarlingX, and is ready for
 configuration.
@@ -227,7 +218,6 @@ with no parameters:
    Enter ! at any prompt to abort...
    ...
 
-
 Select [y] for System Date and Time:
 
 ::
@@ -237,18 +227,17 @@ Select [y] for System Date and Time:
 
    Is the current date and time correct?  [y/N]: y
 
-
-For System mode choose "simplex":
+For System mode choose "duplex":
 
 ::
 
-   ...
+   System mode. Available options are:
+
    1) duplex-direct: two node-redundant configuration. Management and
    infrastructure networks are directly connected to peer ports
    2) duplex - two node redundant configuration
    3) simplex - single node non-redundant configuration
-   System mode [duplex-direct]: 3
-
+   System mode [duplex-direct]: 2
 
 After System Date / Time and System mode:
 
@@ -267,9 +256,7 @@ After System Date / Time and System mode:
 
    Configuration was applied
 
-   Please complete any out of service commissioning steps with system
-   commands and unlock controller to proceed.
-
+   Please complete any out of service commissioning steps with system commands and unlock controller to proceed.
 
 After config_controller bootstrap configuration, REST API, CLI and
 Horizon interfaces are enabled on the controller-0 OAM IP Address. The
@@ -285,7 +272,6 @@ On Controller-0, acquire Keystone administrative privileges:
 
    controller-0:~$ source /etc/nova/openrc
 
-
 *********************************************
 Configuring Provider Networks at Installation
 *********************************************
@@ -296,7 +282,6 @@ Set up one provider network of the vlan type, named providernet-a:
 
    [wrsroot@controller-0 ~(keystone_admin)]$ neutron providernet-create providernet-a --type=vlan
    [wrsroot@controller-0 ~(keystone_admin)]$ neutron providernet-range-create --name providernet-a-range1 --range 100-400 providernet-a
-
 
 *****************************************
 Providing Data Interfaces on Controller-0
@@ -310,13 +295,12 @@ List all interfaces
    +--------------------------------------+---------+----------+...+------+--------------+------+---------+------------+..
    | uuid                                 | name    | class    |...| vlan | ports        | uses | used by | attributes |..
    |                                      |         |          |...| id   |              | i/f  | i/f     |            |..
-   +--------------------------------------+----------+---------+...+------+--------------+------+---------+------------+..
+   +--------------------------------------+---------+----------+...+------+--------------+------+---------+------------+..
    | 49fd8938-e76f-49f1-879e-83c431a9f1af | enp0s3  | platform |...| None | [u'enp0s3']  | []   | []      | MTU=1500   |..
    | 8957bb2c-fec3-4e5d-b4ed-78071f9f781c | eth1000 | None     |...| None | [u'eth1000'] | []   | []      | MTU=1500   |..
    | bf6f4cad-1022-4dd7-962b-4d7c47d16d54 | eth1001 | None     |...| None | [u'eth1001'] | []   | []      | MTU=1500   |..
    | f59b9469-7702-4b46-bad5-683b95f0a1cb | enp0s8  | platform |...| None | [u'enp0s8']  | []   | []      | MTU=1500   |..
    +--------------------------------------+---------+----------+...+------+--------------+------+---------+------------+..
-
 
 Configure the data interfaces
 
@@ -349,7 +333,6 @@ Configure the data interfaces
    | accelerated      | [True]                               |
    +------------------+--------------------------------------+
 
-
 *************************************
 Configuring Cinder on Controller Disk
 *************************************
@@ -375,7 +358,6 @@ physical disk
    |                                      |           |         |         |         |            |...
    +--------------------------------------+-----------+---------+---------+---------+------------+...
 
-
 Create the 'cinder-volumes' local volume group
 
 ::
@@ -398,7 +380,6 @@ Create the 'cinder-volumes' local volume group
    | updated_at      | None                                 |
    | parameters      | {u'lvm_type': u'thin'}               |
    +-----------------+--------------------------------------+
-
 
 Create a disk partition to add to the volume group
 
@@ -424,7 +405,6 @@ Create a disk partition to add to the volume group
    | updated_at  | None                                             |
    +-------------+--------------------------------------------------+
 
-
 Wait for the new partition to be created (i.e. status=Ready)
 
 ::
@@ -438,7 +418,6 @@ Wait for the new partition to be created (i.e. status=Ready)
    |                                      |...|            |...|                     |          |        |
    |                                      |...|            |...|                     |          |        |
    +--------------------------------------+...+------------+...+---------------------+----------+--------+
-
 
 Add the partition to the volume group
 
@@ -464,7 +443,6 @@ Add the partition to the volume group
    | created_at               | 2018-08-28T13:47:39.450763+00:00                 |
    | updated_at               | None                                             |
    +--------------------------+--------------------------------------------------+
-
 
 *********************************************
 Adding an LVM Storage Backend at Installation
@@ -515,7 +493,6 @@ state=Configured)
    | e2697426-2d79-4a83-beb7-2eafa9ceaee5 | lvm-store  | lvm     | configured | None | cinder   | {}           |
    +--------------------------------------+------------+---------+------------+------+----------+--------------+
 
-
 ***********************************************
 Configuring VM Local Storage on Controller Disk
 ***********************************************
@@ -541,8 +518,7 @@ physical disk
    |                                      |           |         |         |         |            |...
    +--------------------------------------+-----------+---------+---------+---------+------------+...
 
-
-Create the 'nova-local' volume group
+Create the 'noval-local' volume group
 
 ::
 
@@ -566,7 +542,6 @@ Create the 'nova-local' volume group
    | updated_at      | None                                                              |
    | parameters      | {u'concurrent_disk_operations': 2, u'instance_backing': u'image'} |
    +-----------------+-------------------------------------------------------------------+
-
 
 Create a disk partition to add to the volume group
 
@@ -592,7 +567,6 @@ Create a disk partition to add to the volume group
    | updated_at  | None                                             |
    +-------------+--------------------------------------------------+
 
-
 Wait for the new partition to be created (i.e. status=Ready)
 
 ::
@@ -606,7 +580,6 @@ Wait for the new partition to be created (i.e. status=Ready)
    |                                      |...|            |...|                     |          |        |
    |                                      |...|            |...|                     |          |        |
    +--------------------------------------+...+------------+...+---------------------+----------+--------+
-
 
 Add the partition to the volume group
 
@@ -634,7 +607,6 @@ Add the partition to the volume group
    +--------------------------+--------------------------------------------------+
    [wrsroot@controller-0 ~(keystone_admin)]$
 
-
 **********************
 Unlocking Controller-0
 **********************
@@ -645,7 +617,6 @@ Controller-1. Use the system host-unlock command:
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-unlock controller-0
-
 
 The host is rebooted. During the reboot, the command line is
 unavailable, and any ssh connections are dropped. To monitor the
@@ -661,7 +632,6 @@ On Controller-0, acquire Keystone administrative privileges:
 
    controller-0:~$ source /etc/nova/openrc
 
-
 Verify that the controller-0 services are running:
 
 ::
@@ -676,14 +646,12 @@ Verify that the controller-0 services are running:
    ...
    +-----+-------------------------------+--------------+----------------+
 
-
 Verify that controller-0 has controller and compute subfunctions
 
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-show 1 | grep subfunctions
    | subfunctions        | controller,compute                         |
-
 
 Verify that controller-0 is unlocked, enabled, and available:
 
@@ -696,6 +664,482 @@ Verify that controller-0 is unlocked, enabled, and available:
    | 1  | controller-0 | controller  | unlocked       | enabled     | available    |
    +----+--------------+-------------+----------------+-------------+--------------+
 
+------------------------------
+Controller-1 Host Installation
+------------------------------
+
+After initializing and configuring controller-0, you can add and
+configure a backup controller controller-1.
+
+******************************
+Initializing Controller-1 Host
+******************************
+
+Power on Controller-1. In Controller-1 console you will see:
+
+::
+
+   Waiting for this node to be configured.
+
+   Please configure the personality for this node from the
+   controller node in order to proceed.
+
+****************************************************
+Updating Controller-1 Host Host Name and Personality
+****************************************************
+
+On Controller-0, acquire Keystone administrative privileges:
+
+::
+
+   controller-0:~$ source /etc/nova/openrc
+
+Wait for Controller-0 to discover new host, list the host until new
+UNKNOWN host shows up in table:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-list
+   +----+--------------+-------------+----------------+-------------+--------------+
+   | id | hostname     | personality | administrative | operational | availability |
+   +----+--------------+-------------+----------------+-------------+--------------+
+   | 1  | controller-0 | controller  | unlocked       | enabled     | available    |
+   | 2  | None         | None        | locked         | disabled    | offline      |
+   +----+--------------+-------------+----------------+-------------+--------------+
+
+Use the system host-update to update Contoller-1 host personality
+attribute:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-update 2 personality=controller hostname=controller-1
+   +---------------------+--------------------------------------+
+   | Property            | Value                                |
+   +---------------------+--------------------------------------+
+   | action              | none                                 |
+   | administrative      | locked                               |
+   | availability        | offline                              |
+   | bm_ip               | None                                 |
+   | bm_type             | None                                 |
+   | bm_username         | None                                 |
+   | boot_device         | sda                                  |
+   | capabilities        | {}                                   |
+   | config_applied      | None                                 |
+   | config_status       | None                                 |
+   | config_target       | None                                 |
+   | console             | ttyS0,115200                         |
+   | created_at          | 2018-08-28T15:09:13.812906+00:00     |
+   | hostname            | controller-1                         |
+   | id                  | 2                                    |
+   | install_output      | text                                 |
+   | install_state       | None                                 |
+   | install_state_info  | None                                 |
+   | invprovision        | None                                 |
+   | location            | {}                                   |
+   | mgmt_ip             | 192.168.204.4                        |
+   | mgmt_mac            | 08:00:27:3d:e2:66                    |
+   | operational         | disabled                             |
+   | personality         | controller                           |
+   | reserved            | False                                |
+   | rootfs_device       | sda                                  |
+   | serialid            | None                                 |
+   | software_load       | 18.03                                |
+   | subfunction_avail   | not-installed                        |
+   | subfunction_oper    | disabled                             |
+   | subfunctions        | controller,compute                   |
+   | task                | None                                 |
+   | tboot               | false                                |
+   | ttys_dcd            | None                                 |
+   | updated_at          | None                                 |
+   | uptime              | 0                                    |
+   | uuid                | be0f35f7-31d9-4145-bf6a-0c2556cf398c |
+   | vim_progress_status | None                                 |
+   +---------------------+--------------------------------------+
+
+****************************
+Monitoring Controller-1 Host
+****************************
+
+On Controller-0, you can monitor the installation progress by running
+the system host-show command for the host periodically. Progress is
+shown in the install_state field.
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-show controller-1 | grep install
+   | install_output      | text                                 |
+   | install_state       | booting                              |
+   | install_state_info  | None                                 |
+
+Wait while the Controller-1 is configured and rebooted. Up to 20 minutes
+may be required for a reboot, depending on hardware. When the reboot is
+complete, the Controller-1 is reported as Locked, Disabled, and Online.
+
+*************************
+Listing Controller-1 Host
+*************************
+
+Once Controller-1 has been installed, configured and rebooted, on
+Controller-0 list the hosts:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-list
+   +----+--------------+-------------+----------------+-------------+--------------+
+   | id | hostname     | personality | administrative | operational | availability |
+   +----+--------------+-------------+----------------+-------------+--------------+
+   | 1  | controller-0 | controller  | unlocked       | enabled     | available    |
+   | 2  | controller-1 | controller  | locked         | disabled    | online       |
+   +----+--------------+-------------+----------------+-------------+--------------+
+
+-------------------------
+Controller-1 Provisioning
+-------------------------
+
+On Controller-0, list hosts
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-list
+   +----+--------------+-------------+----------------+-------------+--------------+
+   | id | hostname     | personality | administrative | operational | availability |
+   +----+--------------+-------------+----------------+-------------+--------------+
+   ...
+   | 2  | controller-1 | controller  | locked         | disabled    | online       |
+   +----+--------------+-------------+----------------+-------------+--------------+
+
+***********************************************
+Provisioning Network Interfaces on Controller-1
+***********************************************
+
+In order to list out hardware port names, types, pci-addresses that have
+been discovered:
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-port-list controller-1
+
+Provision the Controller-1 oam interface
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-if-modify -n ens6 -c platform --networks oam controller-1 ens6
+   +------------------+--------------------------------------+
+   | Property         | Value                                |
+   +------------------+--------------------------------------+
+   | ifname           | ens6                                 |
+   | iftype           | ethernet                             |
+   | ports            | [u'ens6']                            |
+   | providernetworks | None                                 |
+   | imac             | 08:00:27:ba:3c:38                    |
+   | imtu             | 1500                                 |
+   | ifclass          | oam                                  |
+   | aemode           | None                                 |
+   | schedpolicy      | None                                 |
+   | txhashpolicy     | None                                 |
+   | uuid             | 160bfede-0950-42ba-acef-d0eb31e7fc49 |
+   | ihost_uuid       | be0f35f7-31d9-4145-bf6a-0c2556cf398c |
+   | vlan_id          | None                                 |
+   | uses             | []                                   |
+   | used_by          | []                                   |
+   | created_at       | 2018-08-28T15:59:10.701772+00:00     |
+   | updated_at       | 2018-08-29T05:44:38.585642+00:00     |
+   | sriov_numvfs     | 0                                    |
+   | ipv4_mode        | static                               |
+   | ipv6_mode        | disabled                             |
+   | accelerated      | [False]                              |
+   +------------------+--------------------------------------+
+
+*****************************************
+Providing Data Interfaces on Controller-1
+*****************************************
+
+List all interfaces
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-if-list -a controller-1
+   +--------------------------------------+---------+---------+...+------+--------------+------+------+------------+..
+   | uuid                                 | name    | network |...| vlan | ports        | uses | used | attributes |..
+   |                                      |         | type    |...| id   |              | i/f  | by   |            |..
+   |                                      |         |         |...|      |              |      | i/f  |            |..
+   +--------------------------------------+---------+---------+...+------+--------------+------+------+------------+..
+   | 160bfede-0950-42ba-acef-d0eb31e7fc49 | ens6    | oam     |...| None | [u'enp0s3']  | []   | []   | MTU=1500   |..
+   | 37b3abcd-bcbe-44d5-b2fb-759c34efec89 | eth1001 | None    |...| None | [u'eth1001'] | []   | []   | MTU=1500   |..
+   | 81d66feb-b23c-4533-bd4b-129f9b75ecd6 | mgmt0   | mgmt    |...| None | [u'enp0s8']  | []   | []   | MTU=1500   |..
+   | e78ad9a9-e74d-4c6c-9de8-0e41aad8d7b7 | eth1000 | None    |...| None | [u'eth1000'] | []   | []   | MTU=1500   |..
+   +--------------------------------------+---------+---------+...+------+--------------+------+------+------------+..
+
+Configure the data interfaces
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-if-modify -p providernet-a -c data controller-1 eth1000
+   +------------------+--------------------------------------+
+   | Property         | Value                                |
+   +------------------+--------------------------------------+
+   | ifname           | eth1000                              |
+   | networktype      | data                                 |
+   | iftype           | ethernet                             |
+   | ports            | [u'eth1000']                         |
+   | providernetworks | providernet-a                        |
+   | imac             | 08:00:27:39:61:6e                    |
+   | imtu             | 1500                                 |
+   | aemode           | None                                 |
+   | schedpolicy      | None                                 |
+   | txhashpolicy     | None                                 |
+   | uuid             | e78ad9a9-e74d-4c6c-9de8-0e41aad8d7b7 |
+   | ihost_uuid       | be0f35f7-31d9-4145-bf6a-0c2556cf398c |
+   | vlan_id          | None                                 |
+   | uses             | []                                   |
+   | used_by          | []                                   |
+   | created_at       | 2018-08-28T15:59:17.667899+00:00     |
+   | updated_at       | 2018-08-29T06:04:55.116653+00:00     |
+   | sriov_numvfs     | 0                                    |
+   | ipv4_mode        | disabled                             |
+   | ipv6_mode        | disabled                             |
+   | accelerated      | [True]                               |
+   +------------------+--------------------------------------+
+
+************************************
+Provisioning Storage on Controller-1
+************************************
+
+Review the available disk space and capacity and obtain the uuid of the
+physical disk
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-disk-list controller-1
+   +--------------------------------------+-------------+------------+-------------+----------+---------------+...
+   | uuid                                 | device_node | device_num | device_type | size_mib | available_mib |...
+   +--------------------------------------+-------------+------------+-------------+----------+---------------+...
+   | 2dcc3d33-ba43-4b5a-b0b0-2b5a2e5737b7 | /dev/sda    | 2048       | HDD         | 600000   | 434072        |...
+   | f53437c6-77e3-4185-9453-67eaa8b461b1 | /dev/sdb    | 2064       | HDD         | 16240    | 16237         |...
+   | 623bbfc0-2b38-432a-acf4-a28db6066cce | /dev/sdc    | 2080       | HDD         | 16240    | 16237         |...
+   +--------------------------------------+-------------+------------+-------------+----------+---------------+...
+
+Assign Cinder storage to the physical disk
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-lvg-add controller-1 cinder-volumes
+   +-----------------+--------------------------------------+
+   | Property        | Value                                |
+   +-----------------+--------------------------------------+
+   | lvm_vg_name     | cinder-volumes                       |
+   | vg_state        | adding                               |
+   | uuid            | 3ccadc5c-e4f7-4b04-8403-af5d2ecef96d |
+   | ihost_uuid      | be0f35f7-31d9-4145-bf6a-0c2556cf398c |
+   | lvm_vg_access   | None                                 |
+   | lvm_max_lv      | 0                                    |
+   | lvm_cur_lv      | 0                                    |
+   | lvm_max_pv      | 0                                    |
+   | lvm_cur_pv      | 0                                    |
+   | lvm_vg_size     | 0.00                                 |
+   | lvm_vg_total_pe | 0                                    |
+   | lvm_vg_free_pe  | 0                                    |
+   | created_at      | 2018-08-29T05:51:13.965883+00:00     |
+   | updated_at      | None                                 |
+   | parameters      | {u'lvm_type': u'thin'}               |
+   +-----------------+--------------------------------------+
+
+Create a disk partition to add to the volume group based on uuid of the
+physical disk
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-disk-partition-add controller-1 f53437c6-77e3-4185-9453-67eaa8b461b1 16237 -t lvm_phys_vol
+   +-------------+--------------------------------------------------+
+   | Property    | Value                                            |
+   +-------------+--------------------------------------------------+
+   | device_path | /dev/disk/by-path/pci-0000:00:0d.0-ata-2.0-part1 |
+   | device_node | /dev/sdb1                                        |
+   | type_guid   | ba5eba11-0000-1111-2222-000000000001             |
+   | type_name   | None                                             |
+   | start_mib   | None                                             |
+   | end_mib     | None                                             |
+   | size_mib    | 16237                                            |
+   | uuid        | 7a41aab0-6695-4d16-9003-73238adda75b             |
+   | ihost_uuid  | be0f35f7-31d9-4145-bf6a-0c2556cf398c             |
+   | idisk_uuid  | f53437c6-77e3-4185-9453-67eaa8b461b1             |
+   | ipv_uuid    | None                                             |
+   | status      | Creating (on unlock)                             |
+   | created_at  | 2018-08-29T05:54:23.326612+00:00                 |
+   | updated_at  | None                                             |
+   +-------------+--------------------------------------------------+
+
+Wait for the new partition to be created (i.e. status=Ready)
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-disk-partition-list controller-1 --disk f53437c6-77e3-4185-9453-67eaa8b461b1
+   +--------------------------------------+...+-------------+...+-----------+----------+----------------------+
+   | uuid                                 |...| device_node |...| type_name | size_mib | status               |
+   +--------------------------------------+...+-------------+...+-----------+----------+----------------------+
+   | 7a41aab0-6695-4d16-9003-73238adda75b |...| /dev/sdb1   |...| None      | 16237    | Creating (on unlock) |
+   +--------------------------------------+...+-------------+...+-----------+----------+----------------------+
+
+Add the partition to the volume group
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-pv-add controller-1 cinder-volumes 7a41aab0-6695-4d16-9003-73238adda75b
+   +--------------------------+--------------------------------------------------+
+   | Property                 | Value                                            |
+   +--------------------------+--------------------------------------------------+
+   | uuid                     | 11628316-56ab-41b2-b2be-a5d72667a5e9             |
+   | pv_state                 | adding                                           |
+   | pv_type                  | partition                                        |
+   | disk_or_part_uuid        | 7a41aab0-6695-4d16-9003-73238adda75b             |
+   | disk_or_part_device_node | /dev/sdb1                                        |
+   | disk_or_part_device_path | /dev/disk/by-path/pci-0000:00:0d.0-ata-2.0-part1 |
+   | lvm_pv_name              | /dev/sdb1                                        |
+   | lvm_vg_name              | cinder-volumes                                   |
+   | lvm_pv_uuid              | None                                             |
+   | lvm_pv_size              | 0                                                |
+   | lvm_pe_total             | 0                                                |
+   | lvm_pe_alloced           | 0                                                |
+   | ihost_uuid               | be0f35f7-31d9-4145-bf6a-0c2556cf398c             |
+   | created_at               | 2018-08-29T06:25:54.550430+00:00                 |
+   | updated_at               | None                                             |
+   +--------------------------+--------------------------------------------------+
+
+***********************************************
+Configuring VM Local Storage on Controller Disk
+***********************************************
+
+Review the available disk space and capacity and obtain the uuid of the
+physical disk
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-disk-list controller-1
+   +--------------------------------------+-------------+------------+-------------+----------+---------------+...
+   | uuid                                 | device_node | device_num | device_type | size_mib | available_mib |...
+   +--------------------------------------+-------------+------------+-------------+----------+---------------+...
+   | 2dcc3d33-ba43-4b5a-b0b0-2b5a2e5737b7 | /dev/sda    | 2048       | HDD         | 600000   | 434072        |...
+   | f53437c6-77e3-4185-9453-67eaa8b461b1 | /dev/sdb    | 2064       | HDD         | 16240    | 16237         |...
+   | 623bbfc0-2b38-432a-acf4-a28db6066cce | /dev/sdc    | 2080       | HDD         | 16240    | 16237         |...
+   +--------------------------------------+-------------+------------+-------------+----------+---------------+...
+
+Create the 'cinder-volumes' local volume group
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-lvg-add controller-1 nova-local
+   +-----------------+-------------------------------------------------------------------+
+   | Property        | Value                                                             |
+   +-----------------+-------------------------------------------------------------------+
+   | lvm_vg_name     | nova-local                                                        |
+   | vg_state        | adding                                                            |
+   | uuid            | d205f839-0930-4e77-9f10-97089150f812                              |
+   | ihost_uuid      | be0f35f7-31d9-4145-bf6a-0c2556cf398c                              |
+   | lvm_vg_access   | None                                                              |
+   | lvm_max_lv      | 0                                                                 |
+   | lvm_cur_lv      | 0                                                                 |
+   | lvm_max_pv      | 0                                                                 |
+   | lvm_cur_pv      | 0                                                                 |
+   | lvm_vg_size     | 0.00                                                              |
+   | lvm_vg_total_pe | 0                                                                 |
+   | lvm_vg_free_pe  | 0                                                                 |
+   | created_at      | 2018-08-29T06:28:28.226907+00:00                                  |
+   | updated_at      | None                                                              |
+   | parameters      | {u'concurrent_disk_operations': 2, u'instance_backing': u'image'} |
+   +-----------------+-------------------------------------------------------------------+
+
+Create a disk partition to add to the volume group
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-disk-partition-add controller-1 623bbfc0-2b38-432a-acf4-a28db6066cce 16237 -t lvm_phys_vol
+   +-------------+--------------------------------------------------+
+   | Property    | Value                                            |
+   +-------------+--------------------------------------------------+
+   | device_path | /dev/disk/by-path/pci-0000:00:0d.0-ata-3.0-part1 |
+   | device_node | /dev/sdc1                                        |
+   | type_guid   | ba5eba11-0000-1111-2222-000000000001             |
+   | type_name   | None                                             |
+   | start_mib   | None                                             |
+   | end_mib     | None                                             |
+   | size_mib    | 16237                                            |
+   | uuid        | f7bc6095-9375-49fe-83c7-12601c202376             |
+   | ihost_uuid  | be0f35f7-31d9-4145-bf6a-0c2556cf398c             |
+   | idisk_uuid  | 623bbfc0-2b38-432a-acf4-a28db6066cce             |
+   | ipv_uuid    | None                                             |
+   | status      | Creating (on unlock)                             |
+   | created_at  | 2018-08-29T06:30:33.176428+00:00                 |
+   | updated_at  | None                                             |
+   +-------------+--------------------------------------------------+
+
+Wait for the new partition to be created (i.e. status=Ready)
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-disk-partition-list controller-1
+   +--------------------------------------+...+-------------+...+-----------+----------+----------------------+
+   | uuid                                 |...| device_node |...| type_name | size_mib | status               |
+   +--------------------------------------+...+-------------+...+-----------+----------+----------------------+
+   | 7a41aab0-6695-4d16-9003-73238adda75b |...| /dev/sdb1   |...| None      | 16237    | Creating (on unlock) |
+   | f7bc6095-9375-49fe-83c7-12601c202376 |...| /dev/sdc1   |...| None      | 16237    | Creating (on unlock) |
+   +--------------------------------------+...+-------------+...+-----------+----------+----------------------+
+   [wrsroot@controller-0 ~(keystone_admin)]$
+
+Add the partition to the volume group
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-pv-add controller-1 nova-local f7bc6095-9375-49fe-83c7-12601c202376
+   +--------------------------+--------------------------------------------------+
+   | Property                 | Value                                            |
+   +--------------------------+--------------------------------------------------+
+   | uuid                     | 94003d64-4e1b-483a-8a6c-0fc4b1e0e272             |
+   | pv_state                 | adding                                           |
+   | pv_type                  | partition                                        |
+   | disk_or_part_uuid        | f7bc6095-9375-49fe-83c7-12601c202376             |
+   | disk_or_part_device_node | /dev/sdc1                                        |
+   | disk_or_part_device_path | /dev/disk/by-path/pci-0000:00:0d.0-ata-3.0-part1 |
+   | lvm_pv_name              | /dev/sdc1                                        |
+   | lvm_vg_name              | nova-local                                       |
+   | lvm_pv_uuid              | None                                             |
+   | lvm_pv_size              | 0                                                |
+   | lvm_pe_total             | 0                                                |
+   | lvm_pe_alloced           | 0                                                |
+   | ihost_uuid               | be0f35f7-31d9-4145-bf6a-0c2556cf398c             |
+   | created_at               | 2018-08-29T06:33:08.625604+00:00                 |
+   | updated_at               | None                                             |
+   +--------------------------+--------------------------------------------------+
+
+**********************
+Unlocking Controller-1
+**********************
+
+Unlock Controller-1
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-unlock controller-1
+
+
+Wait while the Controller-1 is rebooted. Up to 10 minutes may be
+required for a reboot, depending on hardware.
+
+REMARK: Controller-1 will remain in 'degraded' state until data-syncing
+is complete. The duration is dependant on the virtualization host's
+configuration - i.e., the number and configuration of physical disks
+used to host the nodes' virtual disks. Also, the management network is
+expected to have link capacity of 10000 (1000 is not supported due to
+excessive data-sync time). Use 'fm alarm-list' to confirm status.
+
+::
+
+   [wrsroot@controller-0 ~(keystone_admin)]$ system host-list
+   +----+--------------+-------------+----------------+-------------+--------------+
+   | id | hostname     | personality | administrative | operational | availability |
+   +----+--------------+-------------+----------------+-------------+--------------+
+   | 1  | controller-0 | controller  | unlocked       | enabled     | available    |
+   | 2  | controller-1 | controller  | unlocked       | enabled     | available    |
+   +----+--------------+-------------+----------------+-------------+--------------+
 
 *****************
 System Alarm List
@@ -703,7 +1147,7 @@ System Alarm List
 
 When all nodes are Unlocked, Enabled and Available: check 'fm alarm-list' for issues.
 
-Your StarlingX deployment is now up and running with 1 Controller with Cinder Storage
-and all OpenStack services up and running. You can now proceed with standard OpenStack
-APIs, CLIs and/or Horizon to load Glance Images, configure Nova Flavors, configure
-Neutron networks and launch Nova Virtual Machines.
+Your StarlingX deployment is now up and running with 2x HA Controllers with Cinder
+Storage and all OpenStack services up and running. You can now proceed with standard
+OpenStack APIs, CLIs and/or Horizon to load Glance Images, configure Nova Flavors,
+configure Neutron networks and launch Nova Virtual Machines.
