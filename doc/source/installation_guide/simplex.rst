@@ -4,6 +4,29 @@
 StarlingX/Installation Guide Virtual Environment/Simplex
 ========================================================
 
+----------------------
+Deployment Description
+----------------------
+
+- A single physical server providing all 3x Cloud Functions (Controller,
+  Compute and Storage).
+- Provides no protection against an overall server hardware fault, i.e. (there
+  may be hardware component protection if, for example, HW RAID or 2x Port LAG
+  is used in the deployment.)
+- Provides a solution where only a small amount of Cloud Processing / Storage
+  power is required, and protection against overall server hardware fault is
+  either not required or done at a higher level.
+- Provides a solution where cloud technologioes can be used to deploy and
+  consolidate multiple diverse application types onto a single physical
+  server:
+
+  - Consolidating legacy applications that must run standalone on a server by
+    using multiple virtual machines on a single physical server.
+  - Consolidating legacy applications that run on different Operating Systems
+    or different distributions of Operating Systems by using multiple virtual
+    machines on a single physical server.
+
+
 -----------------
 Preparing Servers
 -----------------
