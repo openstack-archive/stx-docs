@@ -25,21 +25,16 @@ project = 'stx-docs'
 copyright = '2018, StarlingX'
 author = 'StarlingX'
 
-# The short X.Y version
-version = ''
-# The full version, including alpha/beta/rc tags
-release = ''
-
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 #
 version_info = pbr.version.VersionInfo('python-openstackclient')
-#
+
 # The short X.Y version.
-version = version_info.version_string()
+version = ''
 # The full version, including alpha/beta/rc tags.
-release = version_info.release_string()
+release = ''
 
 
 # -- General configuration ---------------------------------------------------
