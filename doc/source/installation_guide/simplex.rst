@@ -4,6 +4,22 @@
 StarlingX/Installation Guide Virtual Environment/Simplex
 ========================================================
 
+----------------------
+Deployment Terminology
+----------------------
+
+.. include:: deployment_terminology.rst
+   :start-after: incl-simplex-deployment-terminology:
+   :end-before: incl-simplex-deployment-terminology-end:
+
+.. include:: deployment_terminology.rst
+   :start-after: incl-standard-controller-deployment-terminology:
+   :end-before: incl-standard-controller-deployment-terminology-end:
+
+.. include:: deployment_terminology.rst
+   :start-after: incl-common-deployment-terminology:
+   :end-before: incl-common-deployment-terminology-end:
+
 -----------------
 Preparing Servers
 -----------------
