@@ -4,6 +4,23 @@
 StarlingX/Installation Guide Virtual Environment/Dedicated Storage
 ==================================================================
 
+----------------------
+Deployment Terminology
+----------------------
+
+.. include:: deployment_terminology.rst
+   :start-after: incl-standard-controller-deployment-terminology:
+   :end-before: incl-standard-controller-deployment-terminology-end:
+
+.. include:: deployment_terminology.rst
+   :start-after: incl-dedicated-storage-deployment-terminology:
+   :end-before: incl-dedicated-storage-deployment-terminology-end:
+
+.. include:: deployment_terminology.rst
+   :start-after: incl-common-deployment-terminology:
+   :end-before: incl-common-deployment-terminology-end:
+
+
 -----------------
 Preparing Servers
 -----------------
