@@ -238,6 +238,108 @@ directory:
    $ cp <starlingx iso image> $HOME/stx-tools/deployment/libvirt/
 
 
+-------------------
+Deployment Glossary
+-------------------
+
+- **Controller Node / Function**
+
+  - Runs Cloud Control Functions for managing Cloud Resources.
+  - Runs all OpenStack Control Functions; e.g. (for managing Images, Virtual
+    Volumes, Virtual Network and Virtual Machines).
+  - Can be part of a 2-node HA Control Node Cluster for running Control
+    Functions either Active/Active or Active/Standby.
+
+- **Compute ( & Network ) Node / Function**
+
+  - Host Applications in Virtual Machines using Compute Resources (CPU, Memory
+    & Disk).
+  - Runs Virtual Switch for realizing virtual networks.
+  - Provides L3 Routing and NET Services.
+
+- **Storage Node / Function**
+
+  - Contains a ser of Disk (SATA, SAS, SSD and/or NVMe).
+  - Runs CEPH Distributed Storage Software.
+  - Part of a HA multi-node CEPH Storage Cluster supporting a replication
+    factor of 2 or 3, Journal CAching and Class Tiering.
+  - Provides HA Persistent Storage for Images, Virtual Volumes (Block Storage)
+    and Pbject Storage.
+
+- **All-In-One Controller Node**
+
+  - A single physical node which provides a Controller Function, Compute
+    Function and Storage Function.
+
+- **OAM Network**
+
+  - Available to Controller nodes only.
+  - The network on which all external StarlingX Platform APIs are exposed,
+    i.e. (REST APIs, Horizon Web Server, SSH, SNMP).
+  - Typically 1GE.
+
+- **Management Network**
+
+  - Available to all nodes.
+  - A private network i.e. (not connected externally) used for:
+
+    - Internal OpenStack / StarlingX monitoring and control.
+    - VM I/O access to storage cluster.
+  - Typically 10GE.
+
+- **Data Network(s)**
+
+  - Available to Compute nodes & All-in-One.
+  - Networks on which the OpenStack / Neutron Provider Networks are realized
+    and subsequently the VM Tenant Networks.
+
+- **IPMI Network**
+
+  - Available to all nodes.
+  - An optional network on which IPMI interfaces of all nodes are connected.
+  - It must be L3/IP reachable from the Controller's OAM Interfaces.
+
+- **PXEBoot Network**
+
+  - Available to all nodes.
+  - An optional network for Controllers to network boot other nodes over.
+
+    - By default, Controllers network boot other nodes over the Management
+      Network.
+
+  - This network is required for a variety of special case situations:
+
+    - Management Network must be IPv6:
+
+      - IPv6 does not support PXEBoot, therefore IPv4 PXEBoot network must be
+        configrued.
+
+    - Management Network must be VLAN tagged:
+
+      - Most Server's BIOS do not support PXEBooting over tagged networks,
+        therefore an untagged PXEBoot network must be configured.
+
+    - Management Network must be shared accros regions:
+
+      - But individual regions' Controllers wnat to only network boot nodes of
+        their own region, therefore spearate per-region PXEBoot Networks must
+        be configured.
+
+- **Infra Network**
+
+  - Available to all nodes.
+  - A deprecated optional network that was historically used for access to the
+    Storage cluster.
+
+- **Node Interfaces**
+
+  - All Nodes' Network Interfaces can, in general, optionally be either:
+
+    - Untagged single port.
+    - Untagged two port LAG, optionally split between redudant L2 Switches.
+    - VLAN on either single port or two port LAG.
+
+
 ------------------
 Deployment Options
 ------------------
