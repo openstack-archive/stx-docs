@@ -20,6 +20,41 @@ Deployment Terminology
    :start-after: incl-common-deployment-terminology:
    :end-before: incl-common-deployment-terminology-end:
 
+
+------------------
+Deployment Diagram
+------------------
+
+.. figure:: figures/starlingx-deployment-options-simplex.png
+   :scale: 50%
+   :alt: All-In-One Simplex Deployment Configuration
+
+   All-In-One Simplex Deployment Configuration
+
+
+----------------------
+Deployment Description
+----------------------
+
+- Provides all 3x Cloud Functions (i.e. Controller, Compute, and Storage) on a
+  single physical server.
+- Provides no protection against an overall server hardware fault. However,
+  there could be hardware component protection if, for example, HW RAID or 2x
+  Port LAG is used in the deployment.
+- Provides a solution where only a small amount of Cloud Processing / Storage
+  power is required, and protection against overall server hardware fault is
+  either not required or done at a higher level.
+- Provides a solution where cloud technologies can be used to deploy and
+  consolidate multiple diverse application types onto a single physical
+  server:
+
+  - Consolidates legacy applications that must run standalone on a server by
+    using multiple virtual machines on a single physical server.
+  - Consolidates legacy applications that run on different Operating Systems
+    or different distributions of Operating Systems by using multiple virtual
+    machines on a single physical server.
+
+
 -----------------
 Preparing Servers
 -----------------
