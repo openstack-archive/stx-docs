@@ -1,28 +1,47 @@
 .. _simplex:
 
-========================================================
-StarlingX/Installation Guide Virtual Environment/Simplex
-========================================================
+===================================
+All-In-One Simplex Deployment Guide
+===================================
+
+.. contents::
+   :local:
+   :depth: 1
 
 ----------------------
-Deployment Terminology
+Deployment Description
 ----------------------
 
-.. include:: deployment_terminology.rst
-   :start-after: incl-simplex-deployment-terminology:
-   :end-before: incl-simplex-deployment-terminology-end:
+The All-In-One Simplex deployment option provides all three Cloud Functions
+(Controller, Compute, and Storage) on a single physical server. With these Cloud
+Functions, multiple application types can be deployed and consolidated onto a
+single physical server. For example, with a All-In-One Simplex deployment you
+can:
 
-.. include:: deployment_terminology.rst
-   :start-after: incl-standard-controller-deployment-terminology:
-   :end-before: incl-standard-controller-deployment-terminology-end:
+- Consolidate legacy applications that must run standalone on a server by using
+  multiple virtual machines on a single physical server.
+- Consolidate legacy applications that run on different operating systems or
+  different distributions of operating systems by using multiple virtual
+  machines on a single physical server.
 
-.. include:: deployment_terminology.rst
-   :start-after: incl-common-deployment-terminology:
-   :end-before: incl-common-deployment-terminology-end:
+Only a small amount of Cloud Processing / Storage power is required with an
+All-In-One Simplex deployment.
 
------------------
-Preparing Servers
------------------
+.. figure:: figures/starlingx-deployment-options-simplex.png
+   :scale: 50%
+   :alt: All-In-One Simplex Deployment Configuration
+
+   *All-In-One Simplex Deployment Configuration*
+
+An All-In-One Simplex deployment provides no protection against an overall
+server hardware fault. Protection against overall server hardware fault is
+either not required, or done at a higher level. Hardware component protection
+could be enabled if, for example, an HW RAID or 2x Port LAG is used in the
+deployment.
+
+--------------------------------------
+Preparing an All-In-One Simplex Server
+--------------------------------------
 
 **********
 Bare Metal
@@ -37,9 +56,9 @@ Hardware Requirements
 ^^^^^^^^^^^^^^^^^^^^^
 
 The recommended minimum requirements for the physical servers where
-StarlingX Simplex will be deployed, include:
+All-In-One Simplex will be deployed are:
 
--  ‘Minimum’ Processor:
+-  Minimum Processor:
 
    -  Typical Hardware Form Factor:
 
@@ -68,7 +87,7 @@ StarlingX Simplex will be deployed, include:
 
 -  Network Ports
 
-   **NOTE:** Simplex configuration requires one or more data ports.
+   **NOTE:** All-In-One Simplex configuration requires one or more data ports.
    This configuration does not require a management port.
 
    -  OAM: 10GE
@@ -85,21 +104,19 @@ Management networks:
 
    $ bash setup_network.sh
 
-
 Building XML for definition of virtual servers:
 
 ::
 
    $ bash setup_configuration.sh -c simplex -i <starlingx iso image>
 
-
 The default XML server definition created by the previous script is:
 
 - simplex-controller-0
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Powering Up a Virtual Server
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^
+Power Up a Virtual Server
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To power up the virtual server, run the following command:
 
@@ -113,9 +130,9 @@ e.g.
 
     $ sudo virsh start simplex-controller-0
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Accessing Virtual Server Consoles
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Access a Virtual Server Console
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The XML for virtual servers in stx-tools repo, deployment/libvirt,
 provides both graphical and text consoles.
@@ -139,7 +156,7 @@ sequence which follows the boot device selection. One has a few seconds
 to do this.
 
 ------------------------------
-Controller-0 Host Installation
+Installing the Controller Host
 ------------------------------
 
 Installing controller-0 involves initializing a host with software and
@@ -199,13 +216,11 @@ Enter a new password for the wrsroot account:
 
    New password:
 
-
 Enter the new password again to confirm it:
 
 ::
 
    Retype new password:
-
 
 Controller-0 is initialized with StarlingX, and is ready for
 configuration.
@@ -240,7 +255,6 @@ with no parameters:
    Enter ! at any prompt to abort...
    ...
 
-
 Select [y] for System Date and Time:
 
 ::
@@ -249,7 +263,6 @@ Select [y] for System Date and Time:
    -----------------------------
 
    Is the current date and time correct?  [y/N]: y
-
 
 For System mode choose "simplex":
 
@@ -261,7 +274,6 @@ For System mode choose "simplex":
    2) duplex - two node redundant configuration
    3) simplex - single node non-redundant configuration
    System mode [duplex-direct]: 3
-
 
 After System Date / Time and System mode:
 
@@ -283,21 +295,19 @@ After System Date / Time and System mode:
    Please complete any out of service commissioning steps with system
    commands and unlock controller to proceed.
 
-
 After config_controller bootstrap configuration, REST API, CLI and
 Horizon interfaces are enabled on the controller-0 OAM IP Address. The
 remaining installation instructions will use the CLI.
 
----------------------------
-Controller-0 Host Provision
----------------------------
+--------------------------------
+Provisioning the Controller Host
+--------------------------------
 
 On Controller-0, acquire Keystone administrative privileges:
 
 ::
 
    controller-0:~$ source /etc/nova/openrc
-
 
 *********************************************
 Configuring Provider Networks at Installation
@@ -309,7 +319,6 @@ Set up one provider network of the vlan type, named providernet-a:
 
    [wrsroot@controller-0 ~(keystone_admin)]$ neutron providernet-create providernet-a --type=vlan
    [wrsroot@controller-0 ~(keystone_admin)]$ neutron providernet-range-create --name providernet-a-range1 --range 100-400 providernet-a
-
 
 *****************************************
 Providing Data Interfaces on Controller-0
@@ -329,7 +338,6 @@ List all interfaces
    | bf6f4cad-1022-4dd7-962b-4d7c47d16d54 | eth1001 | None     |...| None | [u'eth1001'] | []   | []      | MTU=1500   |..
    | f59b9469-7702-4b46-bad5-683b95f0a1cb | enp0s8  | platform |...| None | [u'enp0s8']  | []   | []      | MTU=1500   |..
    +--------------------------------------+---------+----------+...+------+--------------+------+---------+------------+..
-
 
 Configure the data interfaces
 
@@ -362,7 +370,6 @@ Configure the data interfaces
    | accelerated      | [True]                               |
    +------------------+--------------------------------------+
 
-
 *************************************
 Configuring Cinder on Controller Disk
 *************************************
@@ -388,7 +395,6 @@ physical disk
    |                                      |           |         |         |         |            |...
    +--------------------------------------+-----------+---------+---------+---------+------------+...
 
-
 Create the 'cinder-volumes' local volume group
 
 ::
@@ -411,7 +417,6 @@ Create the 'cinder-volumes' local volume group
    | updated_at      | None                                 |
    | parameters      | {u'lvm_type': u'thin'}               |
    +-----------------+--------------------------------------+
-
 
 Create a disk partition to add to the volume group
 
@@ -437,7 +442,6 @@ Create a disk partition to add to the volume group
    | updated_at  | None                                             |
    +-------------+--------------------------------------------------+
 
-
 Wait for the new partition to be created (i.e. status=Ready)
 
 ::
@@ -451,7 +455,6 @@ Wait for the new partition to be created (i.e. status=Ready)
    |                                      |...|            |...|                     |          |        |
    |                                      |...|            |...|                     |          |        |
    +--------------------------------------+...+------------+...+---------------------+----------+--------+
-
 
 Add the partition to the volume group
 
@@ -478,7 +481,6 @@ Add the partition to the volume group
    | updated_at               | None                                             |
    +--------------------------+--------------------------------------------------+
 
-
 *********************************************
 Adding an LVM Storage Backend at Installation
 *********************************************
@@ -497,7 +499,6 @@ Ensure requirements are met to add LVM storage
    storage. Set the 'confirmed' field to execute this operation
    for the lvm backend.
 
-
 Add the LVM storage backend
 
 ::
@@ -514,7 +515,6 @@ Add the LVM storage backend
    | e2697426-2d79-4a83-beb7-2eafa9ceaee5 | lvm-store  | lvm     | configuring |...| cinder   | {}           |
    +--------------------------------------+------------+---------+-------------+...+----------+--------------+
 
-
 Wait for the LVM storage backend to be configured (i.e.
 state=Configured)
 
@@ -527,7 +527,6 @@ state=Configured)
    | 6d750a68-115a-4c26-adf4-58d6e358a00d | file-store | file    | configured | None | glance   | {}           |
    | e2697426-2d79-4a83-beb7-2eafa9ceaee5 | lvm-store  | lvm     | configured | None | cinder   | {}           |
    +--------------------------------------+------------+---------+------------+------+----------+--------------+
-
 
 ***********************************************
 Configuring VM Local Storage on Controller Disk
@@ -554,7 +553,6 @@ physical disk
    |                                      |           |         |         |         |            |...
    +--------------------------------------+-----------+---------+---------+---------+------------+...
 
-
 Create the 'nova-local' volume group
 
 ::
@@ -580,7 +578,6 @@ Create the 'nova-local' volume group
    | parameters      | {u'concurrent_disk_operations': 2, u'instance_backing': u'image'} |
    +-----------------+-------------------------------------------------------------------+
 
-
 Create a disk partition to add to the volume group
 
 ::
@@ -605,7 +602,6 @@ Create a disk partition to add to the volume group
    | updated_at  | None                                             |
    +-------------+--------------------------------------------------+
 
-
 Wait for the new partition to be created (i.e. status=Ready)
 
 ::
@@ -619,7 +615,6 @@ Wait for the new partition to be created (i.e. status=Ready)
    |                                      |...|            |...|                     |          |        |
    |                                      |...|            |...|                     |          |        |
    +--------------------------------------+...+------------+...+---------------------+----------+--------+
-
 
 Add the partition to the volume group
 
@@ -646,7 +641,6 @@ Add the partition to the volume group
    | updated_at               | None                                             |
    +--------------------------+--------------------------------------------------+
 
-
 **********************
 Unlocking Controller-0
 **********************
@@ -657,7 +651,6 @@ Controller-1. Use the system host-unlock command:
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-unlock controller-0
-
 
 The host is rebooted. During the reboot, the command line is
 unavailable, and any ssh connections are dropped. To monitor the
@@ -673,7 +666,6 @@ On Controller-0, acquire Keystone administrative privileges:
 
    controller-0:~$ source /etc/nova/openrc
 
-
 Verify that the controller-0 services are running:
 
 ::
@@ -688,14 +680,12 @@ Verify that the controller-0 services are running:
    ...
    +-----+-------------------------------+--------------+----------------+
 
-
 Verify that controller-0 has controller and compute subfunctions
 
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-show 1 | grep subfunctions
    | subfunctions        | controller,compute                         |
-
 
 Verify that controller-0 is unlocked, enabled, and available:
 
@@ -708,7 +698,6 @@ Verify that controller-0 is unlocked, enabled, and available:
    | 1  | controller-0 | controller  | unlocked       | enabled     | available    |
    +----+--------------+-------------+----------------+-------------+--------------+
 
-
 *****************
 System Alarm List
 *****************
@@ -719,3 +708,19 @@ Your StarlingX deployment is now up and running with 1 Controller with Cinder St
 and all OpenStack services up and running. You can now proceed with standard OpenStack
 APIs, CLIs and/or Horizon to load Glance Images, configure Nova Flavors, configure
 Neutron networks and launch Nova Virtual Machines.
+
+----------------------
+Deployment Terminology
+----------------------
+
+.. include:: deployment_terminology.rst
+   :start-after: incl-simplex-deployment-terminology:
+   :end-before: incl-simplex-deployment-terminology-end:
+
+.. include:: deployment_terminology.rst
+   :start-after: incl-standard-controller-deployment-terminology:
+   :end-before: incl-standard-controller-deployment-terminology-end:
+
+.. include:: deployment_terminology.rst
+   :start-after: incl-common-deployment-terminology:
+   :end-before: incl-common-deployment-terminology-end:
