@@ -642,7 +642,9 @@ Available storage tiers in Storage-N
    +--------------------------------------+---------+--------+--------------------------------------+
 
 
-Create a storage function (an OSD) in Storage-N
+Create a storage function (i.e. OSD) in Storage-N. At least two unlocked and
+enabled hosts with monitors are required. Candidates are: Controller-0,
+Controller-1, and Storage-0.
 
 ::
 
