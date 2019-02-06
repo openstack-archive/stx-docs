@@ -74,21 +74,22 @@ Management networks:
    $ bash setup_network.sh
 
 
-Building xmls for definition of virtual servers:
+Building XML for definition of virtual servers:
 
 ::
 
-   $ bash setup_dedicated_storage.sh -i <starlingx iso image>
+   $ bash setup_configuration.sh -c dedicatedstorage -i <starlingx iso image>
 
 
-The xml server definitions that are created by the previous script are:
+The default XML server definitions that are created by the previous script
+are:
 
-- controller-0
-- controller-1
-- compute-0
-- compute-1
-- storage-0
-- storage-1
+- dedicatedstorage-controller-0
+- dedicatedstorage-controller-1
+- dedicatedstorage-compute-0
+- dedicatedstorage-compute-1
+- dedicatedstorage-storage-0
+- dedicatedstorage-storage-1
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Powering Up a Virtual Server
@@ -105,14 +106,14 @@ e.g.
 
 ::
 
-    $ sudo virsh start controller-0
+    $ sudo virsh start dedicatedstorage-controller-0
 
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Accessing Virtual Server Consoles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The xml for virtual servers in stx-tools repo, deployment/libvirt,
+The XML for virtual servers in stx-tools repo, deployment/libvirt,
 provides both graphical and text consoles.
 
 Access the graphical console in virt-manager by right-click on the
@@ -523,11 +524,11 @@ Controller-0 list the hosts:
    | id | hostname     | personality | administrative | operational | availability |
    +----+--------------+-------------+----------------+-------------+--------------+
    | 1  | controller-0 | controller  | unlocked       | enabled     | available    |
-   | 3  | controller-1 | controller  | locked         | disabled    | online      |
-   | 4  | compute-0    | compute     | locked         | disabled    | online      |
-   | 5  | storage-0    | storage     | locked         | disabled    | online      |
-   | 6  | storage-1    | storage     | locked         | disabled    | online      |
-   | 7  | storage-2    | storage     | locked         | disabled    | online      |
+   | 2  | controller-1 | controller  | locked         | disabled    | online       |
+   | 3  | compute-0    | compute     | locked         | disabled    | online       |
+   | 4  | compute-1    | compute     | locked         | disabled    | online       |
+   | 5  | storage-0    | storage     | locked         | disabled    | online       |
+   | 6  | storage-1    | storage     | locked         | disabled    | online       |
    +----+--------------+-------------+----------------+-------------+--------------+
 
 
@@ -869,13 +870,12 @@ Unlocked, Enabled, and Available:
    | id | hostname     | personality | administrative | operational | availability |
    +----+--------------+-------------+----------------+-------------+--------------+
    | 1  | controller-0 | controller  | unlocked       | enabled     | available    |
-   | 3  | controller-1 | controller  | unlocked       | enabled     | available    |
-   | 4  | compute-0    | compute     | unlocked       | enabled     | available    |
+   | 2  | controller-1 | controller  | unlocked       | enabled     | available    |
+   | 3  | compute-0    | compute     | unlocked       | enabled     | available    |
+   | 4  | compute-1    | compute     | unlocked       | enabled     | available    |
    | 5  | storage-0    | storage     | unlocked       | enabled     | available    |
    | 6  | storage-1    | storage     | unlocked       | enabled     | available    |
-   | 7  | storage-2    | storage     | unlocked       | enabled     | available    |
    +----+--------------+-------------+----------------+-------------+--------------+
-   [wrsroot@controller-0 ~(keystone_admin)]$
 
 
 ******************************
