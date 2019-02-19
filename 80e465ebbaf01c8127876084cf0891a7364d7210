@@ -1,0 +1,11 @@
+Code-Review+2: Bruce Jones <bruce.e.jones@intel.com>
+Code-Review+1: Scott Rifenbark <srifenbark@gmail.com>
+Code-Review+1: Kristal Dale <kristal.dale@intel.com>
+Code-Review+2: Dean Troyer <dtroyer@gmail.com>
+Workflow+1: Dean Troyer <dtroyer@gmail.com>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Tue, 19 Feb 2019 17:50:15 +0000
+Reviewed-on: https://review.openstack.org/634995
+Project: openstack/stx-docs
+Branch: refs/heads/master
