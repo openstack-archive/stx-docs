@@ -20,6 +20,40 @@ Deployment Terminology
    :start-after: incl-common-deployment-terminology:
    :end-before: incl-common-deployment-terminology-end:
 
+------------------
+Deployment Diagram
+------------------
+
+.. figure:: figures/starlingx-deployment-options-dedicated-storage.png
+   :scale: 50%
+   :alt: Dedicated Storage Deployment Configuration
+
+   Dedicated Storage Deployment Configuration
+
+
+----------------------
+Deployment Description
+----------------------
+
+- The Standard Starlingx Deployment Option with independent Controller,
+  Compute and Storage Nodes.
+- Provides the maximum capacity for a single region deployment, a growth
+  path is supported to a multi-region deployment option by adding a
+  secondary region.
+- A 2x Node HA Controller Cluster, with HA Services running across the
+  Controller Nodes in either Active/Active or Active/Standby mode.
+- A pool of up to 100 Compute Nodes for hosting virtual machines and virtual
+  networks.
+- A 2-9x Node HA CEPH Storage Cluster for hosting virtual volumes, images and
+  object storage:
+
+  - Supports a replication factor of 2 or 3.
+  - Storage Nodes are deployed in replication groups of 2 or 3, and replication
+    of objects are done strictly within the replication group:
+
+    - up to 4 groups of 2x Storage Nodes, or
+    - up to 3 groups of 3x Storage Nodes.
+
 
 -----------------
 Preparing Servers
