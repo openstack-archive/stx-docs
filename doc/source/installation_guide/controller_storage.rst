@@ -16,6 +16,43 @@ Deployment Terminology
    :start-after: incl-common-deployment-terminology:
    :end-before: incl-common-deployment-terminology-end:
 
+
+------------------
+Deployment Diagram
+------------------
+
+.. figure:: figures/starlingx-deployment-options-controller-storage.png
+   :scale: 50%
+   :alt: Controller Storage Deployment Configuration
+
+   Controller Storage Deployment Configuration
+
+
+----------------------
+Deployment Description
+----------------------
+
+- A 2x Node High Availability Controller / Storage Cluster managing a small
+  (up to 7) pool of Compute Nodes:
+
+  - The limit on the size of the Compute Node pool is due to the capacity of
+    the Storage Function.
+  - A growth path for Storage is available to the full Standard solution
+    with an independent CEPH Storage Cluster.
+
+- The 2x Node High Availability Controller / Storage Cluster provides:
+
+  - High Availability Services runnning across the Controller Nodes in either
+    Active/Active or Active/Standby mode.
+  - Storage Function running on top of LVM on single second disk, DRBD-sync'd
+    between the Controler Nodes.
+
+- On overall Controller Node failure, all Controller High Availability Services
+  go Active on the remaining healthy Controller Node.
+- On overall Compute Node failure, Virtual Machines on failed Compute Node are
+  recovered on the remaining healthy Compute Nodes.
+
+
 -----------------
 Preparing Servers
 -----------------
