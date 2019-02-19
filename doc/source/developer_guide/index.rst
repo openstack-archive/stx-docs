@@ -223,11 +223,11 @@ to build the base Docker image.
       ENV ftp_proxy " http://your.actual_ftp_proxy.com:your_port "
       RUN echo " proxy=http://your-proxy.com:port " >> /etc/yum.conf
 
-#. The Makefile automates the Base Docker image build:
+#. The ``tb.sh`` script automates the Base Docker image build:
 
    .. code:: sh
 
-       make
+       ./tb.sh create
 
 ----------------------------------
 Build the CentOS Mirror Repository
