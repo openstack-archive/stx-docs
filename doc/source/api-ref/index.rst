@@ -10,6 +10,7 @@ StarlingX project REST API references:
 * `Fault Management <stx-fault/index.html>`__
 * `High Availability <stx-ha/index.html>`__
 * `NFV <stx-nfv/index.html>`__
+* `Software Updates <stx-update/index.html>`__
 
 StarlingX also has API references for the modified OpenStack APIs:
 
