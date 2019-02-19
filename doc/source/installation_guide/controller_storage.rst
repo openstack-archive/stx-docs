@@ -1,24 +1,46 @@
 .. _controller-storage:
 
-===================================================================
-StarlingX/Installation Guide Virtual Environment/Controller Storage
-===================================================================
+===================================
+Controller Storage Deployment Guide
+===================================
+
+.. contents::
+   :local:
+   :depth: 1
 
 ----------------------
-Deployment Terminology
+Deployment Description
 ----------------------
 
-.. include:: deployment_terminology.rst
-   :start-after: incl-standard-controller-deployment-terminology:
-   :end-before: incl-standard-controller-deployment-terminology-end:
+The Controller Storage deployment option provides a 2x Node High Availability
+Controller / Storage Cluster with:
 
-.. include:: deployment_terminology.rst
-   :start-after: incl-common-deployment-terminology:
-   :end-before: incl-common-deployment-terminology-end:
+- A pool of up to seven Compute Nodes (pool size limit due to the capacity of
+  the Storage Function).
+- A growth path for Storage to the full Standard solution with an independent
+  CEPH Storage Cluster.
+- High Availability Services runnning across the Controller Nodes in either
+  Active/Active or Active/Standby mode.
+- Storage Function running on top of LVM on single second disk, DRBD-sync'd
+  between the Controller Nodes.
 
------------------
-Preparing Servers
------------------
+.. figure:: figures/starlingx-deployment-options-controller-storage.png
+   :scale: 50%
+   :alt: Controller Storage Deployment Configuration
+
+   *Controller Storage Deployment Configuration*
+
+A Controller Storage deployment provides protection against overall Controller
+Node and Compute Node failure:
+
+- On overall Controller Node failure, all Controller High Availability Services
+  go Active on the remaining healthy Controller Node.
+- On overall Compute Node failure, Virtual Machines on failed Compute Node are
+  recovered on the remaining healthy Compute Nodes.
+
+------------------------------------
+Preparing Controller Storage Servers
+------------------------------------
 
 **********
 Bare Metal
@@ -34,9 +56,9 @@ Hardware Requirements
 ^^^^^^^^^^^^^^^^^^^^^
 
 The recommended minimum requirements for the physical servers where
-StarlingX Controller Storage will be deployed, include:
+Controller Storage will be deployed, include:
 
--  ‘Minimum’ Processor:
+-  Minimum Processor:
 
    -  Dual-CPU Intel® Xeon® E5 26xx Family (SandyBridge) 8 cores/socket
 
@@ -80,13 +102,11 @@ Management networks:
 
    $ bash setup_network.sh
 
-
 Building XML for definition of virtual servers:
 
 ::
 
    $ bash setup_configuration.sh -c controllerstorage -i <starlingx iso image>
-
 
 The default XML server definitions that are created by the previous script
 are:
@@ -96,9 +116,9 @@ are:
 - controllerstorage-compute-0
 - controllerstorage-compute-1
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Powering Up a Virtual Server
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^
+Power Up a Virtual Server
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To power up a virtual server, run the following command:
 
@@ -106,17 +126,15 @@ To power up a virtual server, run the following command:
 
     $ sudo virsh start <server-xml-name>
 
-
 e.g.
 
 ::
 
     $ sudo virsh start controllerstorage-controller-0
 
-
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Accessing Virtual Server Consoles
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Access Virtual Server Consoles
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The XML for virtual servers in stx-tools repo, deployment/libvirt,
 provides both graphical and text consoles.
@@ -127,9 +145,9 @@ domain (the server) and selecting "Open".
 Access the textual console with the command "virsh console $DOMAIN",
 where DOMAIN is the name of the server shown in virsh.
 
-When booting the controller-0 for the first time, both the serial and
+When booting the Controller-0 for the first time, both the serial and
 graphical consoles will present the initial configuration menu for the
-cluster. One can select serial or graphical console for controller-0.
+cluster. One can select serial or graphical console for Controller-0.
 For the other nodes however only serial is used, regardless of which
 option is selected.
 
@@ -139,17 +157,17 @@ console $DOMAIN" command promptly after power on to see the initial boot
 sequence which follows the boot device selection. One has a few seconds
 to do this.
 
-------------------------------
-Controller-0 Host Installation
-------------------------------
+--------------------------------
+Installing the Controller-0 Host
+--------------------------------
 
-Installing controller-0 involves initializing a host with software and
+Installing Controller-0 involves initializing a host with software and
 then applying a bootstrap configuration from the command line. The
 configured bootstrapped host becomes Controller-0.
 
 Procedure:
 
-#. Power on the server that will be controller-0 with the StarlingX ISO
+#. Power on the server that will be Controller-0 with the StarlingX ISO
    on a USB in a bootable USB slot.
 #. Configure the controller using the config_controller script.
 
@@ -180,7 +198,6 @@ StarlingX ISO booting options:
 
    -  Select "Standard Security Boot Profile" as the Security Profile.
 
-
 Monitor the initialization. When it is complete, a reboot is initiated
 on the Controller-0 host, briefly displays a GNU GRUB screen, and then
 boots automatically into the StarlingX image.
@@ -194,20 +211,17 @@ password. Enter the current password (wrsroot):
    Changing password for wrsroot.
    (current) UNIX Password:
 
-
 Enter a new password for the wrsroot account:
 
 ::
 
    New password:
 
-
 Enter the new password again to confirm it:
 
 ::
 
    Retype new password:
-
 
 Controller-0 is initialized with StarlingX, and is ready for
 configuration.
@@ -219,7 +233,7 @@ Configuring Controller-0
 This section describes how to perform the Controller-0 configuration
 interactively just to bootstrap system with minimum critical data.
 Except where noted, all the commands must be executed from the console
-of the active controller (here assumed to be controller-0).
+of the active controller (here assumed to be Controller-0).
 
 When run interactively, the config_controller script presents a series
 of prompts for initial configuration of StarlingX:
@@ -230,7 +244,7 @@ of prompts for initial configuration of StarlingX:
    questions with answers applicable to your particular physical setup.
 
 The script is used to configure the first controller in the StarlingX
-cluster as controller-0. The prompts are grouped by configuration
+cluster as Controller-0. The prompts are grouped by configuration
 area. To start the script interactively, use the following command
 with no parameters:
 
@@ -241,7 +255,6 @@ with no parameters:
    ================
    Enter ! at any prompt to abort...
    ...
-
 
 Accept all the default values immediately after ‘system date and time’.
 
@@ -263,21 +276,19 @@ Accept all the default values immediately after ‘system date and time’.
 
    Please complete any out of service commissioning steps with system commands and unlock controller to proceed.
 
-
 After config_controller bootstrap configuration, REST API, CLI and
-Horizon interfaces are enabled on the controller-0 OAM IP Address. The
+Horizon interfaces are enabled on the Controller-0 OAM IP Address. The
 remaining installation instructions will use the CLI.
 
----------------------------------
-Controller-0 and System Provision
----------------------------------
+------------------------------------
+Provisioning Controller-0 and System
+------------------------------------
 
 On Controller-0, acquire Keystone administrative privileges:
 
 ::
 
    controller-0:~$ source /etc/nova/openrc
-
 
 *********************************************
 Configuring Provider Networks at Installation
@@ -292,7 +303,6 @@ Set up one provider network of the vlan type, named providernet-a:
 
    [wrsroot@controller-0 ~(keystone_admin)]$ neutron providernet-create providernet-a --type=vlan
    [wrsroot@controller-0 ~(keystone_admin)]$ neutron providernet-range-create --name providernet-a-range1 --range 100-400 providernet-a
-
 
 *************************************
 Configuring Cinder on Controller Disk
@@ -311,7 +321,6 @@ physical disk
    | 004f4c09-2f61-46c5-8def-99b2bdeed83c | /dev/sda  | 2048    | HDD     | 200.0 | 0.0        |              |...
    | 89694799-0dd8-4532-8636-c0d8aabfe215 | /dev/sdb  | 2064    | HDD     | 200.0 | 199.997    |              |...
    +--------------------------------------+-----------+---------+---------+-------+------------+--------------+...
-
 
 Create the 'cinder-volumes' local volume group
 
@@ -338,7 +347,6 @@ Create the 'cinder-volumes' local volume group
    | parameters      | {u'lvm_type': u'thin'}               |
    +-----------------+--------------------------------------+
 
-
 Create a disk partition to add to the volume group
 
 ::
@@ -363,7 +371,6 @@ Create a disk partition to add to the volume group
    | updated_at  | None                                             |
    +-------------+--------------------------------------------------+
 
-
 Wait for the new partition to be created (i.e. status=Ready)
 
 ::
@@ -377,7 +384,6 @@ Wait for the new partition to be created (i.e. status=Ready)
    |                                      |...|            |...|                     |          |        |
    |                                      |...|            |...|                     |          |        |
    +--------------------------------------+...+------------+...+---------------------+----------+--------+
-
 
 Add the partition to the volume group
 
@@ -404,13 +410,11 @@ Add the partition to the volume group
    | updated_at               | None                                             |
    +--------------------------+--------------------------------------------------+
 
-
 Enable LVM Backend.
 
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system storage-backend-add lvm -s cinder --confirmed
-
 
 Wait for the storage backend to leave "configuring" state. Confirm LVM
 Backend storage is configured:
@@ -425,12 +429,11 @@ Backend storage is configured:
    | a4607355-be7e-4c5c-bf87-c71a0e2ad380 | lvm-store  | lvm     | configured | None | cinder   |...
    +--------------------------------------+------------+---------+------------+------+----------+...
 
-
 **********************
 Unlocking Controller-0
 **********************
 
-You must unlock controller-0 so that you can use it to install the
+You must unlock Controller-0 so that you can use it to install the
 remaining hosts. On Controller-0, acquire Keystone administrative
 privileges. Use the system host-unlock command:
 
@@ -438,10 +441,9 @@ privileges. Use the system host-unlock command:
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-unlock controller-0
 
-
 The host is rebooted. During the reboot, the command line is
 unavailable, and any ssh connections are dropped. To monitor the
-progress of the reboot, use the controller-0 console.
+progress of the reboot, use the Controller-0 console.
 
 ****************************************
 Verifying the Controller-0 Configuration
@@ -452,7 +454,6 @@ On Controller-0, acquire Keystone administrative privileges:
 ::
 
    controller-0:~$ source /etc/nova/openrc
-
 
 Verify that the StarlingX controller services are running:
 
@@ -468,8 +469,7 @@ Verify that the StarlingX controller services are running:
    ...
    +-----+-------------------------------+--------------+----------------+
 
-
-Verify that controller-0 is unlocked, enabled, and available:
+Verify that Controller-0 is unlocked, enabled, and available:
 
 ::
 
@@ -480,10 +480,9 @@ Verify that controller-0 is unlocked, enabled, and available:
    | 1  | controller-0 | controller  | unlocked       | enabled     | available    |
    +----+--------------+-------------+----------------+-------------+--------------+
 
-
------------------------------------------
-Controller-1 / Compute Hosts Installation
------------------------------------------
+---------------------------------------
+Installing Controller-1 / Compute Hosts
+---------------------------------------
 
 After initializing and configuring an active controller, you can add and
 configure a backup controller and additional compute hosts. For each
@@ -502,7 +501,6 @@ Power on Host. In host console you will see:
    Please configure the personality for this node from the
    controller node in order to proceed.
 
-
 ***************************************
 Updating Host Host Name and Personality
 ***************************************
@@ -512,7 +510,6 @@ On Controller-0, acquire Keystone administrative privileges:
 ::
 
    controller-0:~$ source /etc/nova/openrc
-
 
 Wait for Controller-0 to discover new host, list the host until new
 UNKNOWN host shows up in table:
@@ -527,20 +524,17 @@ UNKNOWN host shows up in table:
    | 2  | None         | None        | locked         | disabled    | offline      |
    +----+--------------+-------------+----------------+-------------+--------------+
 
-
 Use the system host-update to update host personality attribute:
 
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-update 2 personality=controller hostname=controller-1
 
-
 Or for compute-0:
 
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-update 3 personality=compute hostname=compute-0
-
 
 See also: 'system help host-update'
 
@@ -566,7 +560,6 @@ shown in the install_state field.
    | install_state       | booting                              |
    | install_state_info  | None                                 |
 
-
 Wait while the host is configured and rebooted. Up to 20 minutes may be
 required for a reboot, depending on hardware. When the reboot is
 complete, the host is reported as Locked, Disabled, and Online.
@@ -590,9 +583,8 @@ Controller-0 list the hosts:
    | 4  | compute-1    | compute     | locked         | disabled    | online       |
    +----+--------------+-------------+----------------+-------------+--------------+
 
-
 -------------------------
-Controller-1 Provisioning
+Provisioning Controller-1
 -------------------------
 
 On Controller-0, list hosts
@@ -608,7 +600,6 @@ On Controller-0, list hosts
    ...
    +----+--------------+-------------+----------------+-------------+--------------+
 
-
 ***********************************************
 Provisioning Network Interfaces on Controller-1
 ***********************************************
@@ -620,13 +611,11 @@ been discovered:
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-port-list controller-1
 
-
 Provision the oam interface for Controller-1:
 
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-if-modify -n <oam interface> -c platform --networks oam controller-1 <oam interface>
-
 
 ************************************
 Provisioning Storage on Controller-1
@@ -645,7 +634,6 @@ physical disk
    | f7ce53db-7843-457e-8422-3c8f9970b4f2 | /dev/sda  | 2048    | HDD     | 200.0 | 0.0        |
    | 70b83394-968e-4f0d-8a99-7985cd282a21 | /dev/sdb  | 2064    | HDD     | 200.0 | 199.997    |
    +--------------------------------------+-----------+---------+---------+-------+------------+
-
 
 Assign Cinder storage to the physical disk
 
@@ -672,7 +660,6 @@ Assign Cinder storage to the physical disk
    | parameters      | {u'lvm_type': u'thin'}               |
    +-----------------+--------------------------------------+
 
-
 Create a disk partition to add to the volume group based on uuid of the
 physical disk
 
@@ -698,7 +685,6 @@ physical disk
    | updated_at  | None                                             |
    +-------------+--------------------------------------------------+
 
-
 Wait for the new partition to be created (i.e. status=Ready)
 
 ::
@@ -712,7 +698,6 @@ Wait for the new partition to be created (i.e. status=Ready)
    |                                      |...|            | ... |        |                      |
    |                                      |...|            | ... |        |                      |
    +--------------------------------------+...+------------+...+--------+----------------------+
-
 
 Add the partition to the volume group
 
@@ -739,7 +724,6 @@ Add the partition to the volume group
    | updated_at               | None                                             |
    +--------------------------+--------------------------------------------------+
 
-
 **********************
 Unlocking Controller-1
 **********************
@@ -749,7 +733,6 @@ Unlock Controller-1
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-unlock controller-1
-
 
 Wait while the Controller-1 is rebooted. Up to 10 minutes may be
 required for a reboot, depending on hardware.
@@ -772,10 +755,9 @@ confirm status.
    | 2  | controller-1 | controller  | unlocked       | enabled     | available    |
    ...
 
-
-----------------------
-Compute Host Provision
-----------------------
+---------------------------
+Provisioning a Compute Host
+---------------------------
 
 You must configure the network interfaces and the storage disks on a
 host before you can unlock it. For each Compute Host do the following:
@@ -785,7 +767,6 @@ On Controller-0, acquire Keystone administrative privileges:
 ::
 
    controller-0:~$ source /etc/nova/openrc
-
 
 *************************************************
 Provisioning Network Interfaces on a Compute Host
@@ -803,13 +784,11 @@ pci-addresses that have been discovered:
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-port-list compute-0
 
-
 Provision the data interface for Compute:
 
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-if-modify -p providernet-a -c data compute-0 eth1000
-
 
 ***************************
 VSwitch Virtual Environment
@@ -834,7 +813,6 @@ vswitch cores to 1:
    | 690d25d2-4f99-4ba1-a9ba-0484eec21cc7 | 3     | 0         | 3     | 0      |...
    +--------------------------------------+-------+-----------+-------+--------+...
 
-
 **************************************
 Provisioning Storage on a Compute Host
 **************************************
@@ -852,7 +830,6 @@ the physical disk(s) to be used for nova local:
    | 8a9d2c09-d3a7-4781-bd06-f7abf603713a | /dev/sda  | 2048    | HDD     | 200.0 | 172.164    |...
    | 5ad61bd1-795a-4a76-96ce-39433ef55ca5 | /dev/sdb  | 2064    | HDD     | 200.0 | 199.997    |...
    +--------------------------------------+-----------+---------+---------+-------+------------+...
-
 
 Create the 'nova-local' local volume group:
 
@@ -879,7 +856,6 @@ Create the 'nova-local' local volume group:
    | parameters      | {u'concurrent_disk_operations': 2, u'instance_backing': u'image'} |
    +-----------------+-------------------------------------------------------------------+
 
-
 Create a disk partition to add to the volume group based on uuid of the
 physical disk:
 
@@ -905,7 +881,6 @@ physical disk:
    | created_at               | 2018-08-22T08:07:14.205690+00:00           |
    | updated_at               | None                                       |
    +--------------------------+--------------------------------------------+
-
 
 Specify the local storage space as local copy-on-write image volumes in
 nova-local:
@@ -943,7 +918,6 @@ Compute node:
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-unlock compute-0
-
 
 Wait while the Compute node is rebooted. Up to 10 minutes may be
 required for a reboot, depending on hardware. The host is rebooted, and
@@ -983,3 +957,15 @@ Your StarlingX deployment is now up and running with 2x HA Controllers with Cind
 Storage, 2x Computes and all OpenStack services up and running. You can now proceed
 with standard OpenStack APIs, CLIs and/or Horizon to load Glance Images, configure
 Nova Flavors, configure Neutron networks and launch Nova Virtual Machines.
+
+----------------------
+Deployment Terminology
+----------------------
+
+.. include:: deployment_terminology.rst
+   :start-after: incl-standard-controller-deployment-terminology:
+   :end-before: incl-standard-controller-deployment-terminology-end:
+
+.. include:: deployment_terminology.rst
+   :start-after: incl-common-deployment-terminology:
+   :end-before: incl-common-deployment-terminology-end:
