@@ -20,6 +20,85 @@ Deployment Terminology
    :start-after: incl-common-deployment-terminology:
    :end-before: incl-common-deployment-terminology-end:
 
+------------------
+Deployment Diagram
+------------------
+
+*****************
+All-In-One Duplex
+*****************
+
+.. figure:: figures/starlingx-deployment-options-duplex.png
+   :scale: 50%
+   :alt: All-In-One Duplex Deployment Configuration
+
+   All-In-One Duplex Deployment Configuration
+
+**************************
+All-In-One Duplex Extended
+**************************
+
+.. figure:: figures/starlingx-deployment-options-duplex-extended.png
+   :scale: 50%
+   :alt: All-In-One Duplex Extended Deployment Configuration
+
+   All-In-One Duplex Extended Deployment Configuration
+
+
+----------------------
+Deployment Description
+----------------------
+
+*****************
+All-In-One Duplex
+*****************
+
+- Provides all three Cloud Functions (Controller, Compute, and Storage) on two
+  physical servers.
+- Provides a solution where cloud technologies can be used to deploy and
+  consolidate multiple diverse application types onto a protected pair of
+  physical servers:
+
+  - Consolidates legacy applications that must run standalone on a server by
+    using multiple virtual machines.
+  - Consolidates legacy applications that run on different Operating Systems
+    or different distributions of Operating Systems by using multiple virtual
+    machines.
+
+- This two Node Cluster enables:
+
+  - High Availability Services running on the Controller Function across the
+    two physical servers in either Active/Active or Active/Standby mode.
+  - Storage Function running on top of LVM on single second disk, DRBD-sync'd
+    between the servers.
+  - Virtual Machines being scheduled on both Compute Functions.
+
+- On overall server hardware fault:
+
+  - All Controller High Availability Services go Active on remaining
+    healthy server.
+  - All Virtual Machines are recovered on remaining healthy server.
+
+- This solution is required for a variety of special case situations:
+
+  - Small amount of Cloud Processing/Storage.
+  - Protection against overall server hardware fault.
+
+
+**************************
+All-In-One Duplex Extended
+**************************
+
+- Provides an extension in the capacity of the All-In-One Duplex Deployment.
+- Up to four Compute Nodes can be added to the All-In-One Duplex Deployment.
+  This configuration is limited to four Compute Nodes as the Controller
+  Function on the All-In-One Controllers has only a portion of the processing
+  power of the overall server.
+- Virtual Machines can be scheduled on either of the All-In-One Controller
+  Nodes and/or the Compute Nodes.
+- Allows a capacity growth path for someone starting with an All-In-One Duplex
+  deployment.
+
 
 -----------------
 Preparing Servers
