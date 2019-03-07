@@ -8,6 +8,12 @@ All-In-One Simplex Deployment Guide
    :local:
    :depth: 1
 
+**NOTE:**  The instructions to setup a StarlingX One Node Configuration
+(AIO-SX) system with containerized openstack services in this guide
+are under development.
+For approved instructions, see the
+`One Node Configuration wiki page <https://wiki.openstack.org/wiki/StarlingX/Containers/Installation>`__.
+
 ----------------------
 Deployment Description
 ----------------------

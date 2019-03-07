@@ -8,6 +8,12 @@ Dedicated Storage Deployment Guide
    :local:
    :depth: 1
 
+**NOTE:**  The instructions to setup a StarlingX Cloud with Dedicated
+Storage with containerized openstack services in this guide
+are under development.
+For approved instructions, see the
+`StarlingX Cloud with Dedicated Storage wiki page <https://wiki.openstack.org/wiki/StarlingX/Containers/InstallationOnStandardStorage>`__.
+
 ----------------------
 Deployment Description
 ----------------------
