@@ -8,6 +8,12 @@ All-In-One Duplex Deployment Guide
    :local:
    :depth: 1
 
+**NOTE:**  The instructions to setup a StarlingX All-in-One Duplex 
+(AIO-DX) with containerized openstack services in this guide
+are under development.
+For approved instructions, see the
+`All in One Duplex Configuration wiki page <https://wiki.openstack.org/wiki/StarlingX/Containers/InstallationOnAIODX>`__.
+
 ----------------------
 Deployment Description
 ----------------------
