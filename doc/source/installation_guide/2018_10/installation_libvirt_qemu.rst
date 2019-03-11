@@ -1,13 +1,11 @@
-.. _Installation-libvirt-qemu:
+=====================================
+Installation libvirt qemu stx.2018.10
+=====================================
 
-=========================
-Installation libvirt qemu
-=========================
-
-Installation for StarlingX using Libvirt/QEMU virtualization.
+Installation for StarlingX stx.2018.10 using Libvirt/QEMU virtualization.
 
 ---------------------
-Hardware Requirements
+Hardware requirements
 ---------------------
 
 A workstation computer with:
@@ -15,28 +13,27 @@ A workstation computer with:
 -  Processor: x86_64 only supported architecture with BIOS enabled
    hardware virtualization extensions
 -  Memory: At least 32GB RAM
--  Hard Disk: 500GB HDD
+-  Hard disk: 500GB HDD
 -  Network: One network adapter with active Internet connection
 
 ---------------------
-Software Requirements
+Software requirements
 ---------------------
 
 A workstation computer with:
 
--  Operating System: This process is known to work on Ubuntu 16.04 and
-   is likely to work on other Linux OS's with some appropriate
-   adjustments.
+-  Operating system: This process is known to work on Ubuntu 16.04 and
+   is likely to work on other Linux OS's with some appropriate adjustments.
 -  Proxy settings configured (if applies)
 -  Git
 -  KVM/VirtManager
--  Libvirt Library
--  QEMU Full System Emulation Binaries
+-  Libvirt library
+-  QEMU full-system emulation binaries
 -  stx-tools project
--  StarlingX ISO Image
+-  StarlingX ISO image
 
 ----------------------------
-Deployment Environment Setup
+Deployment environment setup
 ----------------------------
 
 *************
@@ -76,7 +73,7 @@ This rc file shows the defaults baked into the scripts:
 
 
 *************************
-Install stx-tools Project
+Install stx-tools project
 *************************
 
 Clone the stx-tools project into a working directory.
@@ -102,7 +99,7 @@ If you created a configuration, load it from stxcloud.rc:
 
 
 ****************************************
-Installing Requirements and Dependencies
+Installing requirements and dependencies
 ****************************************
 
 Install the required packages and configure QEMU. This only needs to be
@@ -115,7 +112,7 @@ time):
 
 
 ******************
-Disabling Firewall
+Disabling firewall
 ******************
 
 Unload firewall and disable firewall on boot:
@@ -127,7 +124,7 @@ Unload firewall and disable firewall on boot:
 
 
 ******************
-Configure Networks
+Configure networks
 ******************
 
 Configure the network bridges using setup_network.sh before doing
@@ -148,11 +145,11 @@ There is also a script cleanup_network.sh that will remove networking
 configuration from libvirt.
 
 *********************
-Configure Controllers
+Configure controllers
 *********************
 
-One script exists for building different StarlingX cloud
-configurations: setup_configuration.sh.
+One script exists for building different StarlingX cloud configurations:
+setup_configuration.sh.
 
 The script uses the cloud configuration with the -c option:
 
@@ -193,15 +190,15 @@ Tear down the VMs using destroy_configuration.sh.
 Continue
 --------
 
-Pick up the installation in one of the existing guides at the
-'Initializing Controller-0 step.
+Pick up the installation in one of the existing guides at the initializing
+controller-0 step.
 
--  Standard Controller
+-  Standard controller
 
-   - :ref:`StarlingX Cloud with Dedicated Storage Virtual Environment <dedicated-storage>`
-   - :ref:`StarlingX Cloud with Controller Storage Virtual Environment <controller-storage>`
+   - :doc:`StarlingX Cloud with Dedicated Storage Virtual Environment </installation_guide/2018_10/dedicated_storage>`
+   - :doc:`StarlingX Cloud with Controller Storage Virtual Environment </installation_guide/2018_10/controller_storage>`
 
 -  All-in-one
 
-   - :ref:`StarlingX Cloud Duplex Virtual Environment <duplex>`
-   - :ref:`StarlingX Cloud Simplex Virtual Environment <simplex>`
+   - :doc:`StarlingX Cloud Duplex Virtual Environment </installation_guide/2018_10/duplex>`
+   - :doc:`StarlingX Cloud Simplex Virtual Environment </installation_guide/2018_10/simplex>`

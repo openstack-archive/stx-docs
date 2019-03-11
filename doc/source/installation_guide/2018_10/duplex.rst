@@ -1,29 +1,27 @@
-.. _duplex:
-
-==================================
-All-In-One Duplex Deployment Guide
-==================================
+==============================================
+All-In-One Duplex deployment guide stx.2018.10
+==============================================
 
 .. contents::
    :local:
    :depth: 1
 
-**NOTE:**  The instructions to setup a StarlingX All-in-One Duplex 
+**NOTE:**  The instructions to setup a StarlingX All-in-One Duplex
 (AIO-DX) with containerized openstack services in this guide
 are under development.
 For approved instructions, see the
 `All in One Duplex Configuration wiki page <https://wiki.openstack.org/wiki/StarlingX/Containers/InstallationOnAIODX>`__.
 
 ----------------------
-Deployment Description
+Deployment description
 ----------------------
 
 *****************
 All-In-One Duplex
 *****************
 
-The All-In-One Duplex deployment option provides all three Cloud Functions
-(Controller, Compute, and Storage) on two physical servers. With cloud
+The All-In-One Duplex (AIO-DX) deployment option provides all three cloud
+functions (controller, compute, and storage) on two physical servers. With cloud
 technologies, multiple diverse application types can be deployed and
 consolidated onto a protected pair of physical servers. For example:
 
@@ -35,100 +33,100 @@ consolidated onto a protected pair of physical servers. For example:
 
 .. figure:: figures/starlingx-deployment-options-duplex.png
    :scale: 50%
-   :alt: All-In-One Duplex Deployment Configuration
+   :alt: All-In-One Duplex deployment configuration
 
-   *All-In-One Duplex Deployment Configuration*
+   *All-In-One Duplex deployment configuration*
 
 This two node cluster enables:
 
-- High Availability Services running on the Controller Function across the
-  two physical servers in either Active/Active or Active/Standby mode.
-- Storage Function running on top of LVM on single second disk, DRBD-sync'd
+- High availability services running on the controller function across the
+  two physical servers in either active/active or active/standby mode.
+- Storage function running on top of LVM on single second disk, DRBD-sync'd
   between the servers.
-- Virtual Machines being scheduled on both Compute Functions.
+- Virtual machines being scheduled on both compute functions.
 
 A All-In-One Duplex deployment provides protection against overall server
 hardware fault. Should an overall server hardware fault occur:
 
-- All Controller High Availability Services go Active on remaining
+- All controller high availability services go active on remaining
   healthy server.
-- All Virtual Machines are recovered on remaining healthy server.
+- All virtual machines are recovered on remaining healthy server.
 
 The All-In-One Duplex deployment solution is required for a variety of special
 case situations, for example:
 
-- Small amount of Cloud Processing/Storage.
+- Small amount of cloud processing/storage.
 - Protection against overall server hardware fault.
 
 **************************
-All-In-One Duplex Extended
+All-In-One Duplex extended
 **************************
 
 The All-In-One Duplex Extended deployment option extends the capacity of the
-All-In-One Duplex Deployment by adding up to four Compute Nodes to the
+All-In-One Duplex deployment by adding up to four compute nodes to the
 deployment. The extended deployment option provides a capacity growth path for
 someone starting with an All-In-One Duplex deployment.
 
 With this option, virtual machines can be scheduled on either of the
-All-In-One Controller Nodes and/or the Compute Nodes.
+all-in-one controller nodes and/or the compute nodes.
 
 .. figure:: figures/starlingx-deployment-options-duplex-extended.png
    :scale: 50%
    :alt: All-In-One Duplex Extended Deployment Configuration
 
-   *All-In-One Duplex Extended Deployment Configuration*
+   *All-In-One Duplex Extended deployment configuration*
 
-This configuration is limited to four Compute Nodes as the Controller Function
-on the All-In-One Controllers has only a portion of the processing power of the
+This configuration is limited to four compute nodes as the controller function
+on the all-in-one controllers has only a portion of the processing power of the
 overall server.
 
 -----------------------------------
-Preparing All-In-One Duplex Servers
+Preparing All-In-One Duplex servers
 -----------------------------------
 
 **********
-Bare Metal
+Bare metal
 **********
 
 Required Servers:
 
--  Combined Servers (Controller + Compute): 2
+-  Combined servers (controller + compute): 2
 
 ^^^^^^^^^^^^^^^^^^^^^
-Hardware Requirements
+Hardware requirements
 ^^^^^^^^^^^^^^^^^^^^^
 
 The recommended minimum requirements for the physical servers where
 All-In-One Duplex will be deployed, include:
 
--  Minimum Processor:
+-  Minimum processor:
 
-   -  Typical Hardware Form Factor:
+   -  Typical hardware form factor:
 
-      - Dual-CPU Intel® Xeon® E5 26xx Family (SandyBridge) 8 cores/socket
-   -  Low Cost / Low Power Hardware Form Factor
+      - Dual-CPU Intel® Xeon® E5 26xx family (SandyBridge) 8 cores/socket
+   -  Low cost / low power hardware form factor
 
-      - Single-CPU Intel Xeon D-15xx Family, 8 cores
+      - Single-CPU Intel Xeon D-15xx family, 8 cores
 
 -  Memory: 64 GB
 -  BIOS:
 
-   -  Hyper-Threading Tech: Enabled
-   -  Virtualization Technology: Enabled
-   -  VT for Directed I/O: Enabled
-   -  CPU Power and Performance Policy: Performance
-   -  CPU C State Control: Disabled
-   -  Plug & Play BMC Detection: Disabled
+   -  Hyper-Threading technology: Enabled
+   -  Virtualization technology: Enabled
+   -  VT for directed I/O: Enabled
+   -  CPU power and performance policy: Performance
+   -  CPU C state control: Disabled
+   -  Plug & play BMC detection: Disabled
 
--  Primary Disk:
+-  Primary disk:
 
    -  500 GB SDD or NVMe
 
--  Additional Disks:
+-  Additional disks:
 
    -  Zero or more 500 GB disks (min. 10K RPM)
 
--  Network Ports:
+-  Network ports:
 
    **NOTE:** The All-In-One Duplex configuration requires one or more data ports.
 
@@ -137,11 +135,11 @@ All-In-One Duplex will be deployed, include:
    -  Data: n x 10GE
 
 *******************
-Virtual Environment
+Virtual environment
 *******************
 
-Run the libvirt qemu setup scripts. Setting up virtualized OAM and
-Management networks:
+Run the libvirt QEMU setup scripts. Setting up virtualized OAM and
+management networks:
 
 ::
 
@@ -160,7 +158,7 @@ are:
 - duplex-controller-1
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^
-Power Up a Virtual Server
+Power up a virtual server
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To power up a virtual server, run the following command:
@@ -176,7 +174,7 @@ e.g.
     $ sudo virsh start duplex-controller-0
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Access Virtual Server Consoles
+Access virtual server consoles
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The XML for virtual servers in stx-tools repo, deployment/libvirt,
@@ -201,12 +199,12 @@ sequence which follows the boot device selection. One has a few seconds
 to do this.
 
 --------------------------------
-Installing the Controller-0 Host
+Installing the controller-0 host
 --------------------------------
 
 Installing controller-0 involves initializing a host with software and
 then applying a bootstrap configuration from the command line. The
-configured bootstrapped host becomes Controller-0.
+configured bootstrapped host becomes controller-0.
 
 Procedure:
 
@@ -215,21 +213,21 @@ Procedure:
 #. Configure the controller using the config_controller script.
 
 *************************
-Initializing Controller-0
+Initializing controller-0
 *************************
 
-This section describes how to initialize StarlingX in host Controller-0.
+This section describes how to initialize StarlingX in host controller-0.
 Except where noted, all the commands must be executed from a console of
 the host.
 
-Power on the host to be configured as Controller-0, with the StarlingX
+Power on the host to be configured as controller-0, with the StarlingX
 ISO on a USB in a bootable USB slot. Wait for the console to show the
 StarlingX ISO booting options:
 
 -  **All-in-one Controller Configuration**
 
    -  When the installer is loaded and the installer welcome screen
-      appears in the Controller-0 host, select the type of installation
+      appears in the controller-0 host, select the type of installation
       "All-in-one Controller Configuration".
 
 -  **Graphical Console**
@@ -239,13 +237,13 @@ StarlingX ISO booting options:
 
 -  **Standard Security Boot Profile**
 
-   -  Select "Standard Security Boot Profile" as the Security Profile.
+   -  Select "Standard Security Boot Profile" as the security profile.
 
 Monitor the initialization. When it is complete, a reboot is initiated
-on the Controller-0 host, briefly displays a GNU GRUB screen, and then
+on the controller-0 host, briefly displays a GNU GRUB screen, and then
 boots automatically into the StarlingX image.
 
-Log into Controller-0 as user wrsroot, with password wrsroot. The
+Log into controller-0 as user wrsroot, with password wrsroot. The
 first time you log in as wrsroot, you are required to change your
 password. Enter the current password (wrsroot):
 
@@ -266,14 +264,14 @@ Enter the new password again to confirm it:
 
    Retype new password:
 
-Controller-0 is initialized with StarlingX, and is ready for
+controller-0 is initialized with StarlingX, and is ready for
 configuration.
 
 ************************
-Configuring Controller-0
+Configuring controller-0
 ************************
 
-This section describes how to perform the Controller-0 configuration
+This section describes how to perform the controller-0 configuration
 interactively just to bootstrap system with minimum critical data.
 Except where noted, all the commands must be executed from the console
 of the active controller (here assumed to be controller-0).
@@ -281,9 +279,9 @@ of the active controller (here assumed to be controller-0).
 When run interactively, the config_controller script presents a series
 of prompts for initial configuration of StarlingX:
 
--  For the Virtual Environment, you can accept all the default values
+-  For the virtual environment, you can accept all the default values
    immediately after ‘system date and time’.
--  For a Physical Deployment, answer the bootstrap configuration
+-  For a physical deployment, answer the bootstrap configuration
    questions with answers applicable to your particular physical setup.
 
 The script is used to configure the first controller in the StarlingX
@@ -299,7 +297,7 @@ with no parameters:
    Enter ! at any prompt to abort...
    ...
 
-Select [y] for System Date and Time:
+Select [y] for System date and time:
 
 ::
 
@@ -320,7 +318,7 @@ For System mode choose "duplex":
    3) simplex - single node non-redundant configuration
    System mode [duplex-direct]: 2
 
-After System Date / Time and System mode:
+After System date and time and System mode:
 
 ::
 
@@ -340,21 +338,21 @@ After System Date / Time and System mode:
    Please complete any out of service commissioning steps with system commands and unlock controller to proceed.
 
 After config_controller bootstrap configuration, REST API, CLI and
-Horizon interfaces are enabled on the controller-0 OAM IP Address. The
+Horizon interfaces are enabled on the controller-0 OAM IP address. The
 remaining installation instructions will use the CLI.
 
 ----------------------------------
-Provisioning the Controller-0 Host
+Provisioning the controller-0 host
 ----------------------------------
 
-On Controller-0, acquire Keystone administrative privileges:
+On controller-0, acquire Keystone administrative privileges:
 
 ::
 
    controller-0:~$ source /etc/nova/openrc
 
 *********************************************
-Configuring Provider Networks at Installation
+Configuring provider networks at installation
 *********************************************
 
 Set up one provider network of the vlan type, named providernet-a:
@@ -365,10 +363,10 @@ Set up one provider network of the vlan type, named providernet-a:
    [wrsroot@controller-0 ~(keystone_admin)]$ neutron providernet-range-create --name providernet-a-range1 --range 100-400 providernet-a
 
 *****************************************
-Providing Data Interfaces on Controller-0
+Providing data interfaces on controller-0
 *****************************************
 
-List all interfaces
+List all interfaces:
 
 ::
 
@@ -383,7 +381,7 @@ List all interfaces
    | f59b9469-7702-4b46-bad5-683b95f0a1cb | enp0s8  | platform |...| None | [u'enp0s8']  | []   | []      | MTU=1500   |..
    +--------------------------------------+---------+----------+...+------+--------------+------+---------+------------+..
 
-Configure the data interfaces
+Configure the data interfaces:
 
 ::
 
@@ -415,11 +413,11 @@ Configure the data interfaces
    +------------------+--------------------------------------+
 
 *************************************
-Configuring Cinder on Controller Disk
+Configuring Cinder on controller disk
 *************************************
 
 Review the available disk space and capacity and obtain the uuid of the
-physical disk
+physical disk:
 
 ::
 
@@ -439,7 +437,7 @@ physical disk
    |                                      |           |         |         |         |            |...
    +--------------------------------------+-----------+---------+---------+---------+------------+...
 
-Create the 'cinder-volumes' local volume group
+Create the 'cinder-volumes' local volume group:
 
 ::
 
@@ -462,7 +460,7 @@ Create the 'cinder-volumes' local volume group
    | parameters      | {u'lvm_type': u'thin'}               |
    +-----------------+--------------------------------------+
 
-Create a disk partition to add to the volume group
+Create a disk partition to add to the volume group:
 
 ::
 
@@ -486,7 +484,7 @@ Create a disk partition to add to the volume group
    | updated_at  | None                                             |
    +-------------+--------------------------------------------------+
 
-Wait for the new partition to be created (i.e. status=Ready)
+Wait for the new partition to be created (i.e. status=Ready):
 
 ::
 
@@ -500,7 +498,7 @@ Wait for the new partition to be created (i.e. status=Ready)
    |                                      |...|            |...|                     |          |        |
    +--------------------------------------+...+------------+...+---------------------+----------+--------+
 
-Add the partition to the volume group
+Add the partition to the volume group:
 
 ::
 
@@ -526,10 +524,10 @@ Add the partition to the volume group
    +--------------------------+--------------------------------------------------+
 
 *********************************************
-Adding an LVM Storage Backend at Installation
+Adding an LVM storage backend at installation
 *********************************************
 
-Ensure requirements are met to add LVM storage
+Ensure requirements are met to add LVM storage:
 
 ::
 
@@ -543,7 +541,7 @@ Ensure requirements are met to add LVM storage
    storage. Set the 'confirmed' field to execute this operation
    for the lvm backend.
 
-Add the LVM storage backend
+Add the LVM storage backend:
 
 ::
 
@@ -559,8 +557,7 @@ Add the LVM storage backend
    | e2697426-2d79-4a83-beb7-2eafa9ceaee5 | lvm-store  | lvm     | configuring |...| cinder   | {}           |
    +--------------------------------------+------------+---------+-------------+...+----------+--------------+
 
-Wait for the LVM storage backend to be configured (i.e.
-state=Configured)
+Wait for the LVM storage backend to be configured (i.e. state=configured):
 
 ::
 
@@ -573,11 +570,11 @@ state=Configured)
    +--------------------------------------+------------+---------+------------+------+----------+--------------+
 
 ***********************************************
-Configuring VM Local Storage on Controller Disk
+Configuring VM local storage on controller disk
 ***********************************************
 
 Review the available disk space and capacity and obtain the uuid of the
-physical disk
+physical disk:
 
 ::
 
@@ -597,7 +594,7 @@ physical disk
    |                                      |           |         |         |         |            |...
    +--------------------------------------+-----------+---------+---------+---------+------------+...
 
-Create the 'noval-local' volume group
+Create the 'noval-local' volume group:
 
 ::
 
@@ -622,7 +619,7 @@ Create the 'noval-local' volume group
    | parameters      | {u'concurrent_disk_operations': 2, u'instance_backing': u'image'} |
    +-----------------+-------------------------------------------------------------------+
 
-Create a disk partition to add to the volume group
+Create a disk partition to add to the volume group:
 
 ::
 
@@ -646,7 +643,7 @@ Create a disk partition to add to the volume group
    | updated_at  | None                                             |
    +-------------+--------------------------------------------------+
 
-Wait for the new partition to be created (i.e. status=Ready)
+Wait for the new partition to be created (i.e. status=Ready):
 
 ::
 
@@ -660,7 +657,7 @@ Wait for the new partition to be created (i.e. status=Ready)
    |                                      |...|            |...|                     |          |        |
    +--------------------------------------+...+------------+...+---------------------+----------+--------+
 
-Add the partition to the volume group
+Add the partition to the volume group:
 
 ::
 
@@ -686,11 +683,11 @@ Add the partition to the volume group
    +--------------------------+--------------------------------------------------+
 
 **********************
-Unlocking Controller-0
+Unlocking controller-0
 **********************
 
 You must unlock controller-0 so that you can use it to install
-Controller-1. Use the system host-unlock command:
+controller-1. Use the system host-unlock command:
 
 ::
 
@@ -701,10 +698,10 @@ unavailable, and any ssh connections are dropped. To monitor the
 progress of the reboot, use the controller-0 console.
 
 ****************************************
-Verifying the Controller-0 Configuration
+Verifying the controller-0 configuration
 ****************************************
 
-On Controller-0, acquire Keystone administrative privileges:
+On controller-0, acquire Keystone administrative privileges:
 
 ::
 
@@ -724,7 +721,7 @@ Verify that the controller-0 services are running:
    ...
    +-----+-------------------------------+--------------+----------------+
 
-Verify that controller-0 has controller and compute subfunctions
+Verify that controller-0 has controller and compute subfunctions:
 
 ::
 
@@ -743,17 +740,17 @@ Verify that controller-0 is unlocked, enabled, and available:
    +----+--------------+-------------+----------------+-------------+--------------+
 
 --------------------------------
-Installing the Controller-1 Host
+Installing the controller-1 host
 --------------------------------
 
 After initializing and configuring controller-0, you can add and
 configure a backup controller controller-1.
 
 ******************************
-Initializing Controller-1 Host
+Initializing controller-1 host
 ******************************
 
-Power on Controller-1. In Controller-1 console you will see:
+Power on controller-1. In controller-1 console you will see:
 
 ::
 
@@ -763,16 +760,16 @@ Power on Controller-1. In Controller-1 console you will see:
    controller node in order to proceed.
 
 ****************************************************
-Updating Controller-1 Host Host Name and Personality
+Updating controller-1 host hostname and personality
 ****************************************************
 
-On Controller-0, acquire Keystone administrative privileges:
+On controller-0, acquire Keystone administrative privileges:
 
 ::
 
    controller-0:~$ source /etc/nova/openrc
 
-Wait for Controller-0 to discover new host, list the host until new
+Wait for controller-0 to discover new host, list the host until new
 UNKNOWN host shows up in table:
 
 ::
@@ -785,7 +782,7 @@ UNKNOWN host shows up in table:
    | 2  | None         | None        | locked         | disabled    | offline      |
    +----+--------------+-------------+----------------+-------------+--------------+
 
-Use the system host-update to update Contoller-1 host personality
+Use the system host-update to update contoller-1 host personality
 attribute:
 
 ::
@@ -835,10 +832,10 @@ attribute:
    +---------------------+--------------------------------------+
 
 ****************************
-Monitoring Controller-1 Host
+Monitoring controller-1 host
 ****************************
 
-On Controller-0, you can monitor the installation progress by running
+On controller-0, you can monitor the installation progress by running
 the system host-show command for the host periodically. Progress is
 shown in the install_state field.
 
@@ -849,16 +846,16 @@ shown in the install_state field.
    | install_state       | booting                              |
    | install_state_info  | None                                 |
 
-Wait while the Controller-1 is configured and rebooted. Up to 20 minutes
+Wait while the controller-1 is configured and rebooted. Up to 20 minutes
 may be required for a reboot, depending on hardware. When the reboot is
-complete, the Controller-1 is reported as Locked, Disabled, and Online.
+complete, the controller-1 is reported as locked, disabled, and online.
 
 *************************
-Listing Controller-1 Host
+Listing controller-1 host
 *************************
 
-Once Controller-1 has been installed, configured and rebooted, on
-Controller-0 list the hosts:
+Once controller-1 has been installed, configured and rebooted, on
+controller-0 list the hosts:
 
 ::
 
@@ -871,10 +868,10 @@ Controller-0 list the hosts:
    +----+--------------+-------------+----------------+-------------+--------------+
 
 ----------------------------------
-Provisioning the Controller-1 Host
+Provisioning the controller-1 host
 ----------------------------------
 
-On Controller-0, list hosts
+On controller-0, list hosts:
 
 ::
 
@@ -887,17 +884,17 @@ On Controller-0, list hosts
    +----+--------------+-------------+----------------+-------------+--------------+
 
 ***********************************************
-Provisioning Network Interfaces on Controller-1
+Provisioning network interfaces on controller-1
 ***********************************************
 
-In order to list out hardware port names, types, pci-addresses that have
+In order to list out hardware port names, types, PCI addresses that have
 been discovered:
 
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-port-list controller-1
 
-Provision the Controller-1 oam interface
+Provision the controller-1 OAM interface
 
 ::
 
@@ -929,10 +926,10 @@ Provision the Controller-1 oam interface
    +------------------+--------------------------------------+
 
 *****************************************
-Providing Data Interfaces on Controller-1
+Providing data interfaces on controller-1
 *****************************************
 
-List all interfaces
+List all interfaces:
 
 ::
 
@@ -948,7 +945,7 @@ List all interfaces
    | e78ad9a9-e74d-4c6c-9de8-0e41aad8d7b7 | eth1000 | None    |...| None | [u'eth1000'] | []   | []   | MTU=1500   |..
    +--------------------------------------+---------+---------+...+------+--------------+------+------+------------+..
 
-Configure the data interfaces
+Configure the data interfaces:
 
 ::
 
@@ -980,11 +977,11 @@ Configure the data interfaces
    +------------------+--------------------------------------+
 
 ************************************
-Provisioning Storage on Controller-1
+Provisioning storage on controller-1
 ************************************
 
 Review the available disk space and capacity and obtain the uuid of the
-physical disk
+physical disk:
 
 ::
 
@@ -997,7 +994,7 @@ physical disk
    | 623bbfc0-2b38-432a-acf4-a28db6066cce | /dev/sdc    | 2080       | HDD         | 16240    | 16237         |...
    +--------------------------------------+-------------+------------+-------------+----------+---------------+...
 
-Assign Cinder storage to the physical disk
+Assign Cinder storage to the physical disk:
 
 ::
 
@@ -1023,7 +1020,7 @@ Assign Cinder storage to the physical disk
    +-----------------+--------------------------------------+
 
 Create a disk partition to add to the volume group based on uuid of the
-physical disk
+physical disk:
 
 ::
 
@@ -1047,7 +1044,7 @@ physical disk
    | updated_at  | None                                             |
    +-------------+--------------------------------------------------+
 
-Wait for the new partition to be created (i.e. status=Ready)
+Wait for the new partition to be created (i.e. status=Ready):
 
 ::
 
@@ -1058,7 +1055,7 @@ Wait for the new partition to be created (i.e. status=Ready)
    | 7a41aab0-6695-4d16-9003-73238adda75b |...| /dev/sdb1   |...| None      | 16237    | Creating (on unlock) |
    +--------------------------------------+...+-------------+...+-----------+----------+----------------------+
 
-Add the partition to the volume group
+Add the partition to the volume group:
 
 ::
 
@@ -1083,14 +1080,12 @@ Add the partition to the volume group
    | updated_at               | None                                             |
    +--------------------------+--------------------------------------------------+
 
-.. _configuring-vm-local-storage-on-controller-disk-1:
-
 ***********************************************
-Configuring VM Local Storage on Controller Disk
+Configuring VM local storage on controller disk
 ***********************************************
 
 Review the available disk space and capacity and obtain the uuid of the
-physical disk
+physical disk:
 
 ::
 
@@ -1103,7 +1098,7 @@ physical disk
    | 623bbfc0-2b38-432a-acf4-a28db6066cce | /dev/sdc    | 2080       | HDD         | 16240    | 16237         |...
    +--------------------------------------+-------------+------------+-------------+----------+---------------+...
 
-Create the 'cinder-volumes' local volume group
+Create the 'cinder-volumes' local volume group:
 
 ::
 
@@ -1128,7 +1123,7 @@ Create the 'cinder-volumes' local volume group
    | parameters      | {u'concurrent_disk_operations': 2, u'instance_backing': u'image'} |
    +-----------------+-------------------------------------------------------------------+
 
-Create a disk partition to add to the volume group
+Create a disk partition to add to the volume group:
 
 ::
 
@@ -1152,7 +1147,7 @@ Create a disk partition to add to the volume group
    | updated_at  | None                                             |
    +-------------+--------------------------------------------------+
 
-Wait for the new partition to be created (i.e. status=Ready)
+Wait for the new partition to be created (i.e. status=Ready):
 
 ::
 
@@ -1164,7 +1159,7 @@ Wait for the new partition to be created (i.e. status=Ready)
    | f7bc6095-9375-49fe-83c7-12601c202376 |...| /dev/sdc1   |...| None      | 16237    | Creating (on unlock) |
    +--------------------------------------+...+-------------+...+-----------+----------+----------------------+
 
-Add the partition to the volume group
+Add the partition to the volume group:
 
 ::
 
@@ -1190,19 +1185,19 @@ Add the partition to the volume group
    +--------------------------+--------------------------------------------------+
 
 **********************
-Unlocking Controller-1
+Unlocking controller-1
 **********************
 
-Unlock Controller-1
+Unlock controller-1:
 
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-unlock controller-1
 
-Wait while the Controller-1 is rebooted. Up to 10 minutes may be
+Wait while the controller-1 is rebooted. Up to 10 minutes may be
 required for a reboot, depending on hardware.
 
-REMARK: Controller-1 will remain in 'degraded' state until data-syncing
+REMARK: controller-1 will remain in degraded state until data-syncing
 is complete. The duration is dependant on the virtualization host's
 configuration - i.e., the number and configuration of physical disks
 used to host the nodes' virtual disks. Also, the management network is
@@ -1220,20 +1215,20 @@ excessive data-sync time). Use 'fm alarm-list' to confirm status.
    +----+--------------+-------------+----------------+-------------+--------------+
 
 -----------------------------------
-Extending the Compute Node Capacity
+Extending the compute node capacity
 -----------------------------------
 
-You can add up to four Compute Nodes to the All-in-One Duplex deployment.
+You can add up to four compute nodes to the All-in-One Duplex deployment.
 
 **************************
-Compute Hosts Installation
+Compute hosts installation
 **************************
 
 After initializing and configuring the two controllers, you can add up
 to four additional compute hosts. To add a host, do the following:
 
 ^^^^^^^^^^^^^^^^^
-Initializing Host
+Initializing host
 ^^^^^^^^^^^^^^^^^
 
 Power on the host. The following appears in the host console:
@@ -1246,16 +1241,16 @@ Power on the host. The following appears in the host console:
    controller node in order to proceed.
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Updating the Host Name and Personality
+Updating the hostname and personality
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-On Controller-0, acquire Keystone administrative privileges:
+On controller-0, acquire Keystone administrative privileges:
 
 ::
 
    controller-0:~$ source /etc/nova/openrc
 
-Wait for the Controller-0 to both discover the new host and to list that host
+Wait for the controller-0 to both discover the new host and to list that host
 as UNKNOWN in the table:
 
 ::
@@ -1275,7 +1270,7 @@ Use the system host-update command to update the host personality attribute:
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-update 3 personality=compute hostname=compute-0
 
-See also: 'system help host-update'
+See also: 'system help host-update'.
 
 Unless it is known that the host's configuration can support the
 installation of more than one node, it is recommended that the
@@ -1285,10 +1280,10 @@ root disk and that disk happens to be a single rotational type hard disk,
 then the host cannot reliably support parallel node installation.
 
 ^^^^^^^^^^^^^^^
-Monitoring Host
+Monitoring host
 ^^^^^^^^^^^^^^^
 
-On Controller-0, you can monitor the installation progress by periodically
+On controller-0, you can monitor the installation progress by periodically
 running the system host-show command for the host. Progress is
 shown in the install_state field.
 
@@ -1301,11 +1296,11 @@ shown in the install_state field.
 
 Wait while the host is installed, configured, and rebooted. Depending on
 hardware, it could take up to 20 minutes for this process to complete.
-When the reboot is complete, the host is reported as Locked, Disabled,
-and Online.
+When the reboot is complete, the host is reported as locked, disabled,
+and online.
 
 ^^^^^^^^^^^^^
-Listing Hosts
+Listing hosts
 ^^^^^^^^^^^^^
 
 You can use the system host-list command to list the hosts once the node
@@ -1323,26 +1318,26 @@ has been installed, configured, and rebooted:
    +----+--------------+-------------+----------------+-------------+--------------+
 
 *****************************
-Provisioning the Compute Host
+Provisioning the compute host
 *****************************
 
 You must configure the network interfaces and the storage disks on a
-host before you can unlock it. For each Compute Host, do the following:
+host before you can unlock it. For each compute host, do the following:
 
-On Controller-0, acquire Keystone administrative privileges:
+On controller-0, acquire Keystone administrative privileges:
 
 ::
 
    controller-0:~$ source /etc/nova/openrc
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Provisioning Network Interfaces on a Compute Host
+Provisioning network interfaces on a compute host
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In order to identify hardware port names, types, and discovered
-pci-addresses on Controller-0, list the host ports:
+pci-addresses on controller-0, list the host ports:
 
--  **Only in Virtual Environment**: Ensure that the interface used is
+-  **Only in virtual environment**: Ensure that the interface used is
    one of those attached to the host bridge with model type "virtio" (i.e.
    eth1000 and eth1001). The model type "e1000" emulated devices will
    not work for provider networks:
@@ -1359,17 +1354,17 @@ pci-addresses on Controller-0, list the host ports:
    | c1694675-643d-4ba7-b821-cd147450112e | eth1001 | ethernet | 0000:02:04.0 |...
    +--------------------------------------+---------+----------+--------------+...
 
-Use the following command to provision the data interface for Compute:
+Use the following command to provision the data interface for compute:
 
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-if-modify -p providernet-a -c data compute-0 eth1000
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-VSwitch Virtual Environment
+VSwitch virtual environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Only in Virtual Environment**. If the compute node has more than four CPUs,
+**Only in virtual environment**. If the compute node has more than four CPUs,
 the system auto-configures the vswitch to use two cores. However, some virtual
 environments do not properly support multi-queue, which is required in a
 multi-CPU environment. Therefore, run the following command to reduce the
@@ -1388,7 +1383,7 @@ vswitch cores to one:
    +--------------------------------------+-------+-----------+-------+--------+...
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Provisioning Storage on a Compute Host
+Provisioning storage on a compute host
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Review the available disk space and capacity and then obtain the uuid(s) of
@@ -1458,31 +1453,31 @@ group based on the uuid of the physical disk:
    +--------------------------+--------------------------------------------+
 
 ^^^^^^^^^^^^^^^^^^^^^^^^
-Unlocking a Compute Host
+Unlocking a compute host
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-On Controller-0, use the system host-unlock command to unlock the
-Compute node:
+On controller-0, use the system host-unlock command to unlock the
+compute node:
 
 ::
 
    [wrsroot@controller-0 ~(keystone_admin)]$ system host-unlock compute-0
 
-Wait while the Compute node is rebooted and re-configured. Depending on
+Wait while the compute node is rebooted and re-configured. Depending on
 hardware, it can take up to 10 minutes for the reboot to complete. Once
-the reboot is complete, the nodes Availability State reports as "In-Test"
+the reboot is complete, the nodes availability state reports as "in-test"
 and is followed by unlocked/enabled.
 
 -------------------
-System Health Check
+System health check
 -------------------
 
 ***********************
-Listing StarlingX Nodes
+Listing StarlingX nodes
 ***********************
 
-On Controller-0, after a few minutes, all nodes are reported as
-Unlocked, Enabled, and Available:
+On controller-0, after a few minutes, all nodes are reported as
+unlocked, enabled, and available:
 
 ::
 
@@ -1496,18 +1491,20 @@ Unlocked, Enabled, and Available:
    +----+--------------+-------------+----------------+-------------+--------------+
 
 *****************
-System Alarm List
+System alarm list
 *****************
 
-When all nodes are Unlocked, Enabled and Available: check 'fm alarm-list' for issues.
+When all nodes are unlocked, enabled, and available: check 'fm alarm-list' for
+issues.
 
-Your StarlingX deployment is now up and running with 2x HA Controllers with Cinder
-Storage and all OpenStack services up and running. You can now proceed with standard
-OpenStack APIs, CLIs and/or Horizon to load Glance Images, configure Nova Flavors,
-configure Neutron networks and launch Nova Virtual Machines.
+Your StarlingX deployment is now up and running with 2x HA controllers with
+Cinder storage and all OpenStack services up and running. You can now proceed
+with standard OpenStack APIs, CLIs and/or Horizon to load Glance images,
+configure Nova Flavors, configure Neutron networks and launch Nova virtual
+machines.
 
 ----------------------
-Deployment Terminology
+Deployment terminology
 ----------------------
 
 .. include:: deployment_terminology.rst
