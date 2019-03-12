@@ -193,21 +193,21 @@ text-based configuration file named ``localrc``:
   repository.
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-localrc Configuration File
+localrc configuration file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Create your ``localrc`` configuration file. For example:
+Create your ``localrc`` configuration file. Following is an example:
 
     .. code:: sh
 
        # tbuilder localrc
-       MYUNAME=$USER
+       MYUNAME=<your user name>
        PROJECT=starlingx
        HOST_PREFIX=$HOME/starlingx/workspace
        HOST_MIRROR_DIR=$HOME/starlingx/mirror
 
 ***************************
-Build the Base Docker Image
+Build the base Docker image
 ***************************
 
 Once the ``localrc`` configuration file has been customized, it is time
