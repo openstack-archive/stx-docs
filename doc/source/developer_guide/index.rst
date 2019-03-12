@@ -201,7 +201,7 @@ Create your ``localrc`` configuration file. For example:
     .. code:: sh
 
        # tbuilder localrc
-       MYUNAME=$USER
+       MYUNAME=<your user name>
        PROJECT=starlingx
        HOST_PREFIX=$HOME/starlingx/workspace
        HOST_MIRROR_DIR=$HOME/starlingx/mirror
