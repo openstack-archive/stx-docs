@@ -409,14 +409,6 @@ Download source code repositories
       $ cd $MY_REPO_ROOT_DIR
       $ repo init -u https://git.starlingx.io/stx-manifest -m default.xml -b r/2018.10
 
-   **NOTE:** To use the "repo" command to clone the stx-manifest repository and
-   check out the "master" branch, omit the "-b r/2018.10" option.
-   Following is an example:
-
-   .. code:: sh
-
-      $ repo init -u https://git.starlingx.io/stx-manifest -m default.xml
-
 #. Synchronize the repository:
 
    .. code:: sh
