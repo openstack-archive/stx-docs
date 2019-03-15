@@ -2,9 +2,10 @@
 Installation guide stx.2018.10
 ==============================
 
-This is the installation guide for release stx.2018.10. If an installation
-guide is needed for a previous release, review the
-:doc:`installation guides for previous releases </installation_guide/index>`.
+This is the installation guide for the "current" StarlingX software
+(i.e. the most recently released version).
+If this is not the installation guide you want to use, see the
+:doc:`available installation guides </installation_guide/index>`.
 
 ------------
 Introduction
@@ -19,7 +20,7 @@ StarlingX may be installed in:
 
 StarlingX installed in virtual environments has two options:
 
-- :doc:`Libvirt/QEMU </installation_guide/2018_10/installation_libvirt_qemu>`
+- :doc:`Libvirt/QEMU </installation_guide/current/installation_libvirt_qemu>`
 - VirtualBox
 
 ------------
@@ -242,7 +243,7 @@ Unload firewall and disable firewall on boot:
 Getting the StarlingX ISO image
 -------------------------------
 
-Follow the instructions from the :doc:`/developer_guide/2018_10/index` to build a
+Follow the instructions from the :doc:`/developer_guide/current/index` to build a
 StarlingX ISO image.
 
 **********
@@ -270,13 +271,13 @@ Deployment options
 
 -  Standard controller
 
-   - :doc:`StarlingX Cloud with Dedicated Storage </installation_guide/2018_10/dedicated_storage>`
-   - :doc:`StarlingX Cloud with Controller Storage </installation_guide/2018_10/controller_storage>`
+   - :doc:`StarlingX Cloud with Dedicated Storage </installation_guide/current/dedicated_storage>`
+   - :doc:`StarlingX Cloud with Controller Storage </installation_guide/current/controller_storage>`
 
 -  All-in-one
 
-   - :doc:`StarlingX Cloud Duplex </installation_guide/2018_10/duplex>`
-   - :doc:`StarlingX Cloud Simplex </installation_guide/2018_10/simplex>`
+   - :doc:`StarlingX Cloud Duplex </installation_guide/current/duplex>`
+   - :doc:`StarlingX Cloud Simplex </installation_guide/current/simplex>`
 
 .. toctree::
    :hidden:
