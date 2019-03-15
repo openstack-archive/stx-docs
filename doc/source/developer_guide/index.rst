@@ -2,15 +2,24 @@
 Developer guides
 ================
 
-Developer guides for StarlingX are release specific. To build a
-StarlingX ISO from the latest release, use the
-:doc:`/developer_guide/2018_10/index`.
+Developer guides for StarlingX are release-specific.
+The following list provides help on choosing the correct
+developer guide based on a release:
 
-To build an ISO from a previous release of StarlingX, use the
-developer guide for your specific release:
+- The "current" release is the most recent offically released version of StarlingX.
+  To build a StarlingX ISO from the current release, use the :doc:`/developer_guide/current/index`.
 
-.. toctree::
-   :maxdepth: 1
+- The "latest" release is the forthcoming version under development.
+  To build a StarlingX ISO using the latest release, use the :doc:`/developer_guide/latest/index`.
 
-   /developer_guide/latest/index
-   /developer_guide/2018_10/index
+- Following are all available developer guides for StarlingX:
+
+  .. toctree::
+     :maxdepth: 1
+
+     /developer_guide/current/index
+     /developer_guide/latest/index
+
+.. When a new release of developer guides occurs, follow the steps in the
+   commented block of the /installation_guide/index.rst file.
+

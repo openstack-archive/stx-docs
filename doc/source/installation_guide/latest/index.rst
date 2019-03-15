@@ -2,9 +2,11 @@
 Installation guide stx.2019.05
 ==============================
 
-This is the installation guide for release stx.2019.05. If an installation
-guide is needed for a previous release, review the
-:doc:`installation guides for previous releases </installation_guide/index>`.
+This is the installation guide for the "latest" StarlingX software
+(i.e. the "under development" branch).
+If this is not the the installation guide you want to use,
+see the 
+:doc:`available installation guides </installation_guide/index>`.
 
 ------------
 Introduction
@@ -242,7 +244,7 @@ Unload firewall and disable firewall on boot:
 Getting the StarlingX ISO image
 -------------------------------
 
-Follow the instructions from the :doc:`/developer_guide/2018_10/index` to build a
+Follow the instructions from the :doc:`/developer_guide/latest/index` to build a
 StarlingX ISO image.
 
 **********

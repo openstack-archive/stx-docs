@@ -3,10 +3,10 @@ Developer guide stx.2019.05
 ===========================
 
 This section contains the steps for building a StarlingX ISO from
-the stx.2019.05 branch.
-
-If a developer guide is needed for a previous release, review the
-:doc:`developer guides for all previous releases </developer_guide/index>`.
+the "latest" StarlingX software (i.e. the "under development" branch).
+If this is not the software you want to use, see the 
+:doc:`available developer guides </developer_guide/index>` for
+StarlingX.
 
 ------------
 Requirements
