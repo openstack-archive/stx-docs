@@ -4,10 +4,15 @@ Developer guide stx.2019.05
 
 This section contains the steps for building a StarlingX ISO from
 the "latest" StarlingX software (i.e. the "under development" branch).
-If this is not the software you want to use, see the 
+If this is not the software you want to use, see the
 :doc:`available developer guides </developer_guide/index>` for
 StarlingX.
 
+.. note::
+   Our build system is currently experiencing several issues that impact the
+   installer creation process. We are working to resolve this issues as quickly
+   as possible. Until the issues are resolved, please build a fresh new
+   CentOS mirror repository.
 ------------
 Requirements
 ------------
@@ -402,19 +407,11 @@ Download source code repositories
       $ ssh-add
 
 #. Use the repo tool to create a local clone of the stx-manifest
-   Git repository based on the "r/2018.10" branch:
+   Git repository based on the "master" branch:
 
    .. code:: sh
 
       $ cd $MY_REPO_ROOT_DIR
-      $ repo init -u https://git.starlingx.io/stx-manifest -m default.xml -b r/2018.10
-
-   **NOTE:** To use the "repo" command to clone the stx-manifest repository and
-   check out the "master" branch, omit the "-b r/2018.10" option.
-   Following is an example:
-
-   .. code:: sh
-
       $ repo init -u https://git.starlingx.io/stx-manifest -m default.xml
 
 #. Synchronize the repository:
