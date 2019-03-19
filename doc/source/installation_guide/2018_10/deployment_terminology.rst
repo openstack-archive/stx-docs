@@ -1,3 +1,6 @@
+.. SPDX-License-Identifier: Apache-2.0
+   Copyright (C) 2019 Intel Corporation
+
 .. _incl-simplex-deployment-terminology:
 
 **All-in-one controller node**

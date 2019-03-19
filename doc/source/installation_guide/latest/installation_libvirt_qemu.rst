@@ -1,3 +1,5 @@
+.. SPDX-License-Identifier: Apache-2.0
+   Copyright (C) 2019 Intel Corporation
 =====================================
 Installation libvirt qemu stx.2019.05
 =====================================
