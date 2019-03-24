@@ -80,7 +80,7 @@ Clone the stx-tools project into a working directory.
 
 ::
 
-   git clone git://git.openstack.org/openstack/stx-tools.git
+   git clone https://git.openstack.org/openstack/stx-tools.git
 
 
 It is convenient to set up a shortcut to the deployment script
