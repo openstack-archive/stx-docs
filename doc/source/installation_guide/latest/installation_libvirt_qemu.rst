@@ -8,23 +8,23 @@ Installation for StarlingX stx.2019.05 using Libvirt/QEMU virtualization.
 Hardware requirements
 ---------------------
 
-A workstation computer with:
+A workstation computer with the following:
 
--  Processor: x86_64 only supported architecture with BIOS enabled
+-  Processor: x86_64 only supported architecture with BIOS-enabled
    hardware virtualization extensions
--  Memory: At least 32GB RAM
--  Hard disk: 500GB HDD
+-  Memory: Minimum 32 GB RAM
+-  Hard disk: 500 GB HDD
 -  Network: One network adapter with active Internet connection
 
 ---------------------
 Software requirements
 ---------------------
 
-A workstation computer with:
+A workstation computer with the following:
 
 -  Operating system: This process is known to work on Ubuntu 16.04 and
-   is likely to work on other Linux OS's with some appropriate adjustments.
--  Proxy settings configured (if applies)
+   is likely to work on other Linux distributions with some appropriate adjustments.
+-  If applicable, proxy settings
 -  Git
 -  KVM/VirtManager
 -  Libvirt library
@@ -41,10 +41,10 @@ Configuration
 *************
 
 These scripts are configured using environment variables that all have
-built-in defaults. On shared systems you probably do not want to use the
-defaults. The simplest way to handle this is to keep an rc file that can
-be sourced into an interactive shell that configures everything. Here's
-an example called stxcloud.rc:
+built-in defaults. On shared systems, you probably do not want to use the
+defaults. The easiest way to handle this is to keep an rc file that can
+be sourced into an interactive shell that configures everything. Following
+is an example called stxcloud.rc:
 
 ::
 
@@ -58,7 +58,7 @@ an example called stxcloud.rc:
    export EXTERNAL_IP=192.168.20.1/24
 
 
-This rc file shows the defaults baked into the scripts:
+This rc file shows the defaults as part of the scripts:
 
 ::
 
@@ -103,19 +103,20 @@ Installing requirements and dependencies
 ****************************************
 
 Install the required packages and configure QEMU. This only needs to be
-done once per host. (NOTE: this script only knows about Ubuntu at this
-time):
+done once per host.
+
+**NOTE:** At this time, the script only supports the Ubuntu distribution:
 
 ::
 
    $SCRIPTS/install_packages.sh
 
 
-******************
-Disabling firewall
-******************
+**********************
+Disabling the firewall
+**********************
 
-Unload firewall and disable firewall on boot:
+Unload the firewall and disable it during boot:
 
 ::
 
@@ -127,9 +128,10 @@ Unload firewall and disable firewall on boot:
 Configure networks
 ******************
 
-Configure the network bridges using setup_network.sh before doing
-anything else. It will create 4 bridges named stxbr1, stxbr2, stxbr3 and
-stxbr4. Set the BRIDGE_INTERFACE environment variable if you need to
+Before doing anything else, configure the network bridges using
+setup_network.sh. Configuration creates four bridges named stxbr1,
+stxbr2, stxbr3 and stxbr4.
+Set the BRIDGE_INTERFACE environment variable if you need to
 change stxbr to something unique.
 
 ::
@@ -137,11 +139,13 @@ change stxbr to something unique.
    $SCRIPTS/setup_network.sh
 
 
-The destroy_network.sh script does the reverse, and should not be used
-lightly. It should also only be used after all of the VMs created below
+The destroy_network.sh script does the reverse.
+You should only use this script after all the VMs created below
 have been destroyed.
 
-There is also a script cleanup_network.sh that will remove networking
+**WARNING:** Use the destroy_network.sh script cautiously.
+
+There is also a script cleanup_network.sh that removes networking
 configuration from libvirt.
 
 *********************
@@ -158,19 +162,22 @@ The script uses the cloud configuration with the -c option:
 - controllerstorage
 - dedicatedstorage
 
-You need an ISO file for the installation, the script takes a file name
-with the -i option:
+You need an ISO file for the installation.
+The script requires a file name with the -i option:
 
 ::
 
    $SCRIPTS/setup_configuration.sh -c <cloud configuration> -i <starlingx iso image>
 
 
-And the setup will begin. The scripts create one or more VMs and start
-the boot of the first controller, named oddly enough \``controller-0``.
-If you have Xwindows available you will get virt-manager running. If
-not, Ctrl-C out of that attempt if it doesn't return to a shell prompt.
-Then connect to the serial console:
+Running the script causes setup to begin.
+The script creates one or more VMs and boots the first controller,
+which is named \``controller-0``.
+
+If you have Xwindows available, virt-manager starts to run.
+If you do not have Xwindows available and you do not have a shell prompt,
+press CTRL-C to abandon the attempt.
+From the shell prompt, connect to the serial console:
 
 ::
 
@@ -190,8 +197,8 @@ Tear down the VMs using destroy_configuration.sh.
 Continue
 --------
 
-Pick up the installation in one of the existing guides at the initializing
-controller-0 step.
+Use the appropriate installation guide and continue the installation
+process from the "initializing controller-0" step.
 
 -  Standard controller
 

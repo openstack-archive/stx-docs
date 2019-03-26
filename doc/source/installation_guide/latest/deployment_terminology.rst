@@ -64,7 +64,7 @@
     and become the VM tenant networks.
 
     Only compute type and all-in-one type nodes are required to be connected
-    to the data network(s); these node types require one or more interface(s)
+    to the data network(s). These node types require one or more interface(s)
     on the data network(s).
 
 **IPMI network**

@@ -12,11 +12,11 @@ see the
 Introduction
 ------------
 
-StarlingX may be installed in:
+You can install StarlingX in the following:
 
 -  **Bare metal**: Real deployments of StarlingX are only supported on
    physical servers.
--  **Virtual environment**: It should only be used for evaluation or
+-  **Virtual environment**: Only used for evaluation or
    development purposes.
 
 StarlingX installed in virtual environments has two options:
@@ -35,11 +35,11 @@ Bare metal
 **********
 
 The minimum requirements for the physical servers where StarlingX might
-be deployed, include:
+be deployed include:
 
 -  **Controller hosts**
 
-   -  Minimum processor is:
+   -  Minimum processor:
 
       -  Dual-CPU Intel® Xeon® E5 26xx family (SandyBridge) 8
          cores/socket
@@ -47,16 +47,16 @@ be deployed, include:
    -  Minimum memory: 64 GB
    -  Hard drives:
 
-      -  Primary hard drive, minimum 500 GB for OS and system databases.
-      -  Secondary hard drive, minimum 500 GB for persistent VM storage.
+      -  Primary hard drive with a minimum 500 GB for OS and system databases.
+      -  Secondary hard drive with a minimum 500 GB for persistent VM storage.
 
-   -  2 physical Ethernet interfaces: OAM and MGMT network.
+   -  Two physical Ethernet interfaces: OAM and MGMT network.
    -  USB boot support.
    -  PXE boot support.
 
 -  **Storage hosts**
 
-   -  Minimum processor is:
+   -  Minimum processor:
 
       -  Dual-CPU Intel® Xeon® E5 26xx family (SandyBridge) 8
          cores/socket.
@@ -64,16 +64,16 @@ be deployed, include:
    -  Minimum memory: 64 GB.
    -  Hard drives:
 
-      -  Primary hard drive, minimum 500 GB for OS.
-      -  1 or more additional hard drives for CEPH OSD storage, and
-      -  Optionally 1 or more SSD or NVMe drives for CEPH journals.
+      -  Primary hard drive with a minimum 500 GB for OS.
+      -  One or more additional hard drives for CEPH OSD storage.
+      -  Optionally, one or more SSD or NVMe drives for CEPH journals.
 
-   -  1 physical Ethernet interface: MGMT network
+   -  One physical Ethernet interface: MGMT network
    -  PXE boot support.
 
 -  **Compute hosts**
 
-   -  Minimum processor is:
+   -  Minimum processor:
 
       -  Dual-CPU Intel® Xeon® E5 26xx family (SandyBridge) 8
          cores/socket.
@@ -81,16 +81,16 @@ be deployed, include:
    -  Minimum memory: 32 GB.
    -  Hard drives:
 
-      -  Primary hard drive, minimum 500 GB for OS.
-      -  1 or more additional hard drives for ephemeral VM storage.
+      -  Primary hard drive with a minimum 500 GB for OS.
+      -  One or more additional hard drives for ephemeral VM storage.
 
-   -  2 or more physical Ethernet interfaces: MGMT network and 1 or more
+   -  Two or more physical Ethernet interfaces: MGMT network and one or more
       provider networks.
    -  PXE boot support.
 
 -  **All-In-One Simplex or Duplex, controller + compute hosts**
 
-   -  Minimum processor is:
+   -  Minimum processor:
 
       -  Typical hardware form factor:
 
@@ -102,8 +102,8 @@ be deployed, include:
    -  Minimum memory: 64 GB.
    -  Hard drives:
 
-      -  Primary hard drive, minimum 500 GB SDD or NVMe.
-      -  0 or more 500 GB disks (min. 10K RPM).
+      -  Primary hard drive with a minimum 500 GB SDD or NVMe.
+      -  Zero or more 500 GB disks (min. 10K RPM).
 
    -  Network ports:
 
@@ -146,30 +146,30 @@ installation:
 Virtual environment
 *******************
 
-The recommended minimum requirements for the workstation, hosting the
-virtual machine(s) where StarlingX will be deployed, include:
+The recommended minimum requirements for the workstation that hosts the
+virtual machine(s) where StarlingX is deployed includes the following:
 
 ^^^^^^^^^^^^^^^^^^^^^
 Hardware requirements
 ^^^^^^^^^^^^^^^^^^^^^
 
-A workstation computer with:
+A workstation computer with the following:
 
 -  Processor: x86_64 only supported architecture with BIOS enabled
    hardware virtualization extensions
--  Cores: 8 (4 with careful monitoring of cpu load)
--  Memory: At least 32GB RAM
--  Hard Disk: 500GB HDD
+-  Cores: 8 (4 with careful monitoring of CPU load)
+-  Memory: Minimum 32 GB RAM
+-  Hard Disk: 500 GB HDD
 -  Network: Two network adapters with active Internet connection
 
 ^^^^^^^^^^^^^^^^^^^^^
 Software requirements
 ^^^^^^^^^^^^^^^^^^^^^
 
-A workstation computer with:
+A workstation computer with the following:
 
--  Operating System: Freshly installed Ubuntu 16.04 LTS 64-bit
--  Proxy settings configured (if applies)
+-  Newly installed Ubuntu 16.04 LTS 64-bit operating system
+-  If applicable, proxy settings
 -  Git
 -  KVM/VirtManager
 -  Libvirt library
@@ -181,14 +181,14 @@ A workstation computer with:
 Deployment environment setup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This section describes how to set up the workstation computer which will
-host the virtual machine(s) where StarlingX will be deployed.
+This section describes how to set up the workstation computer that
+hosts the virtual machine or machine where StarlingX is deployed.
 
 ''''''''''''''''''''''''''''''
 Updating your operating system
 ''''''''''''''''''''''''''''''
 
-Before proceeding with the build, ensure your OS is up to date. You’ll
+Before proceeding with the build, ensure your OS is current. You will
 first need to update the local database list of available packages:
 
 ::
@@ -199,8 +199,8 @@ first need to update the local database list of available packages:
 Install stx-tools project
 '''''''''''''''''''''''''
 
-Clone the stx-tools project. Usually you’ll want to clone it under your
-user’s home directory.
+Clone the stx-tools project. Usually, you want to clone the
+stx-tools repository under your user’s home directory.
 
 ::
 
@@ -226,11 +226,11 @@ Install the required packages:
    $ bash install_packages.sh
 
 
-''''''''''''''''''
-Disabling firewall
-''''''''''''''''''
+''''''''''''''''''''''
+Disabling the firewall
+''''''''''''''''''''''
 
-Unload firewall and disable firewall on boot:
+Unload the firewall and disable it during boot:
 
 ::
 
