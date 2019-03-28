@@ -1,25 +1,40 @@
-===================
-Installation Guides
-===================
+=================
+Deployment Guides
+=================
 
-Installation steps for StarlingX are release-specific.
-The following list provides help on choosing the correct installation steps:
+Deployment steps for StarlingX are release-specific.
+The following list provides help on choosing the correct deployment guide:
 
-- The "current" release is the most recent offically released version of StarlingX:
-
-  .. toctree::
-     :maxdepth: 1
-
-     /installation_guide/current/index
-
-- The "latest" release is the forthcoming version under development:
+- The "current" release is the most recent offically released version of StarlingX.
+  Following are the current deployment guides:
 
   .. toctree::
      :maxdepth: 1
 
-     /installation_guide/latest/index
+     ../installation_guide/current/simplex
+     ../installation_guide/current/duplex
+     ../installation_guide/current/controller_storage
+     ../installation_guide/current/dedicated_storage
 
-- The "archived" installation documents are as follows:
+- The "latest" release is the forthcoming version under development.
+  Following are the latest deployment guides:
+
+  .. toctree::
+     :maxdepth: 1
+
+     latest/aio_duplex/index
+     latest/aio_duplex_computes/index
+     latest/aio_simplex/index
+     latest/controller_storage/index
+     latest/dedicated_storage/index
+     latest/dist_cloud/index
+     latest/ironic/index
+     latest/multi_region/index
+     latest/options/index
+     latest/planning/index
+
+- Following are deployment guides for past StartlingX releases that have
+  been archived:
 
   * TBD
   * TBD
@@ -72,6 +87,8 @@ The following list provides help on choosing the correct installation steps:
          6. Since you are adding a new version ("latest") *before* it is available
          (e.g. to begin work on new docs), make sure page text still directs user to the
          "current" release and not to the under development version of the manuals.
+
+
 
 
 

@@ -18,3 +18,17 @@ OpenStack documentation can be found in the
    api_contribute_guide
    release_note_contribute_guide
    doc_contribute_guide
+
+For information on the StarlingX development process, see the following:
+
+.. toctree::
+   :maxdepth: 1
+
+   development_process
+
+For information on buiding a StarlingX ISO, see the following:
+
+.. toctree::
+   :maxdepth: 1
+
+   build_guide

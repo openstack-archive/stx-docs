@@ -1,25 +1,37 @@
-===================
-Installation Guides
-===================
+================
+Operation Guides
+================
 
-Installation steps for StarlingX are release-specific.
-The following list provides help on choosing the correct installation steps:
+Operation guides for StarlingX are release-specific.
+The following list provides help on choosing the correct operations guide:
 
-- The "current" release is the most recent offically released version of StarlingX:
-
-  .. toctree::
-     :maxdepth: 1
-
-     /installation_guide/current/index
-
-- The "latest" release is the forthcoming version under development:
+- The "current" release is the most recent offically released version of StarlingX.
+  Following are the current operation guides:
 
   .. toctree::
      :maxdepth: 1
 
-     /installation_guide/latest/index
+     ../api-ref/index
 
-- The "archived" installation documents are as follows:
+- The "latest" release is the forthcoming version under development.
+  Following are the latest operation guides:
+
+  .. toctree::
+     :maxdepth: 1
+
+     latest/api-ref/index
+     latest/ceph_storage_config/index
+     latest/cli_reference/index
+     latest/data_network_config/index
+     latest/fault_management/index
+     latest/kubernetes_cluster_guide/index
+     latest/patching_guide/index
+     latest/sdn_networking/index
+     latest/swift_config_management/index
+     latest/upgrade_guide/index
+
+- Following are operation guides for past StartlingX releases that have
+  been archived:
 
   * TBD
   * TBD
@@ -72,6 +84,9 @@ The following list provides help on choosing the correct installation steps:
          6. Since you are adding a new version ("latest") *before* it is available
          (e.g. to begin work on new docs), make sure page text still directs user to the
          "current" release and not to the under development version of the manuals.
+
+
+
 
 
 
