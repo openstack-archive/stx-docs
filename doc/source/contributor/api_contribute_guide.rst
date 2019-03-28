@@ -1,5 +1,5 @@
 =====================
-API Contributor Guide
+API contributor guide
 =====================
 
 ---------

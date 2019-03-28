@@ -16,12 +16,13 @@ Sections
 .. toctree::
    :maxdepth: 1
 
+   introduction/index
+   deployment_guides/index
    installation_guide/index
-   developer_guide/index
-   Project Specifications <https://docs.starlingx.io/specs/>
-   api-ref/index
-   releasenotes/index
+   operation_guides/index
    contributor/index
+   releasenotes/index
+   developer_resources/index
 
 --------
 Projects

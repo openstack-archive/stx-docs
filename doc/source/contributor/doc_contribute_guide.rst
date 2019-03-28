@@ -1,5 +1,5 @@
 ===============================
-Documentation Contributor Guide
+Documentation contributor guide
 ===============================
 
 This guide provides information that allows you to contribute to the

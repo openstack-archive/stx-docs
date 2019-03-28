@@ -1,5 +1,5 @@
 ===============================
-Release Notes Contributor Guide
+Release notes contributor guide
 ===============================
 
 Release notes for StarlingX projects are managed using Reno allowing release

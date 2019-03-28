@@ -2,10 +2,9 @@
 Installation guide stx.2019.05
 ==============================
 
-This is the installation guide for the "latest" StarlingX software
-(i.e. the "under development" branch).
-If this is not the the installation guide you want to use,
-see the 
+This is the installation guide for the "current" StarlingX software
+(i.e. the most recently released version).
+If this is not the installation guide you want to use, see the
 :doc:`available installation guides </installation_guide/index>`.
 
 ------------
@@ -244,7 +243,7 @@ Unload firewall and disable firewall on boot:
 Getting the StarlingX ISO image
 -------------------------------
 
-Follow the instructions from the :doc:`/developer_guide/latest/index` to build a
+Follow the instructions from the :doc:`/contributor/build_guides/latest/index` to build a
 StarlingX ISO image.
 
 **********
@@ -265,26 +264,34 @@ directory:
 
    $ cp <starlingx iso image> $HOME/stx-tools/deployment/libvirt/
 
+.. toctree::
+  :hidden:
+
+  aio_duplex_computes
+  additional_os_services
+  multi_region
+  dist_cloud
+  installation_libvirt_qemu
 
 ------------------
 Deployment options
 ------------------
 
--  Standard controller
-
-   - :doc:`StarlingX Cloud with Dedicated Storage </installation_guide/latest/dedicated_storage>`
-   - :doc:`StarlingX Cloud with Controller Storage </installation_guide/latest/controller_storage>`
-
 -  All-in-one
 
-   - :doc:`StarlingX Cloud Duplex </installation_guide/latest/duplex>`
-   - :doc:`StarlingX Cloud Simplex </installation_guide/latest/simplex>`
+   - :doc:`StarlingX Cloud Simplex </deployment_guides/latest/aio_simplex/index>`
+   - :doc:`StarlingX Cloud Duplex </deployment_guides/latest/aio_duplex/index>`
+   - :doc:`StarlingX Cloud Duplex with Computes </deployment_guides/latest/aio_duplex_computes/index>`
 
-.. toctree::
-   :hidden:
+-  Standard controller
 
-   installation_libvirt_qemu
-   controller_storage
-   dedicated_storage
-   duplex
-   simplex
+   - :doc:`StarlingX Cloud with Controller Storage </deployment_guides/latest/controller_storage/index>`
+   - :doc:`StarlingX Cloud with Dedicated Storage </deployment_guides/latest/dedicated_storage/index>`
+
+-  Others
+
+   - :doc:`Multi-region </deployment_guides/latest/multi_region/index>`
+   - :doc:`Distributed cloud </deployment_guides/latest/dist_cloud/index>`
+   - :doc:`Additional OpenStack services <additional_os_services>`
+
+

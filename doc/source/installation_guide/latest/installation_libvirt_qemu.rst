@@ -195,10 +195,10 @@ controller-0 step.
 
 -  Standard controller
 
-   - :doc:`StarlingX Cloud with Dedicated Storage Virtual Environment </installation_guide/latest/dedicated_storage>`
-   - :doc:`StarlingX Cloud with Controller Storage Virtual Environment </installation_guide/latest/controller_storage>`
+   - :doc:`StarlingX Cloud with Dedicated Storage Virtual Environment </deployment_guides/latest/dedicated_storage/index>`
+   - :doc:`StarlingX Cloud with Controller Storage Virtual Environment </deployment_guides/latest/controller_storage/index>`
 
 -  All-in-one
 
-   - :doc:`StarlingX Cloud Duplex Virtual Environment </installation_guide/latest/duplex>`
-   - :doc:`StarlingX Cloud Simplex Virtual Environment </installation_guide/latest/simplex>`
+   - :doc:`StarlingX Cloud Duplex Virtual Environment </deployment_guides/latest/aio_duplex/index>`
+   - :doc:`StarlingX Cloud Simplex Virtual Environment </deployment_guides/latest/aio_simplex/index>`
