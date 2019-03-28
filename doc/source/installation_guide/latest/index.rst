@@ -244,7 +244,7 @@ Unload firewall and disable firewall on boot:
 Getting the StarlingX ISO image
 -------------------------------
 
-Follow the instructions from the :doc:`/developer_guide/latest/index` to build a
+Follow the instructions from the :doc:`/developer_resources/latest/index` to build a
 StarlingX ISO image.
 
 **********
@@ -280,9 +280,21 @@ Deployment options
    - :doc:`StarlingX Cloud Duplex </installation_guide/latest/duplex>`
    - :doc:`StarlingX Cloud Simplex </installation_guide/latest/simplex>`
 
-.. toctree::
-   :hidden:
+-  Future stuff
 
+   - :doc:`installation_libvirt_qemu </installation_guide/latest/installation_libvirt_qemu>`
+   - :doc:`multi_region </installation_guide/latest/multi_region>`
+   - :doc:`dist_cloud </installation_guide/latest/dist_cloud>`
+   - :doc:`aio_duplex_computes </installation_guide/latest/aio_duplex_computes>`
+   - :doc:`additional_os_services </installation_guide/latest/additional_os_services>`
+
+.. toctree::
+   :maxdepth: 1
+
+   multi_region
+   dist_cloud
+   aio_duplex_computes
+   additional_os_services
    installation_libvirt_qemu
    controller_storage
    dedicated_storage
