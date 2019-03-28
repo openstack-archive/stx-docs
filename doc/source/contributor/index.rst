@@ -18,3 +18,5 @@ OpenStack documentation can be found in the
    api_contribute_guide
    release_note_contribute_guide
    doc_contribute_guide
+   build_guide
+   development_process
