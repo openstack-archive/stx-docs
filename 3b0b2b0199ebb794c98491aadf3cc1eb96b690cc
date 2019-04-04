@@ -1,0 +1,10 @@
+Code-Review+1: Michael Tullis <michael.l.tullis@intel.com>
+Code-Review+2: Bruce Jones <bruce.e.jones@intel.com>
+Code-Review+1: Hayde Martinez <hayde.martinez.landa@intel.com>
+Workflow+1: Kristal Dale <kristal.dale@intel.com>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Thu, 04 Apr 2019 17:32:41 +0000
+Reviewed-on: https://review.openstack.org/648467
+Project: openstack/stx-docs
+Branch: refs/heads/master
